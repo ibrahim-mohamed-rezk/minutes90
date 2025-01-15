@@ -1,0 +1,33 @@
+/* custom Swiper Pagination */
+.custom-bullet {
+  width: 6px;
+  height: 16px;
+  background: rgb(255 255 255 / 0.2);
+  border-radius: 48px;
+  margin: 4px 0;
+  display: block;
+}
+.custom-bullet-active {
+  width: 6px;
+  height: 80px;
+  background: #fff;
+  opacity: 1;
+  border-radius: 48px;
+}
+
+/* custom Swiper Pagination Horizontal */
+.custom-bullet-horizontal {
+  width: 16px;
+  height: 6px;
+  background: #34A85333;
+  border-radius: 48px;
+  margin: 0 4px;
+  display: block;
+}
+.custom-bullet-horizontal-active {
+  width: 80px;
+  height: 6px;
+  background: var(--color-green);
+  opacity: 1;
+  border-radius: 48px;
+}
