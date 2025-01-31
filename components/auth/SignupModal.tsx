@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, FormEvent, useEffect } from "react";
-import Link from "next/link";
 import OAuthButtons from "../buttons/OuthButtons";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
 import { useRouter } from "next/navigation";
+import { postApi } from "@/libs/axios/backendServer";
+import { toast } from "react-toastify";
 
 interface SignupModalProps {
   isOpen: boolean;
@@ -43,8 +44,7 @@ const SignupModal = ({
     return () => clearInterval(interval);
   }, []);
 
-  if (!isOpen) return null;
-
+  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -55,17 +55,12 @@ const SignupModal = ({
     }
 
     try {
-      // TODO: Implement signup logic
-      console.log({
-        fullName,
-        phone,
-        email,
-        governorate,
-        password,
-      });
-
+      // Implement signup logic
+      await postApi("register", { fullName, phone, email, governorate, password });
+      toast.success("Account created successfully!"); // Notify success
       onClose();
     } catch (err) {
+      toast.error("Failed to create account");
       setError("Failed to create account");
     }
   };
@@ -101,9 +96,11 @@ const SignupModal = ({
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="w-full max-w-[100%] md:max-w-[80%] lg:max-w-[1186px] bg-white rounded-[30px] shadow-sm border border-[#f1f1f2] overflow-hidden relative my-8 mt-[200px] sm:mt-[100px]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center p-4 z-50 overflow-y-auto">
+      <div className="w-full max-w-[100%] md:max-w-[80%] lg:max-w-[1186px] bg-white rounded-[30px] shadow-sm border border-[#f1f1f2] overflow-hidden relative my-[40px]">
         <button
           onClick={onClose}
           className="absolute top-[20px] right-[20px] sm:top-[30px] sm:right-[30px] md:top-[45px] md:right-[45px] text-gray-500 hover:text-gray-700"
@@ -178,7 +175,9 @@ const SignupModal = ({
                   <span className="text-[#239d60] uppercase">minutes</span>
                   <span className="text-[#239d60]">90</span>
                 </p>
-                <h1 className="text-black text-[55px] font-medium font-['Poppins']">Sign up</h1>
+                <h1 className="text-black text-[55px] font-medium font-['Poppins']">
+                  Sign up
+                </h1>
               </div>
             </div>
 
@@ -236,7 +235,7 @@ const SignupModal = ({
                   className="w-full h-[45px] lg:h-[50px] px-4 rounded-lg border border-[#adadad] focus:ring-2 focus:ring-[#239d60]"
                   required
                 >
-                  <option value="">Select Governorate</option>
+                  <option value="1">Select Governorate</option>
                   {/* Add governorate options */}
                 </select>
               </div>

@@ -9,19 +9,19 @@ import "swiper/css/pagination";
 const Header = () => {
   const newsItems = [
     {
-      image: "/images/home/newsSlide.png",
+      image: "/images/home/newsSlide.jpeg",
     },
     {
-      image: "/images/home/newsSlide.png",
+      image: "/images/home/newsSlide.jpeg",
     },
     {
-      image: "/images/home/newsSlide.png",
+      image: "/images/home/newsSlide.jpeg",
     },
     {
-      image: "/images/home/newsSlide.png",
+      image: "/images/home/newsSlide.jpeg",
     },
     {
-      image: "/images/home/newsSlide.png",
+      image: "/images/home/newsSlide.jpeg",
     },
   ];
 
@@ -102,10 +102,27 @@ const Header = () => {
             <SwiperSlide key={index}>
               <div className="w-full h-full relative">
                 <img
-                  className="w-full h-full object-cover"
                   src={item.image}
+                  className="w-full h-full object-cover"
                   alt="News thumbnail"
                 />
+                <div
+                  className="absolute bottom-0 left-0 right-0 w-full flex flex-col md:flex-row justify-start items-start md:items-center p-4 md:p-[50px] gap-4 md:gap-[30px]"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)",
+                  }}
+                >
+                  <img 
+                    src="/images/home/newsLogo.png" 
+                    alt="News Logo"
+                    className="w-16 md:w-auto" 
+                  />
+                  <p className="text-white text-lg md:text-[26px] font-black font-['Montserrat'] max-w-full md:max-w-[707px]">
+                    Barcelona legend Patrick Kluivert appointed new Indonesia
+                    manager
+                  </p>
+                </div>
               </div>
             </SwiperSlide>
           ))}

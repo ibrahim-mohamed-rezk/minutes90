@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
+import { ToastContainer } from "react-toastify";
+import ReduxProvider from "@/libs/store/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "Minutes90",
@@ -9,10 +11,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Minutes90" }],
   openGraph: {
     title: "Minutes90",
-    description: "Minutes90 - Football Match Reports", 
+    description: "Minutes90 - Football Match Reports",
     type: "website",
     locale: "en_US",
-    siteName: "Minutes90"
+    siteName: "Minutes90",
   },
   twitter: {
     card: "summary_large_image",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
 
 export const viewport = {
   width: "device-width",
-  initialScale: 1
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -35,8 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
+        <ReduxProvider>
+          <Navbar />
+          {children}
+          <ToastContainer />
+        </ReduxProvider>
       </body>
     </html>
   );
