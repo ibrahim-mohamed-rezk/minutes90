@@ -1,6 +1,7 @@
 "use client";
 
 import { getApi } from "@/libs/axios/backendServer";
+import { useAppSelector } from "@/libs/store/hooks";
 import { useEffect, useState } from "react";
 
 const PlayerProfile = () => {
@@ -9,7 +10,7 @@ const PlayerProfile = () => {
     age?: number;
     name?: string;
   } | null>(null);
-  const token = localStorage.getItem("token");
+  const token = useAppSelector((state) => state.user.token);  
   // get profile from packend
   useEffect(() => {
     const getProfile = async () => {
@@ -26,7 +27,7 @@ const PlayerProfile = () => {
     };
 
     getProfile();
-  }, []);
+  }, [token]);
 
   console.log(data);
 

@@ -5,17 +5,20 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const ReDirectTOLogin = () => {
-    const token: string | null = localStorage.getItem("token"); 
-    const router = useRouter(); 
+  const router = useRouter();
 
-    useEffect(() => {
-        if (!token) {
-            toast.warning("You are not logged in");
-            router.push("/");
-        }
-    }, [ token, router]);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token: string | null = localStorage.getItem("token");
 
-    return null;
-}
+      if (!token) {
+        toast.warning("You are not logged in");
+        router.push("/");
+      }
+    }
+  }, [router]);
+
+  return null;
+};
 
 export default ReDirectTOLogin
