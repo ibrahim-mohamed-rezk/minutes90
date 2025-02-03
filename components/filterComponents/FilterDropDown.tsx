@@ -21,12 +21,6 @@ const FilterDropDown = ({
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    handleFilterChange({ name: e.target.name, value: e.target.value });
-  };
-
   return (
     <div
       onClick={toggleDropdown}

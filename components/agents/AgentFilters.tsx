@@ -1,6 +1,5 @@
 "use client";
 
-import { useAppDispatch } from "@/libs/store/hooks";
 import { useEffect, useState, useRef } from "react";
 import { PlayerFilters } from "@/libs/helpers/PlayerFilters";
 import FilterDropDown from "../filterComponents/FilterDropDown";
