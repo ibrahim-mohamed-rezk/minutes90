@@ -4,7 +4,11 @@ import { getApi } from "@/libs/axios/backendServer";
 import { useEffect, useState } from "react";
 
 const PlayerProfile = () => {
-  const [data, setData]: any = useState([]);
+  const [data, setData] = useState<{
+    image?: string;
+    age?: number;
+    name?: string;
+  } | null>(null);
   const token = localStorage.getItem("token");
   // get profile from packend
   useEffect(() => {
@@ -62,7 +66,7 @@ const PlayerProfile = () => {
             </div>
             <div className="flex flex-col mt-2">
               <span className="text-white text-sm font-normal font-['Montserrat'] capitalize">
-                With player's agent
+                With player&apos;s agent
               </span>
               <div className="text-white text-base font-bold font-['Montserrat'] uppercase">
                 Contracted with a club

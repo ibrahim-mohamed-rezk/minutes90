@@ -4,7 +4,17 @@ const PlayersCard = ({
   player,
   className,
 }: {
-  player: any;
+  player: {
+    id: string;
+    name: string;
+    image?: string;
+    position?: string;
+    age?: number;
+    user?: {
+      id: string;
+      name: string;
+    };
+  };
   className?: string;
 }) => {
   return (

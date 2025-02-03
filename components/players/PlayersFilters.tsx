@@ -24,10 +24,10 @@ const PlayersFilters = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const handleFilterChange = (target: any) => {
+  const handleFilterChange = (filter: { name: string; value: string }) => {
     setFilters({
       ...filters,
-      [target.name]: target.value,
+      [filter.name]: filter.value,
     });
   };
 

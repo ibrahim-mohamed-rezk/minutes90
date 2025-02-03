@@ -15,7 +15,13 @@ const PlayersSwiper = ({
   swiperIndex,
   seeAllLink,
 }: {
-  players: any[];
+  players: Array<{
+    id: string;
+    name: string;
+    image?: string;
+    position?: string;
+    age?: number;
+  }>;
   title: string;
   subtitle: string;
   swiperIndex: number;
@@ -135,7 +141,7 @@ const PlayersSwiper = ({
           loop={true}
           loopAdditionalSlides={4}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((player, index) => (
+          {players.map((player, index) => (
             <SwiperSlide key={index} className="!w-[248.55px]">
               <PlayersCard player={player} />
             </SwiperSlide>

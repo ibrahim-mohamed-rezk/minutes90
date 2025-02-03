@@ -15,7 +15,7 @@ const AgentsPagination = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center gap-[200px] ">
       <div className="w-full bg-[var(--color-background)] p-4 rounded-lg flex items-center justify-center flex-wrap gap-[20px] mt-[44px]">
-        {players?.items.map((player: any) => (
+        {players?.items.map((player: { id: string; [key: string]: any }) => (
           <AgentCard key={player.id} agent={player} />
         ))}
       </div>

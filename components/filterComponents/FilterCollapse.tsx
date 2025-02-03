@@ -1,6 +1,20 @@
 import { useState } from "react";
 
-const FilterCollapse = ({ item, handleFilterChange, filters }: any) => {
+interface FilterCollapseProps {
+  item: {
+    label: string;
+    name: string;
+    options?: Array<{ label: string; value: string }>;
+  };
+  handleFilterChange: (filter: { name: string; value: string }) => void;
+  filters: Record<string, string>;
+}
+
+const FilterCollapse = ({
+  item,
+  handleFilterChange,
+  filters,
+}: FilterCollapseProps) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -48,18 +62,18 @@ const FilterCollapse = ({ item, handleFilterChange, filters }: any) => {
           >
             All
           </div>
-          {item.options?.map((option: any) => (
+          {item.options?.map((option: { label: string; value: string }) => (
             <div
               className="text-white hover:bg-[#5a5a5a] border-b border-[#71717471] w-full last:border-none text-center py-[8px] cursor-pointer"
               onClick={() =>
                 handleFilterChange({
                   name: item.name,
-                  value: option,
+                  value: option.value,
                 })
               }
-              key={option}
+              key={option.value}
             >
-              {option}
+              {option.label}
             </div>
           ))}
         </div>

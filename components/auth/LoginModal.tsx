@@ -64,6 +64,7 @@ export default function LoginModal({
       router.push("/");
     } catch (err) {
       toast.error("Invalid email or password");
+      console.log(err);
     }
   };
 
@@ -86,6 +87,7 @@ export default function LoginModal({
       router.push("/");
     } catch (err) {
       toast.error("Google login failed");
+      console.log(err);
     }
   };
 

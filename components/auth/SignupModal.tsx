@@ -34,7 +34,7 @@ const SignupModal = ({
   const [country_id, setCountry_id] = useState("1");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [governorates, setGovernorates] = useState([]);
-  const [countries, setCountries]: any = useState([]);
+  const [countries, setCountries] = useState<{ id: string; name: string }[]>([]);
   const { login: googleLogin, loading } = useGoogleLogin();
   const slides = [
     "/images/signup/signupBg1.png",
@@ -120,6 +120,7 @@ const SignupModal = ({
       onClose();
     } catch (err) {
       toast.error("Failed to create account");
+      console.log(err);
     }
   };
 
@@ -141,6 +142,7 @@ const SignupModal = ({
       console.log("Facebook login clicked");
     } catch (err) {
       console.log("Facebook login failed");
+      console.log(err);
     }
   };
 

@@ -1,10 +1,30 @@
 import { useState } from "react";
 
-const FilterDropDown = ({ item, handleFilterChange, filters }: any) => {
+interface FilterDropDownProps {
+  item: {
+    label: string;
+    name: string;
+    options?: string[];
+  };
+  handleFilterChange: (filter: { name: string; value: string }) => void;
+  filters: Record<string, string>;
+}
+
+const FilterDropDown = ({
+  item,
+  handleFilterChange,
+  filters,
+}: FilterDropDownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    handleFilterChange({ name: e.target.name, value: e.target.value });
   };
 
   return (
@@ -30,7 +50,7 @@ const FilterDropDown = ({ item, handleFilterChange, filters }: any) => {
             >
               All
             </div>
-            {item.options?.map((option: any) => (
+            {item.options?.map((option: string) => (
               <div
                 className=" text-white hover:bg-[#5a5a5a] border-b border-[#71717471] w-full last:border-none text-center py-[8px] cursor-pointer"
                 onClick={() =>
@@ -48,7 +68,9 @@ const FilterDropDown = ({ item, handleFilterChange, filters }: any) => {
         )}
       </div>
       <svg
-        className={`${isDropdownOpen ? "rotate-180" : ""} transition-all duration-500 ease-in-out`}
+        className={`${
+          isDropdownOpen ? "rotate-180" : ""
+        } transition-all duration-500 ease-in-out`}
         width="16"
         height="8"
         viewBox="0 0 16 8"

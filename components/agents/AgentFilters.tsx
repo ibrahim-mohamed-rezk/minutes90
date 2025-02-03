@@ -1,15 +1,12 @@
 "use client";
 
-import { postApi } from "@/libs/axios/backendServer";
 import { useAppDispatch } from "@/libs/store/hooks";
-import { setPlayersData } from "@/libs/store/slices/PlayersSlice";
 import { useEffect, useState, useRef } from "react";
 import { PlayerFilters } from "@/libs/helpers/PlayerFilters";
 import FilterDropDown from "../filterComponents/FilterDropDown";
 import FilterCollapse from "../filterComponents/FilterCollapse";
 
 const AgentsFilters = () => {
-  const dispatch = useAppDispatch();
   const [filters, setFilters] = useState({
     position: "",
     country_id: "",
@@ -24,7 +21,7 @@ const AgentsFilters = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const handleFilterChange = (target: any) => {
+  const handleFilterChange = (target: { name: string; value: string }) => {
     setFilters({
       ...filters,
       [target.name]: target.value,

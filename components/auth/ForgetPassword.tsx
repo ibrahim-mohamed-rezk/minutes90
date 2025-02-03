@@ -53,6 +53,7 @@ const ForgetPassword: FC<ForgetPasswordProps> = ({ isOpen, onClose }) => {
       setIsResendDisabled(true);
     } catch (err) {
       setError("Failed to send OTP");
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -69,6 +70,7 @@ const ForgetPassword: FC<ForgetPasswordProps> = ({ isOpen, onClose }) => {
       setStep(3);
     } catch (err) {
       setError("Invalid OTP");
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -96,6 +98,7 @@ const ForgetPassword: FC<ForgetPasswordProps> = ({ isOpen, onClose }) => {
       setError("");
     } catch (err) {
       setError("Failed to reset password");
+      console.log(err);
     } finally {
       setLoading(false);
     }

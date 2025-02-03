@@ -1,6 +1,7 @@
 import React from 'react'
 
-const AgentCard = ({ agent }: { agent: any }) => {
+// const AgentCard = ({ agent }: { agent: any }) => {
+const AgentCard = () => {
   return (
     <div className="w-[250px] h-[350px] relative bg-[#edce38] rounded-2xl overflow-hidden shadow-lg">
       <div className="w-[230px] h-[300px] left-[10px] top-[10px] absolute bg-white rounded-2xl overflow-hidden shadow-md">

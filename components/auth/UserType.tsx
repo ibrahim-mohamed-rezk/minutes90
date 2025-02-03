@@ -43,8 +43,9 @@ const UserType: FC<UserTypeProps> = ({ isOpen, onClose }) => {
       );
       toast.success("Role assigned successfully");
       onClose();
-    } catch (error) {
+    } catch (error) { 
       toast.error("Error assigning role");
+      console.log(error)
     }
   };
 
@@ -68,6 +69,7 @@ const UserType: FC<UserTypeProps> = ({ isOpen, onClose }) => {
       onClose();
     } catch (error) {
       toast.error("Error assigning role");
+      console.log(error);
     }
   };
 

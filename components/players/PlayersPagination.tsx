@@ -15,15 +15,23 @@ const PlayersPagination = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center gap-[200px] ">
       <div className="w-full bg-[var(--color-background)] p-4 rounded-lg flex items-center justify-center flex-wrap gap-[20px] mt-[44px]">
-        {players?.items.map((player: any) => (
-          <PlayersCard key={player.id} player={player} />
-        ))}
+        {players?.items.map(
+          (player: {
+            id: string;
+            name: string;
+            image?: string;
+            position?: string;
+            age?: number;
+          }) => (
+            <PlayersCard key={player.id} player={player} />
+          )
+        )}
       </div>
       <PagiationSection
         startPage={1}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        endPage={players?.pagination?.last_page }
+        endPage={players?.pagination?.last_page}
       />
     </div>
   );
