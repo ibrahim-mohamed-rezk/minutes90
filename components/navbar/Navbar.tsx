@@ -252,6 +252,7 @@ const Navbar = () => {
       <UserType
         isOpen={isUserTypeModalOpen}
         onClose={() => setIsUserTypeModalOpen(false)}
+        token={token}
       />
     </nav>
   );

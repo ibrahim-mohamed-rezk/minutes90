@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const ReDirectTOLogin = () => {
-    const token = localStorage.getItem("token");
-    const router = useRouter();
+    const token: string | null = localStorage.getItem("token"); 
+    const router = useRouter(); 
 
     useEffect(() => {
         if (!token) {

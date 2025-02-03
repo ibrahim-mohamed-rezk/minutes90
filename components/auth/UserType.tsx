@@ -1,18 +1,18 @@
 "use client";
 
 import { postApi } from "@/libs/axios/backendServer";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 interface UserTypeProps {
   isOpen: boolean;
   onClose: () => void;
+  token: string | null;
 }
 
-const UserType: FC<UserTypeProps> = ({ isOpen, onClose }) => {
+const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
   const [userType, setUserType] = useState<"player" | "agent" | null>(null);
   const [agentCode, setAgentCode] = useState("");
-  const token = localStorage.getItem("token");
 
   if (!isOpen) return null;
 
@@ -43,9 +43,9 @@ const UserType: FC<UserTypeProps> = ({ isOpen, onClose }) => {
       );
       toast.success("Role assigned successfully");
       onClose();
-    } catch (error) { 
+    } catch (error) {
       toast.error("Error assigning role");
-      console.log(error)
+      console.log(error);
     }
   };
 
