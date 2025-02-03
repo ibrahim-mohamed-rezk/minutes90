@@ -8,11 +8,19 @@ interface Player {
   image?: string;
   position?: string;
   age?: number;
-  // Add other player properties as needed
 }
 
 export default function Home() {
-  const players: Player[] = [];
+  const players: Player[] = [
+    {
+      id: "1",
+      name: "Player 1",
+      image: "https://via.placeholder.com/150",
+      position: "Position 1",
+      age: 18,
+    },
+  ];
+
   return (
     <div className="w-full bg-[var(--color-text-black)] min-h-screen rounded-tl-[20px] md:rounded-tl-[30px] lg:rounded-tl-[40px] rounded-tr-[20px] md:rounded-tr-[30px] lg:rounded-tr-[40px]">
       <div className="container mx-auto">

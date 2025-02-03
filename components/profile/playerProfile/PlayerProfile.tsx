@@ -43,6 +43,9 @@ const PlayerProfile = () => {
             alt="user image"
           />
         </div>
+        <a href="/profile/settings" className="bg-green-500 text-white px-4 py-2 rounded">
+          Edit Profile
+        </a>
         {/* main info */}
         <div className="w-[306px] h-[560px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
           <div>
