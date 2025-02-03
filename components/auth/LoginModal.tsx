@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import backendServer from "@/libs/axios/backendServer";
-import Link from "next/link";
+import { postApi } from "@/libs/axios/backendServer";
 import { useRouter } from "next/navigation";
 import OAuthButtons from "../buttons/OuthButtons";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "@/libs/store/hooks";
+import { setuserData } from "@/libs/store/slices/userSlice";
 
 export default function LoginModal({
   isOpen,
@@ -21,10 +23,10 @@ export default function LoginModal({
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const { login: googleLogin, loading } = useGoogleLogin();
+  const dispatch = useAppDispatch();
   const slides = [
     "/images/login/loginBg1.png",
     "/images/login/loginBg2.png",
@@ -42,24 +44,26 @@ export default function LoginModal({
     return () => clearInterval(interval);
   }, [isOpen, slides.length]);
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
-      const response = await backendServer.post("/auth/login", {
+      const response = await postApi("login", {
         email,
         password,
       });
 
       // Store token in localStorage
       localStorage.setItem("token", response.data.token);
+      dispatch(setuserData(response.data));
 
       // Close modal and redirect
       onClose();
+      toast.success("Login successful");
       router.push("/");
     } catch (err) {
-      setError("Invalid email or password");
+      toast.error("Invalid email or password");
     }
   };
 
@@ -78,10 +82,10 @@ export default function LoginModal({
 
       // Close modal and redirect
       onClose();
+      toast.success("Login successful");
       router.push("/");
     } catch (err) {
-      setError("Google login failed");
-      console.log(err);
+      toast.error("Google login failed");
     }
   };
 
@@ -258,8 +262,6 @@ export default function LoginModal({
                   Forgot Password
                 </button>
               </div>
-
-              {error && <p className="text-red-500 text-sm">{error}</p>}
 
               <button
                 type="submit"

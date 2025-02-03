@@ -4,19 +4,23 @@ import { useState, FormEvent, useEffect } from "react";
 import OAuthButtons from "../buttons/OuthButtons";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
 import { useRouter } from "next/navigation";
-import { postApi } from "@/libs/axios/backendServer";
+import { getApi, postApi } from "@/libs/axios/backendServer";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/libs/store/hooks";
+import { setuserData } from "@/libs/store/slices/userSlice";
 
 interface SignupModalProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenLoginModal: () => void;
+  onOpenUserTypeModal: () => void;
 }
 
 const SignupModal = ({
   isOpen,
   onClose,
   onOpenLoginModal,
+  onOpenUserTypeModal,
 }: SignupModalProps) => {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
@@ -27,8 +31,10 @@ const SignupModal = ({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [country_id, setCountry_id] = useState("1");
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [governorates, setGovernorates] = useState([]);
+  const [countries, setCountries]: any = useState([]);
   const { login: googleLogin, loading } = useGoogleLogin();
   const slides = [
     "/images/signup/signupBg1.png",
@@ -36,6 +42,7 @@ const SignupModal = ({
     "/images/signup/signupBg3.png",
     "/images/signup/signupBg0.png",
   ];
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,24 +51,75 @@ const SignupModal = ({
     return () => clearInterval(interval);
   }, []);
 
+  // get countries
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await getApi("countries");
+        setCountries(response.data?.countries);
+        setCountry_id(response.data?.countries[0]?.id);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+    fetchCountries();
+  }, []);
+
+  // get governorate
+  useEffect(() => {
+    const fetchGovernorates = async () => {
+      try {
+        const response = await getApi(`countries/${country_id}`);
+        setGovernorates(response.data?.country?.governorates);
+        setGovernorate(response.data?.country?.governorates[0]?.id);
+      } catch (error) {
+        console.error("Error fetching governorates:", error);
+      }
+    };
+    fetchGovernorates();
+  }, [country_id]);
+
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     // Validate passwords match
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     try {
       // Implement signup logic
-      await postApi("register", { fullName, phone, email, governorate, password });
+      const response =await postApi("register", {
+        name: fullName,
+        phone,
+        email,
+        governorate_id: governorate,
+        password,
+        password_confirmation: confirmPassword,
+        country_id,
+      });
+
+
+
+      // Reset form fields
+      setFullName("");
+      setPhone("");
+      setEmail("");
+      setGovernorate("");
+      setPassword("");
+      setConfirmPassword("");
+
+      dispatch(setuserData({ user_data: response.data.user_data, token: response.data.token }));
+      localStorage.setItem("token", response.data.token);
+      onOpenUserTypeModal();
+
+
       toast.success("Account created successfully!"); // Notify success
       onClose();
     } catch (err) {
       toast.error("Failed to create account");
-      setError("Failed to create account");
     }
   };
 
@@ -70,19 +128,9 @@ const SignupModal = ({
       const { user, token } = await googleLogin();
       console.log(user, token);
 
-      // Send token to backend to verify and get JWT
-      // const response = await backendServer.post("/auth/google", {
-      //   token
-      // });
-
-      // Store JWT token
-      // localStorage.setItem("token", response.data.token);
-
-      // Close modal and redirect
       onClose();
       router.push("/");
     } catch (err) {
-      setError("Google login failed");
       console.log(err);
     }
   };
@@ -92,14 +140,14 @@ const SignupModal = ({
       // TODO: Implement Facebook OAuth login
       console.log("Facebook login clicked");
     } catch (err) {
-      setError("Facebook login failed");
+      console.log("Facebook login failed");
     }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center p-4 z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center p-4 z-[9999] overflow-y-auto">
       <div className="w-full max-w-[100%] md:max-w-[80%] lg:max-w-[1186px] bg-white rounded-[30px] shadow-sm border border-[#f1f1f2] overflow-hidden relative my-[40px]">
         <button
           onClick={onClose}
@@ -230,13 +278,34 @@ const SignupModal = ({
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Governorate</label>
                 <select
+                  value={country_id}
+                  onChange={(e) => setCountry_id(e.target.value)}
+                  className="w-full h-[45px] lg:h-[50px] px-4 rounded-lg border border-[#adadad] focus:ring-2 focus:ring-[#239d60]"
+                  required
+                >
+                  {countries?.map((country: { id: string; name: string }) => (
+                    <option key={country.id} value={country.id}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">Governorate</label>
+                <select
                   value={governorate}
                   onChange={(e) => setGovernorate(e.target.value)}
                   className="w-full h-[45px] lg:h-[50px] px-4 rounded-lg border border-[#adadad] focus:ring-2 focus:ring-[#239d60]"
                   required
                 >
-                  <option value="1">Select Governorate</option>
-                  {/* Add governorate options */}
+                  {governorates?.map(
+                    (governorate: { id: string; name: string }) => (
+                      <option key={governorate.id} value={governorate.id}>
+                        {governorate.name}
+                      </option>
+                    )
+                  )}
                 </select>
               </div>
 
@@ -347,8 +416,6 @@ const SignupModal = ({
                   </button>
                 </div>
               </div>
-
-              {error && <p className="text-red-500 text-sm">{error}</p>}
 
               <button
                 type="submit"

@@ -48,10 +48,6 @@ const PlayersFilters = () => {
       {
         ...filters,
       },
-      {
-        Authorization:
-          "Bearer 25|Zk0e6nq20pZlSxavKXRW92CyRjF2X6i5iD8iC9dE8253f8ee",
-      }
     )
       .then((res) => {
         dispatch(setPlayersData(res.data));

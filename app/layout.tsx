@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import ReduxProvider from "@/libs/store/ReduxProvider";
+import AutoLogin from "@/hooks/AutoLogin";
+import Footer from "@/components/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Minutes90",
@@ -39,8 +41,12 @@ export default function RootLayout({
       <body>
         <ReduxProvider>
           <Navbar />
-          {children}
+          <main className="bg-[var(--color-text-black)] min-h-screen rounded-tl-[20px] md:rounded-tl-[30px] lg:rounded-tl-[40px] rounded-tr-[20px] md:rounded-tr-[30px] border-b-0 pb-[50px] lg:rounded-tr-[40px]">
+            {children}
+          </main>
+          <Footer />
           <ToastContainer />
+          <AutoLogin />
         </ReduxProvider>
       </body>
     </html>

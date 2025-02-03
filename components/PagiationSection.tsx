@@ -25,8 +25,7 @@ const PagiationSection = ({
     }
   };
 
-//   if (endPage >= 1) return null;
-
+  if (endPage >= 1) return null;
 
   return (
     <div

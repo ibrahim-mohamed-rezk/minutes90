@@ -1,21 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LoginModal from "../auth/LoginModal";
 import { usePathname } from "next/navigation";
 import SignupModal from "../auth/SignupModal";
 import ForgetPassword from "../auth/ForgetPassword";
+import { useAppSelector } from "@/libs/store/hooks";
+import UserType from "../auth/UserType";
 
 const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserTypeModalOpen, setIsUserTypeModalOpen] = useState(false);
   const pathname = usePathname();
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] =
     useState(false);
+
+  const { userData, token } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    if (userData && token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [userData, token]);
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -78,8 +91,8 @@ const Navbar = () => {
               </>
             ) : (
               <Link href="/profile" className="relative">
-                <Image
-                  src="/images/icons/userAvatar.png"
+                <img
+                  src={userData.image || "/images/icons/userAvatar.png"}
                   alt="User Profile"
                   width={40}
                   height={40}
@@ -230,10 +243,15 @@ const Navbar = () => {
         isOpen={isSignUpModalOpen}
         onClose={() => setIsSignupModalOpen(false)}
         onOpenLoginModal={() => setIsLoginModalOpen(true)}
+        onOpenUserTypeModal={() => setIsUserTypeModalOpen(true)}
       />
       <ForgetPassword
         isOpen={isForgotPasswordModalOpen}
         onClose={() => setIsForgotPasswordModalOpen(false)}
+      />
+      <UserType
+        isOpen={isUserTypeModalOpen}
+        onClose={() => setIsUserTypeModalOpen(false)}
       />
     </nav>
   );
