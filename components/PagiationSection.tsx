@@ -1,7 +1,6 @@
 "use client";
 
 const PagiationSection = ({
-  startPage = 1,
   currentPage,
   endPage,
   className,
