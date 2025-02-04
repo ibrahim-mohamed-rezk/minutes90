@@ -10,6 +10,7 @@ const PlayersCard = ({
     image?: string;
     position?: string;
     age?: number;
+    main_position?: string;
     user?: {
       id: string;
       name: string;
@@ -23,7 +24,7 @@ const PlayersCard = ({
     >
       {/* Top section */}
       <div className="p-[12px]">
-        <div className="absolute z-50 top-0 start-0 py-2 px-[20px] bg-[#262626] w-fit rounded-ee-[5px]">
+        <div className="absolute z-40 top-0 start-0 py-2 px-[20px] bg-[#262626] w-fit rounded-ee-[5px]">
           <div className="text-white text-[8px] font-bold font-['Montserrat'] uppercase">
             minutes 90
           </div>
@@ -32,19 +33,38 @@ const PlayersCard = ({
         <div className="w-full h-full flex flex-col ">
           {/* Left side info */}
           <div className="absolute z-20 left-[30px] top-[42px] flex flex-col gap-[1px]">
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center justify-center"
-              >
-                <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
-                  INFO
-                </div>
-                <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
-                  99
-                </div>
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
+                PAC
               </div>
-            ))}
+              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
+                99
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
+                SHO
+              </div>
+              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
+                99
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
+                PAS
+              </div>
+              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
+                99
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
+                PHY
+              </div>
+              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
+                99
+              </div>
+            </div>
           </div>
 
           {/* Right side info */}
@@ -109,22 +129,9 @@ const PlayersCard = ({
                 <div className="text-white text-[10px] font-bold font-['Montserrat']">
                   {player?.user?.name}
                 </div>
-                <div className="flex items-center justify-start gap-[2px] mt-[10px]">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      width="9"
-                      height="9"
-                      viewBox="0 0 9 9"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4.48301 0.834473L5.49786 3.95616H8.78192L6.12706 5.88438L7.14192 9.01011L4.48301 7.07785L1.82815 9.01011L2.843 5.88438L0.184082 3.95616H3.46815L4.48301 0.834473Z"
-                        fill="#FFD016"
-                      />
-                    </svg>
-                  ))}
+                <div className="flex items-center flex-col text-white justify-start gap-[2px] mt-[10px]">
+                  <span>{player.main_position}</span>
+                  
                 </div>
               </div>
 

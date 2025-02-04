@@ -92,7 +92,7 @@ const Navbar = () => {
             ) : (
               <Link href="/profile" className="relative">
                 <img
-                  src={userData.image || "/images/icons/userAvatar.png"}
+                  src={userData?.image || "/images/icons/userAvatar.png"}
                   alt="User Profile"
                   width={40}
                   height={40}

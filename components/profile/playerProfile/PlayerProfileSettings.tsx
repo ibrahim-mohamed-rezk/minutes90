@@ -4,6 +4,12 @@ import { useState } from "react";
 import PlayerMainInfo from "./settingPages/PlayerMainInfo";
 import PlayerPhysical from "./settingPages/PlayerPhysical";
 import PlayerInjury from "./settingPages/PlayerInjury";
+import PlayerSkills from "./settingPages/PlayerSkills";
+import PlayerTacticalPerformance from "./settingPages/PlayerTacticalPerformance";
+import PlayerAchievement from "./settingPages/PlayerAchievement";
+import PlayerPenalties from "./settingPages/PlayerPenalties";
+import PlayerLegalAspects from "./settingPages/PlayerLegalAspects";
+import Settings from "./settingPages/Settings";
 
 const PlayerProfileSettings = () => {
   const [currentOppendSetting, seTCurrentOppendSetting] =
@@ -20,6 +26,7 @@ const PlayerProfileSettings = () => {
           </div>
           <div className="self-stretch h-auto md:h-[504px] flex-col justify-start items-start gap-4 inline-flex overflow-y-auto">
             {[
+              "Settings",
               "Main Information",
               "Player's Physical Level",
               "Player's Injury Level",
@@ -49,11 +56,22 @@ const PlayerProfileSettings = () => {
 
       {/* right side */}
       <div className="w-full md:flex-1 flex items-center justify-start flex-col gap-[30px]">
+        {currentOppendSetting === "Settings" && <Settings />}
         {currentOppendSetting === "Main Information" && <PlayerMainInfo />}
         {currentOppendSetting === "Player's Physical Level" && (
           <PlayerPhysical />
         )}
         {currentOppendSetting === "Player's Injury Level" && <PlayerInjury />}
+        {currentOppendSetting === "Player's Skill Level" && <PlayerSkills />}
+        {currentOppendSetting ===
+          "Player's Technical and Tactical Performance" && (
+          <PlayerTacticalPerformance />
+        )}
+        {currentOppendSetting === "Player Achievement Rate" && (
+          <PlayerAchievement />
+        )}
+        {currentOppendSetting === "Player Penalties" && <PlayerPenalties />}
+        {currentOppendSetting === "Legal Aspects" && <PlayerLegalAspects />}
       </div>
     </div>
   );

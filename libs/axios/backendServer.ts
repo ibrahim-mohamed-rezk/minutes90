@@ -14,8 +14,8 @@ export const getApi = async (url: string, params?: any, headers?: any) => {
   try {
     const response = await backendServer.get(url, {
       params,
-      headers: { ...headers, Accept: "application/json" },
-    }); // Ensure Accept header is included
+      headers: { ...headers },
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -25,8 +25,8 @@ export const getApi = async (url: string, params?: any, headers?: any) => {
 export const postApi = async (url: string, data: any, headers?: any) => {
   try {
     const response = await backendServer.post(url, data, {
-      headers: { ...headers, Accept: "application/json" },
-    }); // Ensure Accept header is included
+      headers: { ...headers },
+    });
     return response.data;
   } catch (error) {
     throw error;

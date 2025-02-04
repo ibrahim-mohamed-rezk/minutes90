@@ -2,6 +2,7 @@
 
 import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const PlayerProfile = () => {
@@ -43,9 +44,9 @@ const PlayerProfile = () => {
             alt="user image"
           />
         </div>
-        <a href="/profile/settings" className="bg-green-500 text-white px-4 py-2 rounded">
+        <Link href="/profile/settings" className="bg-green-500 w-[80%] mx-auto text-center text-[18px] font-bold text-white px-4 py-2 rounded-lg">
           Edit Profile
-        </a>
+        </Link>
         {/* main info */}
         <div className="w-[306px] h-[560px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
           <div>

@@ -5,37 +5,47 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useEffect, useState } from "react";
+import { getApi } from "@/libs/axios/backendServer";
+import { useAppSelector } from "@/libs/store/hooks";
+
+interface Banner {
+  image: string;
+}
+
+interface blogs {
+  image: string;
+}
 
 const Header = () => {
-  const newsItems = [
-    {
-      image: "/images/home/newsSlide.jpeg",
-    },
-    {
-      image: "/images/home/newsSlide.jpeg",
-    },
-    {
-      image: "/images/home/newsSlide.jpeg",
-    },
-    {
-      image: "/images/home/newsSlide.jpeg",
-    },
-    {
-      image: "/images/home/newsSlide.jpeg",
-    },
-  ];
+  const [banners, setBanners] = useState<Banner[] | null>(null);
+  const [blogs, setBlogs] = useState<blogs[] | null>(null);
+  const token = useAppSelector((state) => state.user.token);
 
-  const AddsItems = [
-    {
-      image: "/images/home/addsSlide.png",
-    },
-    {
-      image: "/images/home/addsSlide.png",
-    },
-    {
-      image: "/images/home/addsSlide.png",
-    },
-  ];
+  // get home data from backend
+  useEffect(() => {
+    const homeData = async () => {
+      try {
+        const res = await getApi(
+          "/home",
+          {},
+          {
+            Authorization: `Bearer ${token}`,
+          }
+        );
+        setBanners(res.data?.banners?.items);
+        setBlogs(res.data?.blogs?.items);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    homeData();
+  }, [token]);
+
+  if (!banners || !blogs) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col lg:flex-row justify-start items-start gap-5 lg:gap-10 p-4">
@@ -62,7 +72,7 @@ const Header = () => {
           }}
           loop={true}
         >
-          {AddsItems.map((item, index) => (
+          {blogs.map((item, index) => (
             <SwiperSlide key={index}>
               <img
                 className="w-full h-full object-cover"
@@ -98,7 +108,7 @@ const Header = () => {
           }}
           loop={true}
         >
-          {newsItems.map((item, index) => (
+          {banners.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="w-full h-full relative">
                 <img
@@ -113,10 +123,10 @@ const Header = () => {
                       "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)",
                   }}
                 >
-                  <img 
-                    src="/images/home/newsLogo.png" 
+                  <img
+                    src="/images/home/newsLogo.png"
                     alt="News Logo"
-                    className="w-16 md:w-auto" 
+                    className="w-16 md:w-auto"
                   />
                   <p className="text-white text-lg md:text-[26px] font-black font-['Montserrat'] max-w-full md:max-w-[707px]">
                     Barcelona legend Patrick Kluivert appointed new Indonesia

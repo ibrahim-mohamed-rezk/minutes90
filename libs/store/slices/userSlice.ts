@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getApi } from "@/libs/axios/backendServer";
 
 const initialState: any = {
-  userData: [],
+  userData: {},
   token: null,
 };
 
@@ -31,6 +31,9 @@ export const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    updateUserData: (state, action) => {
+      state.userData = action.payload.user_data;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(autoLogin.fulfilled, (state, action) => {
@@ -40,5 +43,5 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setuserData, setToken } = userSlice.actions;
+export const { setuserData, setToken, updateUserData } = userSlice.actions;
 export default userSlice.reducer;
