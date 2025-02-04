@@ -2,95 +2,54 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="w-full mt-[-1px] pt-[100px] pb-[25px] bg-[var(--color-text-black)] relative">
-      <div className="w-full max-w-[1873px] mx-auto px-4">
-        {/* Main Container */}
-        <div className="w-full h-auto md:h-[360px] bg-[#39393b] rounded-[15px] p-8 relative">
-          {/* Logo Section */}
-          <div className="flex items-center gap-2.5 mb-8">
-            <img
-              className="w-[60px] h-[55px]"
-              src="https://via.placeholder.com/60x55"
-              alt="Logo"
-            />
-            <img
-              className="w-[102px] h-[21px]"
-              src="https://via.placeholder.com/102x21"
-              alt="Brand Name"
-            />
+    <footer className="bg-[#39393b] text-white rounded-[15px] border border-[#39393b] p-8">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="mb-8 md:mb-0">
+            <div className="flex items-center gap-2.5 mb-4">
+              <img className="w-[60px] h-[55px]" src="https://via.placeholder.com/60x55" alt="Logo" />
+              <img className="w-[102px] h-[21px]" src="https://via.placeholder.com/102x21" alt="Logo text" />
+            </div>
+            <p className="text-[#b7b7b7] text-lg font-extrabold leading-normal">LogoLogoL ogoL ogoLogoLo goLogoLogo LogoLogo LogoLogoL ogoLogo LogoLogoL ogoLogoLog oLogoLogo LogoL ogo Logo</p>
           </div>
-
-          {/* Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Left Section */}
-            <div className="text-[#b7b7b7] text-lg text-wrap font-extrabold font-['Almarai'] leading-normal overflow-hidden w-full max-w-[300px]">
-              LogoL ogoLogo LogoLo goLog oLogoLogoLogo LogoLogoLo goLogoLogoLogo LogoLogoLog oLogoLogoL ogoLogoLog oLogo
-            </div>
-
-            {/* Middle Section */}
-            <div className="space-y-4">
-              <div className="text-white text-xl font-bold font-['Almarai'] leading-normal">
-                About
-              </div>
-              <div className="text-[#b7b7b7] text-xl font-normal font-['Almarai'] leading-normal">
-                Blogs
-              </div>
-              <div className="text-[#b7b7b7] text-xl font-normal font-['Almarai'] leading-normal">
-                Career
-              </div>
-            </div>
-
-            {/* Right Section */}
-            <div className="space-y-4">
-              <div className="text-white text-xl font-bold font-['Almarai'] leading-normal">
-                Support
-              </div>
-              <div className="text-[#b7b7b7] text-xl font-normal font-['Almarai'] leading-normal">
-                Contact Us
-              </div>
-              <div className="text-[#b7b7b7] text-xl font-normal font-['Almarai'] leading-normal">
-                Complaints
-              </div>
-              <div className="text-[#b7b7b7] text-xl font-normal font-['Almarai'] leading-normal">
-                FAQ
-              </div>
-            </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">About</h3>
+            <ul className="space-y-4">
+              <li><a href="#" className="text-[#b7b7b7] hover:text-white transition">Blogs</a></li>
+              <li><a href="#" className="text-[#b7b7b7] hover:text-white transition">Career</a></li>
+            </ul>
           </div>
-
-          {/* Email Subscription */}
-          <div className="mt-8 md:absolute md:bottom-8 md:right-8 w-full md:w-[449px] h-[75px] px-[9px] py-2.5 bg-[#333333] rounded-[10px] border border-[#868686] flex items-center justify-between">
-            <div className="text-[#878787] text-xl font-normal font-['Almarai'] leading-normal">
-              Enter your email
-            </div>
-            <button className="w-[138px] h-[55px] px-2.5 py-[15px] bg-white rounded-[10px] border border-[#868686] text-[#4e4f5d] text-xl font-bold font-['Almarai'] leading-normal">
-              Subscribe
-            </button>
+          <div>
+            <h3 className="text-xl font-bold mb-4">Support</h3>
+            <ul className="space-y-4">
+              <li><a href="#" className="text-[#b7b7b7] hover:text-white transition">Contact Us</a></li>
+              <li><a href="#" className="text-[#b7b7b7] hover:text-white transition">Complaints</a></li>
+              <li><a href="#" className="text-[#b7b7b7] hover:text-white transition">FAQ</a></li>
+            </ul>
           </div>
-
-          {/* Social Icons */}
-          <div className="mt-8 md:absolute md:bottom-8 md:left-8 flex gap-4 justify-center md:justify-start">
-            {[1, 2, 3, 4].map((_, index) => (
-              <div
-                key={index}
-                className="w-[66px] h-[66px] bg-[#333333] rounded-[33px] border border-[#868686] flex items-center justify-center"
-              >
-                {/* Add social icons here */}
-              </div>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="mt-8 md:absolute md:bottom-8 md:left-1/2 md:transform md:-translate-x-1/2 flex flex-col md:flex-row items-center gap-2 text-center">
-            <div className="text-white text-xl font-bold font-['Almarai'] leading-normal">
-              © 2024
+          <div>
+            <h3 className="text-xl font-bold mb-4">Get Updates</h3>
+            <div className="bg-[#333333] rounded-[10px] border border-[#868686] p-2 flex flex-col sm:flex-row items-center gap-2">
+              <input type="email" placeholder="Enter your email" className="bg-transparent text-[#878787] p-2 flex-grow" />
+              <button className="bg-white text-[#4e4f5d] font-bold py-2 px-4 rounded-[10px]">Subscribe</button>
             </div>
-            <div className="text-white text-xl font-bold font-['Almarai'] leading-normal">
-              devunity, All rights reserved
+            <div className="flex gap-4 mt-6">
+              <a href="#" className="bg-[#333333] rounded-full border border-[#868686] p-4 hover:bg-[#444444] transition"></a>
+              <a href="#" className="bg-[#333333] rounded-full border border-[#868686] p-4 hover:bg-[#444444] transition"></a>
+              <a href="#" className="bg-[#333333] rounded-full border border-[#868686] p-4 hover:bg-[#444444] transition"></a>
+              <a href="#" className="bg-[#333333] rounded-full border border-[#868686] p-4 hover:bg-[#444444] transition"></a>
             </div>
           </div>
         </div>
+        <div className="mt-8 pt-8 border-t border-[#4a4a4c] flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex items-center gap-2 mb-4 sm:mb-0">
+            <span className="w-5 h-5 rounded-full border border-[#d9d9d9] inline-flex items-center justify-center">c</span>
+            <span>2024</span>
+          </div>
+          <div>devunity, All rights reserved</div>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
