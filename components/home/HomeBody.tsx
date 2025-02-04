@@ -88,13 +88,15 @@ const HomeBody = () => {
 
       <div className="w-full border-b border-[#717174] my-[30px]"></div>
 
-      <PlayersSwiper
-        players={PlayersCatigory?.players_in_user_country?.items || []}
-        title="Most popular"
-        subtitle="Most followed players"
-        swiperIndex={1}
-        seeAllLink="/players"
-      />
+      {PlayersCatigory?.players_in_user_country && (
+        <PlayersSwiper
+          players={PlayersCatigory?.players_in_user_country?.items || []}
+          title="Most popular"
+          subtitle="Most followed players"
+          swiperIndex={1}
+          seeAllLink="/players"
+        />
+      )}
 
       <div className="w-full border-b border-[#717174] my-[30px]"></div>
 
