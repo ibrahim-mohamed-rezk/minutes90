@@ -99,7 +99,7 @@ export default function LoginModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center p-4 z-[9999] overflow-y-auto">
       <div className="w-full max-w-[1186px] bg-white rounded-[30px] shadow-sm border border-[#f1f1f2] overflow-hidden relative">
         <button
           onClick={onClose}
