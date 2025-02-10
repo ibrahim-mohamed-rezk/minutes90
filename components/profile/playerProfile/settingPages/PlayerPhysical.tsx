@@ -2,7 +2,7 @@ const PlayerPhysical = () => {
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="text-white text-[25px] md:text-[32px] font-extrabold font-['Montserrat']">
-        Profile Settings
+        Profile Settings 
       </div>
 
       <div className="min-h-[536px] bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-6 md:p-8">

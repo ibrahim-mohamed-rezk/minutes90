@@ -28,10 +28,10 @@ const PlayerProfileSettings = () => {
             {[
               "Settings",
               "Main Information",
-              "Player's Physical Level",
+              // "Player's Physical Level",
               "Player's Injury Level",
               "Player's Skill Level",
-              "Player's Technical and Tactical Performance",
+              // "Player's Technical and Tactical Performance",
               "Player Achievement Rate",
               "Player Penalties",
               "Legal Aspects",

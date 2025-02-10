@@ -4,9 +4,9 @@ const backendServer = axios.create({
   baseURL: process.env.NEXT_PUBLIC_Backend_URL,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json", // Added Accept header for better API compatibility
+    Accept: "application/json",
   },
-  timeout: 10000, // 10 seconds
+  timeout: 10000,
 });
 
 // GET function

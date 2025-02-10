@@ -1,4 +1,42 @@
+"use client";
+
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useAppSelector } from "@/libs/store/hooks";
+import { postApi } from "@/libs/axios/backendServer";
+import { useRouter } from "next/navigation";
+
 const PlayerInjury = () => {
+  const [injuryType, setInjuryType] = useState("muscle");
+  const [injurySeverity, setInjurySeverity] = useState("minor");
+  const [recoveryPeriod, setRecoveryPeriod] = useState("less than a month");
+  const [participationRate, setParticipationRate] = useState(1);
+  const { token } = useAppSelector((state) => state.user);
+  const router = useRouter();
+
+  const updateInjury = async () => {
+    try {
+      const res = await postApi(
+        "player-profile/injury",
+        {
+          injury_type: injuryType,
+          injury_severity: injurySeverity,
+          recovery_time: recoveryPeriod,
+          returned_to_play: participationRate,
+        },
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      );
+      toast.success("Injury updated successfully");
+      router.push("/profile");
+      console.log(res)
+    } catch (error) {
+      toast.error("Error updating injury");
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="text-white text-[24px] md:text-[32px] font-extrabold font-['Montserrat']">
@@ -12,96 +50,94 @@ const PlayerInjury = () => {
         <div className="flex flex-col gap-10 mt-8 md:mt-0 md:h-[484px] md:left-[46px] md:top-[101px] md:absolute md:flex-col md:justify-start md:items-start">
           <div className="flex flex-col gap-5">
             <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
-              Number of injuries during the season :
+              Injury Type :
             </div>
             <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  1
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  2
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 bg-[#34a853] rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-bold font-['Montserrat']">
-                  3
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  4
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  5
-                </div>
-              </div>
+              {["muscle", "ligament", "fracture", "concussion", "other"].map(
+                (item, index) => (
+                  <div
+                    onClick={() => setInjuryType(item)}
+                    key={index}
+                    className={`px-[13px] py-2.5 ${
+                      injuryType === item ? "bg-[#34a853]" : ""
+                    } rounded-xl flex justify-center items-center gap-2.5 cursor-pointer`}
+                  >
+                    <div className="text-white text-sm font-bold font-['Montserrat']">
+                      {item}
+                    </div>
+                  </div>
+                )
+              )}
             </div>
           </div>
+
           <div className="flex flex-col gap-5">
             <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
-              The type of injury the player is exposed to :
+              Injury Severity:
             </div>
             <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  Minor Injury
+              {["minor", "moderate", "severe"].map((item, index) => (
+                <div
+                  onClick={() => setInjurySeverity(item)}
+                  key={index}
+                  className={`px-[13px] py-2.5 ${
+                    injurySeverity === item ? "bg-[#34a853]" : ""
+                  } rounded-xl flex justify-center items-center gap-2.5 cursor-pointer`}
+                >
+                  <div className="text-white text-sm font-medium font-['Montserrat']">
+                    {item}
+                  </div>
                 </div>
-              </div>
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  Moderate Injury
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 bg-[#34a853] rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-bold font-['Montserrat']">
-                  Surgical Intervention
-                </div>
-              </div>
+              ))}
             </div>
           </div>
+
           <div className="flex flex-col gap-5">
             <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
               The recovery period that the player needs :
             </div>
             <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  Less Than a Month
+              {[
+                "less than a month",
+                "from 3 to 6 months",
+                "more than 6 months",
+              ].map((item, index) => (
+                <div
+                  onClick={() => setRecoveryPeriod(item)}
+                  key={index}
+                  className={`px-[13px] py-2.5 ${
+                    recoveryPeriod === item ? "bg-[#34a853]" : ""
+                  } rounded-xl flex justify-center items-center gap-2.5 cursor-pointer`}
+                >
+                  <div className="text-white text-sm font-medium font-['Montserrat']">
+                    {item}
+                  </div>
                 </div>
-              </div>
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  Less Than 3 Months
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 bg-[#34a853] rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-bold font-['Montserrat']">
-                  From 3 to 6 Months
-                </div>
-              </div>
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  More Than 6 Months
-                </div>
-              </div>
+              ))}
             </div>
           </div>
+
           <div className="flex flex-col gap-5">
             <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
               Participation rate after injury :
             </div>
             <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              <div className="px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5">
+              <div
+                onClick={() => setParticipationRate(1)}
+                className={`px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5 cursor-pointer ${
+                  participationRate === 1 ? "bg-[#34a853]" : ""
+                }`}
+              >
                 <div className="text-white text-sm font-medium font-['Montserrat']">
                   Participated
                 </div>
               </div>
-              <div className="px-[13px] py-2.5 bg-[#34a853] rounded-xl flex justify-center items-center gap-2.5">
+              <div
+                onClick={() => setParticipationRate(0)}
+                className={`px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5 cursor-pointer ${
+                  participationRate === 0 ? "bg-[#34a853]" : ""
+                }`}
+              >
                 <div className="text-white text-sm font-bold font-['Montserrat']">
                   Did Not Participate
                 </div>
@@ -112,11 +148,11 @@ const PlayerInjury = () => {
       </div>
 
       <div className="flex justify-center items-center gap-5 flex-wrap">
-        <button className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']">
+        <button
+          onClick={updateInjury}
+          className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']"
+        >
           Save
-        </button>
-        <button className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#d93044] rounded-xl text-white text-sm font-bold font-['Montserrat']">
-          Cancel
         </button>
       </div>
     </div>
