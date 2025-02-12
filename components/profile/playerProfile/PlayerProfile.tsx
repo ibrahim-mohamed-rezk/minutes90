@@ -519,6 +519,7 @@ const PlayerProfile = () => {
                         if (index === 4)
                           return (
                             <svg
+                              key={index}
                               width="19"
                               height="20"
                               viewBox="0 0 19 20"
