@@ -1,11 +1,9 @@
 "use client";
 
 import { getApi } from "@/libs/axios/backendServer";
-import { useAppSelector } from "@/libs/store/hooks";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
-interface PlayerProfileData {
+interface PlayerData {
   id: number;
   email: string;
   phone: string;
@@ -80,19 +78,14 @@ interface PlayerProfileData {
   };
 }
 
-const PlayerProfile = () => {
-  const [data, setData] = useState<PlayerProfileData | null>(null);
-  const token = useAppSelector((state) => state.user.token);
+const Player = () => {
+  const [data, setData] = useState<PlayerData | null>(null);
 
   // get player profile data from backend
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const res = await getApi(
-          "player-profile",
-          {},
-          { Authorization: `Bearer ${token}` }
-        );
+        const res = await getApi("player-profile");
         setData(res.data?.user);
       } catch (error) {
         console.log(error);
@@ -100,7 +93,7 @@ const PlayerProfile = () => {
     };
 
     getProfile();
-  }, [token]);
+  }, []);
 
   // calculate age from birth_date
   const calculateAge = (birthDate: string | undefined) => {
@@ -155,7 +148,6 @@ const PlayerProfile = () => {
     }
   };
 
-
   return (
     <div className="flex flex-col pt-[48px] md:flex-row w-full items-start justify-start gap-[30px] p-[10px]">
       {/* left side */}
@@ -168,14 +160,6 @@ const PlayerProfile = () => {
             alt="user image"
           />
         </div>
-
-        {/* edit button */}
-        <Link
-          href="/profile/settings"
-          className="bg-green-500 w-full md:w-[80%] mx-auto text-center text-[18px] font-bold text-white px-4 py-2 rounded-lg"
-        >
-          Edit Profile
-        </Link>
 
         {/* main info */}
         <div className="w-full md:w-[306px] flex flex-col gap-4 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
@@ -585,7 +569,8 @@ const PlayerProfile = () => {
                   className={`w-[36.45px] h-[36.45px] absolute  ${
                     data?.player?.main_position?.toUpperCase() === item.pos
                       ? "bg-[#eb4335]"
-                      : data?.player?.second_position?.toUpperCase() === item.pos
+                      : data?.player?.second_position?.toUpperCase() ===
+                        item.pos
                       ? "bg-[#FBBC05]"
                       : "bg-[#239d60] opacity-20"
                   } rounded-full flex items-center justify-center`}
@@ -604,4 +589,4 @@ const PlayerProfile = () => {
   );
 };
 
-export default PlayerProfile;
+export default Player;

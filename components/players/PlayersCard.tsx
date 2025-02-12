@@ -1,4 +1,4 @@
-"use client";
+import { useRouter } from "next/navigation";
 
 const PlayersCard = ({
   player,
@@ -18,8 +18,11 @@ const PlayersCard = ({
   };
   className?: string;
 }) => {
+  "use client";
+  const router = useRouter();
   return (
     <div
+      onClick={() => router.push(`/profile/user/player/${player.id}`)}
       className={`w-[248.55px] bg-[#A80950]  relative h-[348.66px] rounded-[15px] shadow-[0px_3px_4px_0px_rgba(255,255,255,0.10)] border border-[#f1f1f2] ${className} overflow-hidden`}
     >
       {/* Top section */}
@@ -131,7 +134,6 @@ const PlayersCard = ({
                 </div>
                 <div className="flex items-center flex-col text-white justify-start gap-[2px] mt-[10px]">
                   <span>{player.main_position}</span>
-                  
                 </div>
               </div>
 
