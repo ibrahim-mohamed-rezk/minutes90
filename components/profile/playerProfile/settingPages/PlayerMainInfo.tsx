@@ -142,7 +142,7 @@ const PlayerMainInfo = () => {
         Main Information
       </div>
 
-      {/* account information */}
+      {/* account information */} 
       <div className="min-h-[343px] relative bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-8">
         <div className="flex flex-col md:flex-row gap-8 w-full">
           {/* profile image */}
