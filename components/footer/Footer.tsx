@@ -144,7 +144,7 @@ const Footer = () => {
                     />
                   </svg>
                 </a>
-                <a
+                {/* <a
                   href="https://wa.me/+4915252455276"
                   target="_blank"
                   className="bg-[#333333] w-[66px] h-[66px] flex items-center justify-center rounded-full border border-[#868686] p-4 hover:bg-[#444444] transition"
@@ -161,7 +161,7 @@ const Footer = () => {
                       fill="white"
                     />
                   </svg>
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
