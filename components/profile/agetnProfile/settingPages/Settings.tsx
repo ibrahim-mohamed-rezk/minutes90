@@ -1,16 +1,154 @@
 "use client";
 
+import { getApi, postApi } from "@/libs/axios/backendServer";
+import { useAppSelector } from "@/libs/store/hooks";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+interface AgentData {
+  first_name: string;
+  last_name: string;
+  name: string;
+  email: string;
+  phone: string;
+  country_id: string;
+  governorate_id: string;
+  working_region: string;
+  fifa_certificate: string;
+  license_expire: string;
+  image?: File | undefined;
+  [key: string]: string | File | undefined;
+}
+
 const Settings = () => {
+  const [image, setImage] = useState<string | null>(null);
+  const [countries, setCountries] = useState<
+    [{ id: string; name: string }] | null
+  >(null);
+
+  const [governorates, setGovernorates] = useState<
+    [{ id: string; name: string }] | null
+  >(null);
+
+  const token = useAppSelector((state) => state.user.token);
+  const router = useRouter();
+
+  const [userData, setUserData] = useState<AgentData>({
+    first_name: "",
+    last_name: "",
+    name: "",
+    email: "",
+    phone: "",
+    country_id: "",
+    governorate_id: "",
+    working_region: "",
+    fifa_certificate: "",
+    license_expire: "",
+    image: undefined,
+  });
+
+  // get countries from backend
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await getApi("countries");
+        setCountries(response.data?.countries);
+        setUserData({
+          ...userData,
+          country_id: response.data?.countries[0]?.id,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  // get governorates from backend based on country id
+  useEffect(() => {
+    const fetchGovernorates = async () => {
+      try {
+        const response = await getApi(`countries/${userData.country_id}`);
+        setGovernorates(response.data?.country?.governorates);
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          governorate_id: response.data?.country?.governorates[0]?.id,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchGovernorates();
+  }, [userData.country_id]);
+
+  // get profile from backend
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const res = await getApi(
+          "agent-profile",
+          {},
+          {
+            Authorization: `Bearer ${token}`,
+          }
+        );
+
+        setUserData({
+          ...userData,
+          name: res.data?.user?.name,
+          first_name: res.data?.user?.first_name,
+          last_name: res.data?.user?.last_name,
+          email: res.data?.user?.email,
+          phone: res.data?.user?.phone,
+
+          country_id: res.data?.user?.governorate?.country?.id,
+          governorate_id: res.data?.user?.governorate?.id,
+
+          working_region: res.data?.user?.agent?.working_region,
+          fifa_certificate: res.data?.user?.agent?.fifa_certificate,
+          license_expire: res.data?.user?.agent?.license_expire,
+        });
+
+        console.log(res.data?.user?.name);
+
+        setImage(res.data?.user?.image);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProfile();
+  }, [token]);
+
+  const handelUpdate = async () => {
+    try {
+      await postApi("agent-profile/main", userData, {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      });
+      toast.success("Profile updated successfully");
+
+      router.push("/profile");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
+  console.log(userData);
+
   return (
     <div className="container mx-auto pt-[50px]">
       <div className="flex w-full flex-col space-y-6 p-4">
         {/* account information */}
         <div className="bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-6">
+          <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
             <div className="flex flex-col items-center space-y-3">
               <img
                 className="w-44 h-44 rounded-[30px] border-2 border-[#239d60]"
-                src="https://placehold.co/176x176"
+                src={(image as string) || "/images/icons/userAvatar.png"}
                 alt="Profile"
               />
               <div className="flex items-center space-x-2">
@@ -26,61 +164,173 @@ const Settings = () => {
                     fill="#239D60"
                   />
                 </svg>
-                <span className="text-[#239d60] text-sm font-medium font-['Montserrat'] capitalize">
+                <span
+                  onClick={() => {
+                    document.getElementById("agentProfileImage")?.click();
+                  }}
+                  className="text-[#239d60] text-sm font-medium font-['Montserrat'] capitalize"
+                >
                   edit profile image
                 </span>
+                <input
+                  type="file"
+                  id="agentProfileImage"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setUserData((prevUserData) => ({
+                        ...prevUserData,
+                        image: file,
+                      }));
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        setImage(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow">
+            <div className=" w-full md:w-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow">
               {[
-                "First Name",
-                "License ID",
-                "Last Name",
-                "License Expiry",
-                "Agent Code",
-                "WhatsApp Number",
-                "Nationality",
-                "Language",
+                { label: "First Name", name: "first_name" },
+                { label: "Last Name", name: "last_name" },
+                { label: "Name", name: "name" },
+                { label: "Email", name: "email" },
+                { label: "Phone", name: "phone" },
+                { label: "Working Region", name: "working_region" },
               ].map((label, index) => (
                 <div key={index} className="flex flex-col space-y-2">
                   <label className="text-white text-xs font-normal font-['Poppins']">
-                    {label}
+                    {label.label}
                   </label>
                   <input
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        [e.target.name]: e.target.value,
+                      });
+                    }}
                     type="text"
+                    name={label.name}
+                    value={userData[label.name] as string}
                     className="bg-[#0d0d0d] text-white rounded-[9px] border border-[#adadad] p-2 text-sm"
                     placeholder="Enter value"
                   />
                 </div>
               ))}
-            </div>
-          </div>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col space-y-2">
-              <label className="text-white text-sm font-normal font-['Montserrat']">
-                Geographical Location
-              </label>
-              <input
-                type="text"
-                className="bg-[#0d0d0d] text-white rounded-[9px] border border-[#adadad] p-2 text-sm"
-                placeholder="Enter location"
-              />
-            </div>
-            <div className="flex flex-col space-y-2">
-              <label className="text-white text-sm font-normal font-['Montserrat']">
-                Address
-              </label>
-              <input
-                type="text"
-                className="bg-[#0d0d0d] text-white rounded-[9px] border border-[#adadad] p-2 text-sm"
-                placeholder="Enter address"
-              />
+
+              {/* license expiry */}
+              <div className="flex flex-col space-y-2">
+                <label className="text-white text-xs font-normal font-['Poppins']">
+                  License Expiry
+                </label>
+                <input
+                  type="date"
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      license_expire: e.target.value,
+                    });
+                  }}
+                  className="bg-transparent text-white rounded-[9px] border border-[#adadad] p-2 text-sm"
+                />
+              </div>
+
+              {/* fifa certificate */}
+              <div className="flex flex-col gap-2">
+                <label className="text-white text-xs font-normal font-['Poppins']">
+                  FIFA Certificate
+                </label>
+                <select
+                  className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
+                  name="fifa_certificate"
+                  value={userData.fifa_certificate}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      fifa_certificate: e.target.value,
+                    });
+                  }}
+                >
+                  <option
+                    className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
+                    value={1}
+                  >
+                    Yes
+                  </option>
+                  <option
+                    className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
+                    value={0}
+                  >
+                    No
+                  </option>
+                </select>
+              </div>
+
+              {/* country */}
+              <div className="flex flex-col gap-2">
+                <label className="text-white text-xs font-normal font-['Poppins']">
+                  Country
+                </label>
+                <select
+                  className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
+                  name="country_id"
+                  value={userData.country_id}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      country_id: e.target.value,
+                    });
+                  }}
+                >
+                  {countries?.map((country) => (
+                    <option
+                      className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
+                      key={country.id}
+                      value={country.id}
+                    >
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* governorate */}
+              <div className="flex flex-col gap-2">
+                <label className="text-white text-xs font-normal font-['Poppins']">
+                  Governorate
+                </label>
+                <select
+                  className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
+                  name="governorate_id"
+                  value={userData.governorate_id}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      governorate_id: e.target.value,
+                    });
+                  }}
+                >
+                  {governorates?.map((governorate) => (
+                    <option
+                      className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
+                      key={governorate.id}
+                      value={governorate.id}
+                    >
+                      {governorate.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
 
         {/* players added */}
-        <div className="bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-6">
+        {/* <div className="bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-6">
           <h2 className="text-white text-lg font-bold font-['Montserrat'] mb-4">
             Players Added to the FIFA Website
           </h2>
@@ -100,10 +350,13 @@ const Settings = () => {
               )
             )}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex justify-center items-center gap-5 flex-wrap">
-          <button className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']">
+          <button
+            onClick={handelUpdate}
+            className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']"
+          >
             Save
           </button>
         </div>

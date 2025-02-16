@@ -45,7 +45,7 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <Link href="/">
               <Image
-                src="/images/row_logo.png"
+                src="/images/row_logo.svg"
                 alt="Minutes90 Logo"
                 width={172}
                 height={55}
@@ -174,10 +174,10 @@ const Navbar = () => {
             <Link
               key={item.label}
               href={item.href}
-              className={`text-gray-700 hover:text-[var(--color-green)] hover:border-b-2 hover:border-[var(--color-green)] block px-3 py-2 rounded-md text-base font-medium ${
+              className={` hover:text-[var(--color-green)] hover:border-b-2 hover:border-[var(--color-green)] block px-3 py-2  text-base font-medium ${
                 pathname === item.href
                   ? "text-[var(--color-green)] border-b-2 border-[var(--color-green)]"
-                  : ""
+                  : "text-gray-700"
               }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -210,7 +210,7 @@ const Navbar = () => {
               <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)}>
                 <div className="flex items-center">
                   <Image
-                    src="/images/default-avatar.png"
+                   src={userData?.image || "/images/icons/userAvatar.png"}
                     alt="User Profile"
                     width={40}
                     height={40}

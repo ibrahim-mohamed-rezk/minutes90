@@ -16,6 +16,20 @@ interface AgentProfileData {
   first_name: string;
   last_name: string;
 
+  agent: {
+    fifa_certificate: number;
+    license_expire: string;
+    working_region: string;
+    agent_code: string;
+    players: {
+      id: string;
+      name: string;
+      image?: string;
+      position?: string;
+      age?: number;
+    }[];
+  };
+
   country: {
     name: string;
     id: number;
@@ -29,7 +43,7 @@ interface AgentProfileData {
 
 const AgentProfile = () => {
   const [data, setData] = useState<AgentProfileData | null>(null);
-  const token = useAppSelector((state) => state.user.token);
+  const token = useAppSelector((state) => state.user.token); 
 
   // get player profile data from backend
   useEffect(() => {
@@ -73,9 +87,8 @@ const AgentProfile = () => {
                   FIFA Accredited or Not:
                 </span>
                 <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
-                  {/* {data?.player?.is_club_contracted */}Yes, FIFA Accredited
-                  {/* : "Not Contracted with a club" */}
-                  {/* } */}
+                  {data?.agent?.fifa_certificate === 0 ? "No" : "Yes"} FIFA
+                  Accredited
                 </div>
               </div>
             </div>
@@ -97,14 +110,15 @@ const AgentProfile = () => {
           <div className="w-full p-4 md:p-6 bg-[#1e1f1f] flex flex-col items-stretch justify-center gap-[30px] rounded-[30px] border border-[#f1f1f2]">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-8 gap-8">
               {[
-                { label: "Date of Birth", value: "15 / 7 /1985" },
-                { label: "Nationality", value: "Egyptian" },
-                { label: "Agent Code", value: "254887" },
-                { label: "License ID", value: "202405-6395" },
-                { label: "License Expiry", value: "2027" },
-                { label: "Language", value: "English" },
-                { label: "Geographical Location", value: "Kanada" },
-                { label: "Address", value: "United Kindem" },
+                { label: "Agent Code", value: data?.agent?.agent_code },
+                {
+                  label: "License Expiry",
+                  value: data?.agent?.license_expire || "none",
+                },
+                {
+                  label: "Address",
+                  value: data?.agent?.working_region || "none",
+                },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -133,47 +147,40 @@ const AgentProfile = () => {
       </div>
 
       {/* agent players */}
-      <div className="w-full max-w-[1518px] p-5 min-h-[785px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
+      <div className="w-full max-w-[1518px] p-5 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2]">
         <div className="text-white text-xl sm:text-2xl md:text-[26px] font-bold font-['Montserrat']">
-          Players Added to the FIFA Website
+          Players Contracted with the Agent
         </div>
-        <div className="flex flex-wrap justify-around gap-5 mt-5">
-          {Array(15)
-            .fill(null)
-            .map((_, index) => (
-              <PlayersCard
-                key={index}
-                player={{
-                  id: `${index + 1}`,
-                  name: `Player ${index + 1}`,
-                  image: `https://via.placeholder.com/150?text=Player+${
-                    index + 1
-                  }`,
-                  position: "CF",
-                  age: 25,
-                  main_position: "CF",
-                  user: { id: `${index + 1}`, name: `User ${index + 1}` },
-                }}
-              />
-            ))}
+        <div className="flex flex-wrap justify-center gap-5 mt-5">
+          {data?.agent?.players && data.agent.players.length > 0 ? (
+            data.agent.players.map((player, index) => (
+              <PlayersCard key={player.id || index} player={player} />
+            ))
+          ) : (
+            <span className="text-white text-lg">
+              No players contracted with the agent
+            </span>
+          )}
         </div>
       </div>
 
       {/* agent card */}
       <div className="w-full max-w-[1518px] h-auto bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4 md:p-6">
         <div className="text-white text-xl sm:text-2xl md:text-[26px] font-bold font-['Montserrat'] mb-4">
-          Players Added to the FIFA Website
+          Agent Cards
         </div>
-        <div className="flex flex-col md:flex-row justify-start items-center gap-4 md:gap-10">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-10">
+          {data?.agent?.fifa_certificate === 1 && (
+            <img
+              className="w-full md:w-1/2 h-auto max-h-[430px] rounded-[30px] shadow-[0px_1px_4px_0px_rgba(255,255,255,0.05)] object-cover"
+              src="/images/agent/fifaCard.png"
+              alt="Player 2"
+            />
+          )}
           <img
-            className="w-full md:w-1/2 h-auto max-h-[430px] rounded-[30px] shadow-[0px_1px_4px_0px_rgba(255,255,255,0.05)] border border-[#d9d9d9] object-cover"
-            src="https://placehold.co/691x430"
+            className="w-full md:w-1/2 h-auto max-h-[430px] rounded-[30px] shadow-[0px_1px_4px_0px_rgba(255,255,255,0.05)] object-cover"
+            src="/images/agent/minutesCard.png"
             alt="Player 1"
-          />
-          <img
-            className="w-full md:w-1/2 h-auto max-h-[430px] rounded-[30px] shadow-[0px_1px_4px_0px_rgba(255,255,255,0.05)] border border-[#d9d9d9] object-cover"
-            src="https://placehold.co/691x430"
-            alt="Player 2"
           />
         </div>
       </div>

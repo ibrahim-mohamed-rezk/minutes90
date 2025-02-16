@@ -5,25 +5,44 @@ import AgentCard from "./AgentCard";
 import PagiationSection from "../PagiationSection";
 import { useState } from "react";
 
+interface agentItem {
+  id: string;
+  name: string;
+  country: string;
+  agent_code: string;
+  playersAdded: number;
+  playersWithClubs: number;
+  fifa_certificate: number;
+  user: {
+    image: string;
+    name: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    role: string;
+  };
+}
+
 const AgentsPagination = () => {
-  const { players } = useAppSelector((state) => state.players.playersData);
+  const { agents } = useAppSelector((state) => state.agent.agentData);
   const [currentPage, setCurrentPage] = useState(
-    players?.pagination?.current_page || 1
+    agents?.pagination?.current_page || 1
   );
 
-  console.log(players);
+  console.log(agents);
   return (
     <div className="w-full flex flex-col items-center justify-center gap-[200px] ">
       <div className="w-full bg-[var(--color-background)] p-4 rounded-lg flex items-center justify-center flex-wrap gap-[20px] mt-[44px]">
-        {players?.items.map((player: { id: string }) => (
-          <AgentCard key={player.id} />
+        {agents?.items?.map((agent: agentItem) => (
+          <AgentCard key={agent.id} agent={agent} />
         ))}
       </div>
       <PagiationSection
         startPage={1}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        endPage={players?.pagination?.last_page}
+        endPage={agents?.pagination?.last_page}
       />
     </div>
   );

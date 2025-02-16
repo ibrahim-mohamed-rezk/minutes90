@@ -52,7 +52,6 @@ const PlayerMainInfo = () => {
     image: null,
   });
 
-  console.log(mainInfo);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

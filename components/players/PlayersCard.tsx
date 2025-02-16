@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 
 const PlayersCard = ({
@@ -15,11 +17,40 @@ const PlayersCard = ({
       id: string;
       name: string;
     };
+    country?: {
+      name: string;
+      id: number;
+    };
   };
   className?: string;
 }) => {
-  "use client";
   const router = useRouter();
+
+  const playerNumber = () => {
+    switch (player.main_position) {
+      case "gk":
+        return 1;
+      case "lb":
+        return 2;
+      case "cb":
+        return 3;
+      case "rb":
+        return 4;
+      case "dm":
+        return 5;
+      case "cm":
+        return 6;
+      case "rw":
+        return 7;
+      case "lw":
+        return 8;
+      case "cf":
+        return 9;
+      default:
+        return 0;
+    }
+  };
+
   return (
     <div
       onClick={() => router.push(`/profile/user/player/${player.id}`)}
@@ -105,7 +136,7 @@ const PlayersCard = ({
                 alt="flag"
                 className="w-[31px] h-[19px]"
               />
-              EGYPT
+              {player?.country?.name}
             </div>
           </div>
 
@@ -123,7 +154,7 @@ const PlayersCard = ({
           <div className="absolute bottom-0 z-20 w-full p-5 flex flex-col">
             {/* player number */}
             <div className=" w-full pb-[10px] pe-[5px] flex items-center justify-end text-center text-white text-3xl font-black font-['Montserrat']">
-              11
+              {playerNumber()}
             </div>
 
             <div className="flex items-center justify-between w-full">

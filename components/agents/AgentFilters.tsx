@@ -1,24 +1,24 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { PlayerFilters } from "@/libs/helpers/PlayerFilters";
 import FilterDropDown from "../filterComponents/FilterDropDown";
 import FilterCollapse from "../filterComponents/FilterCollapse";
+import { setAgentData } from "@/libs/store/slices/agentSlice";
+import { useAppDispatch } from "@/libs/store/hooks";
+import { agentFilters } from "@/libs/helpers/agetFilters";
+import { postApi } from "@/libs/axios/backendServer";
 
 const AgentsFilters = () => {
   const [filters, setFilters] = useState({
-    position: "",
+    fifa_certificate: "",
+    license_expire: "",
+    working_region: "",
     country_id: "",
-    height_min: "",
-    height_max: "",
-    weight_min: "",
-    weight_max: "",
-    age_min: "",
-    age_max: "",
   });
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   const handleFilterChange = (target: { name: string; value: string }) => {
     setFilters({
@@ -38,24 +38,24 @@ const AgentsFilters = () => {
   };
 
   //  API CALL based on filters
-  //   useEffect(() => {
-  //     postApi(
-  //       "filter",
-  //       {
-  //         ...filters,
-  //       },
-  //       {
-  //         Authorization:
-  //           "Bearer 25|Zk0e6nq20pZlSxavKXRW92CyRjF2X6i5iD8iC9dE8253f8ee",
-  //       }
-  //     )
-  //       .then((res) => {
-  //         dispatch(setPlayersData(res.data));
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }, [filters]);
+  useEffect(() => {
+    postApi(
+      "filter-agents",
+      {
+        ...filters,
+      },
+      {
+        Authorization:
+          "Bearer 25|Zk0e6nq20pZlSxavKXRW92CyRjF2X6i5iD8iC9dE8253f8ee",
+      }
+    )
+      .then((res) => {
+        dispatch(setAgentData(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [filters]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -64,7 +64,7 @@ const AgentsFilters = () => {
     };
   }, []);
 
-  //   console.log(filters);
+  console.log(filters);
 
   return (
     <div className="w-full max-w-[1720px] h-[74px] flex flex-col justify-start items-center gap-7 pt-[40px] px-[10px] ">
@@ -115,7 +115,7 @@ const AgentsFilters = () => {
 
         {/* Desktop Filters Menu */}
         <div className={` justify-end items-center gap-[8px] hidden xl:flex `}>
-          {PlayerFilters.map((item, index) => (
+          {agentFilters.map((item, index) => (
             <FilterDropDown
               key={index}
               item={item}
@@ -150,7 +150,7 @@ const AgentsFilters = () => {
               ></path>
             </svg>
           </div>
-          {PlayerFilters.map((item, index) => (
+          {agentFilters.map((item, index) => (
             <FilterCollapse
               key={index}
               item={item}

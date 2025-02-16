@@ -4,7 +4,7 @@ interface FilterCollapseProps {
   item: {
     label: string;
     name: string;
-    options?: Array<{ label: string; value: string }>;
+    options?: string[];
   };
   handleFilterChange: (filter: { name: string; value: string }) => void;
   filters: Record<string, string>;
@@ -29,7 +29,7 @@ const FilterCollapse = ({
       >
         <div>{item.label}</div>
         <div className="flex gap-[10px] items-center justify-center">
-          {filters[item.name] === "" ? "All" : filters[item.name]}{" "}
+          {filters[item.name] === "" ? "All" : filters[item.name]}
           <svg
             className={`${
               !isCollapsed ? "rotate-180" : ""
@@ -62,18 +62,18 @@ const FilterCollapse = ({
           >
             All
           </div>
-          {item.options?.map((option: { label: string; value: string }) => (
+          {item.options?.map((option: string | boolean) => (
             <div
               className="text-white hover:bg-[#5a5a5a] border-b border-[#71717471] w-full last:border-none text-center py-[8px] cursor-pointer"
               onClick={() =>
                 handleFilterChange({
                   name: item.name,
-                  value: option.value,
+                  value: option as string,
                 })
               }
-              key={option.value}
+              key={option as string}
             >
-              {option.label}
+              {option === true ? "Yes" : option === false ? "No" : option}
             </div>
           ))}
         </div>

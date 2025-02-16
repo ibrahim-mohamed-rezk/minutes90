@@ -1,9 +1,11 @@
-import React from 'react'
+import Agent from "@/components/profile/userProfile/Agent";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div className="container mx-auto">
+      <Agent />
+    </div>
+  );
+};
 
-export default page
+export default page;

@@ -44,18 +44,18 @@ const FilterDropDown = ({
             >
               All
             </div>
-            {item.options?.map((option: string) => (
+            {item.options?.map((option: string | boolean) => (
               <div
                 className=" text-white hover:bg-[#5a5a5a] border-b border-[#71717471] w-full last:border-none text-center py-[8px] cursor-pointer"
                 onClick={() =>
                   handleFilterChange({
                     name: item.name,
-                    value: option,
+                    value: option as string,
                   })
                 }
-                key={option}
+                key={option as string}
               >
-                {option}
+                {option === true ? "Yes" : option === false ? "No" : option}
               </div>
             ))}
           </div>
