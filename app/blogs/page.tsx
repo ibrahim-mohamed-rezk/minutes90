@@ -1,10 +1,11 @@
+import Blogs from "@/components/blogs/Blogs";
 
 const page = () => {
   return (
-    <div className="flex items-center justify-center h-screen text-2xl font-bold">
-      Coming Soon
+    <div className="container mx-auto pt-[48px] ">
+      <Blogs />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

@@ -1,4 +1,9 @@
 const Settings = () => {
+  const signOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="text-white text-[25px] font-extrabold font-['Montserrat']">
@@ -22,6 +27,12 @@ const Settings = () => {
               </select>
             </div>
           </div>
+          <button
+            className="w-[117px] mt-5 h-[43px] px-[13px] py-2.5 bg-[#d93044] rounded-xl text-white text-sm font-bold font-['Montserrat']"
+            onClick={() => signOut()}
+          >
+            Log Out
+          </button>
         </div>
       </div>
     </div>

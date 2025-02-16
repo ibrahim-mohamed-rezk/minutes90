@@ -13,7 +13,7 @@ import Settings from "./settingPages/Settings";
 
 const PlayerProfileSettings = () => {
   const [currentOppendSetting, seTCurrentOppendSetting] =
-    useState("Main Information");
+    useState("Settings");
   return (
     <div className="flex flex-col md:flex-row w-full items-start justify-start gap-[30px] pt-[48px]">
       {/* left side */}

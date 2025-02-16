@@ -39,27 +39,23 @@ interface PlayerProfileData {
     second_position: string;
     primary_foot: string;
 
-    injuries: [
-      {
-        injury_type: string;
-        injury_severity: string;
-        recovery_time: string;
-        returned_to_play: boolean;
-        number_of_injuries: number;
-      }
-    ];
+    injuries: {
+      injury_type: string;
+      injury_severity: string;
+      recovery_time: string;
+      returned_to_play: boolean;
+      number_of_injuries: number;
+    };
 
-    skills: [
-      {
-        endurance_90_min: number;
-        heading_accuracy: number;
-        passing_accuracy: number;
-        physical_fitness: number;
-        shooting_power: number;
-        sprint_speed: number;
-        tactical_awareness: number;
-      }
-    ];
+    skills: {
+      endurance_90_min: number;
+      heading_accuracy: number;
+      passing_accuracy: number;
+      physical_fitness: number;
+      shooting_power: number;
+      sprint_speed: number;
+      tactical_awareness: number;
+    };
 
     achievement: {
       age: number;
@@ -154,7 +150,6 @@ const PlayerProfile = () => {
       return "";
     }
   };
-
 
   return (
     <div className="flex flex-col pt-[48px] md:flex-row w-full items-start justify-start gap-[30px] p-[10px]">
@@ -397,15 +392,15 @@ const PlayerProfile = () => {
                 {[
                   {
                     label: "Number of injuries during the season:",
-                    value: data?.player?.injuries[0]?.number_of_injuries || 0,
+                    value: data?.player?.injuries?.number_of_injuries || 0,
                   },
                   {
                     label: "Type of injury:",
-                    value: data?.player?.injuries[0]?.injury_type || "N/A",
+                    value: data?.player?.injuries?.injury_type || "N/A",
                   },
                   {
                     label: "Recovery period:",
-                    value: data?.player?.injuries[0]?.recovery_time || "N/A",
+                    value: data?.player?.injuries?.recovery_time || "N/A",
                   },
                 ].map((item, index) => (
                   <div
@@ -460,49 +455,47 @@ const PlayerProfile = () => {
                 {
                   label: "Headshot accuracy",
                   value: getSkillLevelName(
-                    data?.player?.skills[0]?.heading_accuracy
+                    data?.player?.skills?.heading_accuracy
                   ),
                 },
                 {
                   label:
                     "Accuracy of short, long and cross passes depending on the player's positions",
                   value: getSkillLevelName(
-                    data?.player?.skills[0]?.passing_accuracy
+                    data?.player?.skills?.passing_accuracy
                   ),
                 },
                 {
                   label:
                     "Accuracy and power of direct shooting and various kicks",
                   value: getSkillLevelName(
-                    data?.player?.skills[0]?.shooting_power
+                    data?.player?.skills?.shooting_power
                   ),
                 },
                 {
                   label:
                     "The extent of mastery of basic playing skills according to changing playing situations",
                   value: getSkillLevelName(
-                    data?.player?.skills[0]?.tactical_awareness
+                    data?.player?.skills?.tactical_awareness
                   ),
                 },
                 {
                   label: "The extent of mastery of basic physical skills",
                   value: getSkillLevelName(
-                    data?.player?.skills[0]?.physical_fitness
+                    data?.player?.skills?.physical_fitness
                   ),
                 },
                 {
                   label:
                     "The extent of mastery of the player's endurance for 90 minutes",
                   value: getSkillLevelName(
-                    data?.player?.skills[0]?.endurance_90_min
+                    data?.player?.skills?.endurance_90_min
                   ),
                 },
                 {
                   label:
                     "The extent of mastery of the player's speed and agility",
-                  value: getSkillLevelName(
-                    data?.player?.skills[0]?.sprint_speed
-                  ),
+                  value: getSkillLevelName(data?.player?.skills?.sprint_speed),
                 },
               ].map((item, index) => (
                 <div key={index} className="flex justify-between items-center">
@@ -585,7 +578,8 @@ const PlayerProfile = () => {
                   className={`w-[36.45px] h-[36.45px] absolute  ${
                     data?.player?.main_position?.toUpperCase() === item.pos
                       ? "bg-[#eb4335]"
-                      : data?.player?.second_position?.toUpperCase() === item.pos
+                      : data?.player?.second_position?.toUpperCase() ===
+                        item.pos
                       ? "bg-[#FBBC05]"
                       : "bg-[#239d60] opacity-20"
                   } rounded-full flex items-center justify-center`}

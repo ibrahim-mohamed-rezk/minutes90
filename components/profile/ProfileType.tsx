@@ -8,13 +8,7 @@ const ProfileType = () => {
   const { userData } = useAppSelector((state) => state.user);
   return (
     <div className="container mx-auto">
-      {userData?.role === 1 ? (
-        <AgentProfile />
-      ) : userData?.role === 2 ? (
-        <PlayerProfile />
-      ) : (
-        "Loading..."
-      )}
+      {userData?.agent ? <AgentProfile /> : <PlayerProfile />}
     </div>
   );
 };
