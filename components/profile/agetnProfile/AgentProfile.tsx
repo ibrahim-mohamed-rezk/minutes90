@@ -1,10 +1,12 @@
 "use client";
 
 import PlayersCard from "@/components/players/PlayersCard";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 interface AgentProfileData {
   id: number;
@@ -44,6 +46,7 @@ interface AgentProfileData {
 const AgentProfile = () => {
   const [data, setData] = useState<AgentProfileData | null>(null);
   const token = useAppSelector((state) => state.user.token);
+  const { copyToClipboard } = useCopyToClipboard();
 
   // get player profile data from backend
   useEffect(() => {
@@ -112,8 +115,36 @@ const AgentProfile = () => {
           {/* main info */}
           <div className="w-full p-4 md:p-6 bg-[#1e1f1f] flex flex-col items-stretch justify-center gap-[30px] rounded-[30px] border border-[#f1f1f2]">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-8 gap-8">
+              <div className="flex flex-col justify-start items-start gap-2.5">
+                <div className="text-white text-sm font-normal font-['Montserrat']">
+                  Agent Code :
+                </div>
+                <div className="text-white gap-2 cursor-pointer flex items-center justify-start text-base font-bold font-['Montserrat']">
+                  <span>{data?.agent?.agent_code}</span>
+                  <div
+                    onClick={() => {
+                      copyToClipboard(data?.agent?.agent_code);
+                      toast.success("Link copied to clipboard");
+                    }}
+                    className="flex items-center justify-center gap-1 ml-2"
+                  >
+                    <svg
+                      width={"16"}
+                      height={"16"}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        fill="white"
+                        d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"
+                      />
+                    </svg>
+                    <span className="font-[500] text-[14px]">copy</span>
+                  </div>
+                </div>
+              </div>
+
               {[
-                { label: "Agent Code", value: data?.agent?.agent_code },
                 {
                   label: "License Expiry",
                   value: data?.agent?.license_expire || "none",
