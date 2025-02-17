@@ -82,7 +82,7 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-transparent text-[#878787] p-2 flex-grow"
+                  className="bg-transparent w-full text-[#878787] p-2 flex-grow"
                 />
                 <button className="bg-white text-[#4e4f5d] font-bold py-2 px-4 rounded-[10px]">
                   Subscribe
