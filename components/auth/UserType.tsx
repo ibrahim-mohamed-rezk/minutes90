@@ -1,6 +1,8 @@
 "use client";
 
 import { postApi } from "@/libs/axios/backendServer";
+import { useAppDispatch } from "@/libs/store/hooks";
+import { updateUserData } from "@/libs/store/slices/userSlice";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -13,6 +15,7 @@ interface UserTypeProps {
 const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
   const [userType, setUserType] = useState<"player" | "agent" | null>(null);
   const [agentCode, setAgentCode] = useState("");
+  const dispatch = useAppDispatch();
 
   if (!isOpen) return null;
 
@@ -26,7 +29,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
       return;
     }
     try {
-      await postApi(
+      const res = await postApi(
         "assign-role",
         {
           role: userType,
@@ -42,6 +45,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
         }
       );
       toast.success("Role assigned successfully");
+      dispatch(updateUserData({ user_data: res.data.user_data }));
       onClose();
     } catch (error) {
       toast.error("Error assigning role");
@@ -55,7 +59,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
       return;
     }
     try {
-      await postApi(
+      const res = await postApi(
         "assign-role",
         {
           role: userType,
@@ -66,6 +70,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
         }
       );
       toast.success("Role assigned successfully");
+      dispatch(updateUserData({ user_data: res.data.user_data }));
       onClose();
     } catch (error) {
       toast.error("Error assigning role");
