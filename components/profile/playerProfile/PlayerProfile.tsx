@@ -151,6 +151,11 @@ const PlayerProfile = () => {
     }
   };
 
+  const signOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   return (
     <div className="flex flex-col pt-[48px] md:flex-row w-full items-start justify-start gap-[30px] p-[10px]">
       {/* left side */}
@@ -171,6 +176,13 @@ const PlayerProfile = () => {
         >
           Edit Profile
         </Link>
+
+        <button
+          className="w-full md:w-[80%] mx-auto h-[43px] px-[13px] py-2.5 bg-[#d93044] rounded-xl text-white text-sm font-bold font-['Montserrat']"
+          onClick={() => signOut()}
+        >
+          Log Out
+        </button>
 
         {/* main info */}
         <div className="w-full md:w-[306px] flex flex-col gap-4 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">

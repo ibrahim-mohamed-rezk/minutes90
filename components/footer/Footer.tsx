@@ -173,7 +173,7 @@ const Footer = () => {
               </span>
               <span>2024</span>
             </div>
-            <div>devunity, All rights reserved</div>
+            <div>Minutes90, All rights reserved</div>
           </div>
         </div>
       </div>

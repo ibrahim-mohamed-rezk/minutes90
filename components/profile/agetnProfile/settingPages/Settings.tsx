@@ -48,10 +48,7 @@ const Settings = () => {
     image: undefined,
   });
 
-  const signOut = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
+  
 
   // get countries from backend
   useEffect(() => {
@@ -364,12 +361,7 @@ const Settings = () => {
           >
             Save
           </button>
-          <button
-            className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#d93044] rounded-xl text-white text-sm font-bold font-['Montserrat']"
-            onClick={() => signOut()}
-          >
-            Log Out
-          </button>
+          
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ interface AgentProfileData {
 
 const AgentProfile = () => {
   const [data, setData] = useState<AgentProfileData | null>(null);
-  const token = useAppSelector((state) => state.user.token); 
+  const token = useAppSelector((state) => state.user.token);
 
   // get player profile data from backend
   useEffect(() => {
@@ -63,7 +63,10 @@ const AgentProfile = () => {
     getProfile();
   }, [token]);
 
-  console.log(data);
+  const signOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
 
   return (
     <div className="flex flex-col items-start justify-start gap-[30px] mb-[100px]">
@@ -133,14 +136,20 @@ const AgentProfile = () => {
                 </div>
               ))}
             </div>
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full flex items-center justify-center gap-5">
               {/* edit button */}
               <Link
                 href="/profile/settingsAgent"
-                className="bg-green-500 w-full md:w-[80%] mx-auto text-center text-[18px] font-bold text-white px-4 py-2 rounded-lg"
+                className="bg-green-500 w-[150px] text-center text-[18px] font-bold text-white px-4 py-2 rounded-lg"
               >
                 Edit Profile
               </Link>
+              <button
+                className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#d93044] rounded-xl text-white text-sm font-bold font-['Montserrat']"
+                onClick={() => signOut()}
+              >
+                Log Out
+              </button>
             </div>
           </div>
         </div>
