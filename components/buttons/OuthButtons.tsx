@@ -4,11 +4,15 @@ import { FC } from "react";
 
 interface OAuthButtonsProps {
   onGoogleLogin: () => void;
-  onFacebookLogin: () => void;
+  // onFacebookLogin: () => void;
   loading: boolean;
 }
 
-const OAuthButtons: FC<OAuthButtonsProps> = ({ loading, onGoogleLogin, onFacebookLogin }) => {
+const OAuthButtons: FC<OAuthButtonsProps> = ({
+  loading,
+  onGoogleLogin,
+  // onFacebookLogin,
+}) => {
   return (
     <div className="flex flex-col sm:flex-row items-center gap-[5px] sm:gap-3 ">
       <button
@@ -46,7 +50,7 @@ const OAuthButtons: FC<OAuthButtonsProps> = ({ loading, onGoogleLogin, onFaceboo
           Google
         </span>
       </button>
-      <span className="text-[#239d60] text-xs sm:text-sm my-2 sm:my-0">or</span>
+      {/* <span className="text-[#239d60] text-xs sm:text-sm my-2 sm:my-0">or</span>
       <button
         onClick={onFacebookLogin}
         className="w-full sm:flex-1 py-3 px-4 bg-[#e9f1ff] rounded-lg flex items-center justify-center gap-2 hover:bg-[#dce6fa] transition"
@@ -88,7 +92,7 @@ const OAuthButtons: FC<OAuthButtonsProps> = ({ loading, onGoogleLogin, onFaceboo
         <span className="text-[#4285f4] text-xs sm:text-sm font-normal font-['Poppins']">
           Facebook
         </span>
-      </button>
+      </button> */}
     </div>
   );
 };

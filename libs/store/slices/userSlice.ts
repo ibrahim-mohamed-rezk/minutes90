@@ -28,12 +28,17 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
     },
 
+    setuserDataFromGoogle: (state, action) => {
+      state.userData = action.payload.data;
+      state.token = action.payload.token;
+    },
+
     setToken: (state, action) => {
       state.token = action.payload;
     },
     updateUserData: (state, action) => {
       state.userData = action.payload.user_data;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(autoLogin.fulfilled, (state, action) => {
@@ -43,5 +48,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setuserData, setToken, updateUserData } = userSlice.actions;
+export const { setuserData, setToken, updateUserData, setuserDataFromGoogle } =
+  userSlice.actions;
 export default userSlice.reducer;

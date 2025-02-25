@@ -1,8 +1,8 @@
 "use client";
 
+import { Link } from "@/i18n/routing";
 import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface PlayerProfileData {

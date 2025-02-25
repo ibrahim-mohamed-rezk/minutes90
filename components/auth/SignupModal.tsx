@@ -3,11 +3,13 @@
 import { useState, FormEvent, useEffect } from "react";
 import OAuthButtons from "../buttons/OuthButtons";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
-import { useRouter } from "next/navigation";
 import { getApi, postApi } from "@/libs/axios/backendServer";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@/libs/store/hooks";
-import { setuserData } from "@/libs/store/slices/userSlice";
+import {
+  setuserData,
+  setuserDataFromGoogle,
+} from "@/libs/store/slices/userSlice";
 
 interface SignupModalProps {
   isOpen: boolean;
@@ -22,7 +24,6 @@ const SignupModal = ({
   onOpenLoginModal,
   onOpenUserTypeModal,
 }: SignupModalProps) => {
-  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -33,8 +34,10 @@ const SignupModal = ({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [country_id, setCountry_id] = useState("1");
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [governorates, setGovernorates] = useState([]);
-  const [countries, setCountries] = useState<{ id: string; name: string }[]>([]);
+  // const [governorates, setGovernorates] = useState([]);
+  const [countries, setCountries] = useState<{ id: string; name: string }[]>(
+    []
+  );
   const { login: googleLogin, loading } = useGoogleLogin();
   const slides = [
     "/images/signup/signupBg1.png",
@@ -66,18 +69,18 @@ const SignupModal = ({
   }, []);
 
   // get governorate
-  useEffect(() => {
-    const fetchGovernorates = async () => {
-      try {
-        const response = await getApi(`countries/${country_id}`);
-        setGovernorates(response.data?.country?.governorates);
-        setGovernorate(response.data?.country?.governorates[0]?.id);
-      } catch (error) {
-        console.error("Error fetching governorates:", error);
-      }
-    };
-    fetchGovernorates();
-  }, [country_id]);
+  // useEffect(() => {
+  //   const fetchGovernorates = async () => {
+  //     try {
+  //       const response = await getApi(`countries/${country_id}`);
+  //       setGovernorates(response.data?.country?.governorates);
+  //       setGovernorate(response.data?.country?.governorates[0]?.id);
+  //     } catch (error) {
+  //       console.error("Error fetching governorates:", error);
+  //     }
+  //   };
+  //   fetchGovernorates();
+  // }, [country_id]);
 
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
@@ -91,7 +94,7 @@ const SignupModal = ({
 
     try {
       // Implement signup logic
-      const response =await postApi("register", {
+      const response = await postApi("register", {
         name: fullName,
         phone,
         email,
@@ -101,8 +104,6 @@ const SignupModal = ({
         country_id,
       });
 
-
-
       // Reset form fields
       setFullName("");
       setPhone("");
@@ -111,10 +112,14 @@ const SignupModal = ({
       setPassword("");
       setConfirmPassword("");
 
-      dispatch(setuserData({ user_data: response.data.user_data, token: response.data.token }));
+      dispatch(
+        setuserData({
+          user_data: response.data.user_data,
+          token: response.data.token,
+        })
+      );
       localStorage.setItem("token", response.data.token);
       onOpenUserTypeModal();
-
 
       toast.success("Account created successfully!"); // Notify success
       onClose();
@@ -129,19 +134,25 @@ const SignupModal = ({
       const { user, token } = await googleLogin();
       console.log(user, token);
 
-      onClose();
-      router.push("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      const response = await postApi("login/google", {
+        device_token: token,
+        email: user.email,
+        displayName: user.displayName,
+        id: user.uid,
+      });
 
-  const handleFacebookLogin = async () => {
-    try {
-      // TODO: Implement Facebook OAuth login
-      console.log("Facebook login clicked");
+      dispatch(
+        setuserDataFromGoogle({
+          user_data: response.data.user_data,
+          token: response.data.token,
+        })
+      );
+      localStorage.setItem("token", response.data.token);
+      onOpenUserTypeModal();
+
+      toast.success("Account created successfully!"); // Notify success
+      onClose();
     } catch (err) {
-      console.log("Facebook login failed");
       console.log(err);
     }
   };
@@ -231,11 +242,7 @@ const SignupModal = ({
               </div>
             </div>
 
-            <OAuthButtons
-              loading={loading}
-              onGoogleLogin={handleGoogleLogin}
-              onFacebookLogin={handleFacebookLogin}
-            />
+            <OAuthButtons loading={loading} onGoogleLogin={handleGoogleLogin} />
 
             {/* Signup form */}
             <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
@@ -293,7 +300,7 @@ const SignupModal = ({
                 </select>
               </div>
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <label className="block text-sm font-medium">Governorate</label>
                 <select
                   value={governorate}
@@ -309,7 +316,7 @@ const SignupModal = ({
                     )
                   )}
                 </select>
-              </div>
+              </div> */}
 
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Password</label>

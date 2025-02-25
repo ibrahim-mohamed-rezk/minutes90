@@ -2,9 +2,9 @@
 
 import PlayersCard from "@/components/players/PlayersCard";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import { Link } from "@/i18n/routing";
 import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 

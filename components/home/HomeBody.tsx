@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import PlayersSwiper from "./PlayersSwiper";
 import { getApi } from "@/libs/axios/backendServer";
-import { useAppSelector } from "@/libs/store/hooks";
+import { useTranslations } from "next-intl";
 
 interface PlayersCategory {
   under_18_players: {
@@ -45,20 +45,15 @@ interface PlayersCategory {
 }
 
 const HomeBody = () => {
-  const token = useAppSelector((state) => state.user.token);
   const [PlayersCatigory, setPlayersCatigory] =
     useState<PlayersCategory | null>(null);
+
+  const t = useTranslations("HomePage");
 
   useEffect(() => {
     const homeData = async () => {
       try {
-        const res = await getApi(
-          "/home",
-          {},
-          {
-            Authorization: `Bearer ${token}`,
-          }
-        );
+        const res = await getApi("/home", {});
         setPlayersCatigory(res.data);
       } catch (error) {
         console.log(error);
@@ -66,7 +61,7 @@ const HomeBody = () => {
     };
 
     homeData();
-  }, [token]);
+  }, []);
 
   console.log(PlayersCatigory);
 
@@ -80,8 +75,8 @@ const HomeBody = () => {
 
       <PlayersSwiper
         players={PlayersCatigory?.under_18_players?.items || []}
-        title="Discover players in your geographic area"
-        subtitle="Under 18 years"
+        title={t("Discover_players")}
+        subtitle={t("under_18")}
         swiperIndex={0}
         seeAllLink="/players"
       />
@@ -91,8 +86,8 @@ const HomeBody = () => {
       {PlayersCatigory?.players_in_user_country && (
         <PlayersSwiper
           players={PlayersCatigory?.players_in_user_country?.items || []}
-          title="Most popular"
-          subtitle="Most followed players"
+          title={t("popular")}
+          subtitle={t("most_followed")}
           swiperIndex={1}
           seeAllLink="/players"
         />
@@ -102,8 +97,8 @@ const HomeBody = () => {
 
       <PlayersSwiper
         players={PlayersCatigory?.amateur_players?.items || []}
-        title="Most popular"
-        subtitle="Most followed players"
+        title={t("popular")}
+        subtitle={t("most_followed")}
         swiperIndex={1}
         seeAllLink="/players"
       />
@@ -112,8 +107,8 @@ const HomeBody = () => {
 
       <PlayersSwiper
         players={PlayersCatigory?.professional_players?.items || []}
-        title="Most popular"
-        subtitle="Most followed players"
+        title={t("popular")}
+        subtitle={t("most_followed")}
         swiperIndex={1}
         seeAllLink="/players"
       />

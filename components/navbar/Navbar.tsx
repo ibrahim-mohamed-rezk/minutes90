@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import LoginModal from "../auth/LoginModal";
 import { usePathname } from "next/navigation";
@@ -9,6 +8,7 @@ import SignupModal from "../auth/SignupModal";
 import ForgetPassword from "../auth/ForgetPassword";
 import { useAppSelector } from "@/libs/store/hooks";
 import UserType from "../auth/UserType";
+import { Link } from "@/i18n/routing";
 
 const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -210,7 +210,7 @@ const Navbar = () => {
               <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)}>
                 <div className="flex items-center">
                   <Image
-                   src={userData?.image || "/images/icons/userAvatar.png"}
+                    src={userData?.image || "/images/icons/userAvatar.png"}
                     alt="User Profile"
                     width={40}
                     height={40}

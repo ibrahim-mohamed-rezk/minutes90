@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import PlayersCard from "../players/PlayersCard";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 interface Player {
   id: string;
@@ -49,6 +49,8 @@ const PlayersSwiper = ({
       spaceBetween: 25,
     },
   };
+
+
 
   const NavigationButton = ({ direction }: { direction: "prev" | "next" }) => {
     const isNext = direction === "next";

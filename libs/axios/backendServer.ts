@@ -5,6 +5,13 @@ const backendServer = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    lang:
+      (typeof window !== "undefined" &&
+        document.cookie
+          .split(";")
+          .find((cookie) => cookie.trim().startsWith("NEXT_LOCALE="))
+          ?.split("=")[1]) ||
+      "en",
   },
   timeout: 10000,
 });

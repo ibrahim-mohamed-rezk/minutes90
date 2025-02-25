@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
 import { getApi } from "@/libs/axios/backendServer";
-import { useAppSelector } from "@/libs/store/hooks";
+import { useTranslations } from "next-intl";
 
 interface Banner {
   image: string;
@@ -20,19 +20,12 @@ interface blogs {
 const Header = () => {
   const [banners, setBanners] = useState<Banner[] | null>(null);
   const [blogs, setBlogs] = useState<blogs[] | null>(null);
-  const token = useAppSelector((state) => state.user.token);
 
   // get home data from backend
   useEffect(() => {
     const homeData = async () => {
       try {
-        const res = await getApi(
-          "/home",
-          {},
-          {
-            Authorization: `Bearer ${token}`,
-          }
-        );
+        const res = await getApi("/home", {});
         setBanners(res.data?.banners?.items);
         setBlogs(res.data?.blogs?.items);
       } catch (error) {
@@ -41,7 +34,9 @@ const Header = () => {
     };
 
     homeData();
-  }, [token]);
+  }, []);
+
+  const t = useTranslations("HomePage");
 
   if (!banners || !blogs) {
     return null;
@@ -50,7 +45,7 @@ const Header = () => {
   return (
     <div className="flex flex-col lg:flex-row justify-start items-start gap-5 lg:gap-10 p-4">
       {/* Player of the Year Card */}
-      <div className="w-full lg:w-[439px] h-[500px] lg:h-[575px] relative bg-white rounded-[25px] border-2 border-white overflow-hidden">
+      <div className="w-full hidden lg:block lg:w-[439px] h-[500px] lg:h-[575px] relative bg-white rounded-[25px] border-2 border-white overflow-hidden">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           className="h-full horizontal-swiper"
@@ -129,8 +124,7 @@ const Header = () => {
                     className="w-16 md:w-auto"
                   />
                   <p className="text-white text-lg md:text-[26px] font-black font-['Montserrat'] max-w-full md:max-w-[707px]">
-                    Barcelona legend Patrick Kluivert appointed new Indonesia
-                    manager
+                    {t("news")}
                   </p>
                 </div>
               </div>

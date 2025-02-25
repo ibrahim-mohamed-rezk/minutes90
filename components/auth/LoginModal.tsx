@@ -7,7 +7,7 @@ import OAuthButtons from "../buttons/OuthButtons";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@/libs/store/hooks";
-import { setuserData } from "@/libs/store/slices/userSlice";
+import { setuserData, setuserDataFromGoogle } from "@/libs/store/slices/userSlice";
 
 export default function LoginModal({
   isOpen,
@@ -74,12 +74,16 @@ export default function LoginModal({
       console.log(user, token);
 
       // Send token to backend to verify and get JWT
-      // const response = await backendServer.post("/auth/google", {
-      //   token
-      // });
+      const response = await postApi("login/google", {
+        device_token: token,
+        email: user.email,
+        displayName: user.displayName,
+        id: user.uid,
+      });
 
-      // Store JWT token
-      // localStorage.setItem("token", response.data.token);
+      // Store token
+      localStorage.setItem("token", response.data.token);
+      dispatch(setuserDataFromGoogle(response.data));
 
       // Close modal and redirect
       onClose();
@@ -91,10 +95,10 @@ export default function LoginModal({
     }
   };
 
-  const handleFacebookLogin = () => {
-    // Implement Facebook OAuth login
-    console.log("Facebook login clicked");
-  };
+  // const handleFacebookLogin = () => {
+  //   // Implement Facebook OAuth login
+  //   console.log("Facebook login clicked");
+  // };
 
   if (!isOpen) return null;
 
@@ -182,7 +186,7 @@ export default function LoginModal({
             <OAuthButtons
               loading={loading}
               onGoogleLogin={handleGoogleLogin}
-              onFacebookLogin={handleFacebookLogin}
+              // onFacebookLogin={handleFacebookLogin}
             />
 
             {/* Login form */}
