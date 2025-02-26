@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "@/libs/store/hooks";
 import { postApi } from "@/libs/axios/backendServer";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 
 const PlayerInjury = () => {
   const [injuryType, setInjuryType] = useState("muscle");

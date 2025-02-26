@@ -95,17 +95,17 @@ const Header = () => {
             bulletActiveClass: "custom-bullet-active",
           }}
           autoplay={{
-            delay: 3000,
+            delay: 10000,
             disableOnInteraction: false,
           }}
           loop={true}
         >
           {banners.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="w-full h-full relative">
+              <div className="w-full h-full  relative">
                 <img
                   src={item.image}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                   alt="News thumbnail"
                 />
                 <div

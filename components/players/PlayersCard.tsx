@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
+
 
 const PlayersCard = ({
   player,
@@ -157,10 +158,10 @@ const PlayersCard = ({
               {playerNumber()}
             </div>
 
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-center w-full">
               {/* Player name */}
               <div className="flex flex-col max-w-[55px]">
-                <div className="text-white text-[10px] font-bold font-['Montserrat']">
+                <div className="text-white text-[15px] text-nowrap font-bold font-['Montserrat']">
                   {player?.user?.name}
                 </div>
                 <div className="flex items-center flex-col text-white justify-start gap-[2px] mt-[10px]">
@@ -169,7 +170,7 @@ const PlayersCard = ({
               </div>
 
               {/* Player description */}
-              <div>
+              {/* <div>
                 <p className="text-white text-[4px] font-medium font-['Montserrat'] max-w-[63px]">
                   Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
                   diam nonummy nibh euismod tincidunt ut laoreet dolore magna
@@ -177,10 +178,10 @@ const PlayersCard = ({
                   nostrud exerci tation ullamcorper suscipit lobortis nisl ut
                   aliquip
                 </p>
-              </div>
+              </div> */}
 
               {/* Titles */}
-              <div className="flex flex-col max-w-[64px] gap-[5px]">
+              {/* <div className="flex flex-col max-w-[64px] gap-[5px]">
                 {[...Array(3)].map((_, i) => (
                   <div key={i} className=" gap-[3px] flex flex-col w-full">
                     <span className="text-white text-[4px] font-black font-['Montserrat']">
@@ -191,7 +192,7 @@ const PlayersCard = ({
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

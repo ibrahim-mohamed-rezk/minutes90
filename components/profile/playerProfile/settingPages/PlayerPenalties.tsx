@@ -1,6 +1,6 @@
 import { postApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
