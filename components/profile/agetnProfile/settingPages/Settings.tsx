@@ -1,8 +1,8 @@
 "use client";
 
+import { useRouter } from "@/i18n/routing";
 import { getApi, postApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 

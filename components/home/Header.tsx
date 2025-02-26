@@ -7,7 +7,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
 import { getApi } from "@/libs/axios/backendServer";
-import { useTranslations } from "next-intl";
 
 interface Banner {
   image: string;
@@ -36,14 +35,12 @@ const Header = () => {
     homeData();
   }, []);
 
-  const t = useTranslations("HomePage");
-
   if (!banners || !blogs) {
     return null;
   }
 
   return (
-    <div className="flex flex-col lg:flex-row justify-start items-start gap-5 lg:gap-10 p-4">
+    <div className="flex flex-col lg:flex-row justify-start items-start gap-5 lg:gap-10 p-2 lg:p-4">
       {/* Player of the Year Card */}
       <div className="w-full hidden lg:block lg:w-[439px] h-[500px] lg:h-[575px] relative bg-white rounded-[25px] border-2 border-white overflow-hidden">
         <Swiper
@@ -81,7 +78,7 @@ const Header = () => {
       </div>
 
       {/* News Section */}
-      <div className="w-full lg:w-[1041px] h-[400px] lg:h-[575px] relative rounded-[25px] overflow-hidden">
+      <div className="w-full lg:w-[1041px] h-[200px] md:h-[400px] lg:h-[575px] relative rounded-[25px] overflow-hidden">
         <Swiper
           direction={"vertical"}
           modules={[Navigation, Pagination, Autoplay]}
@@ -118,14 +115,14 @@ const Header = () => {
                       "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)",
                   }}
                 >
-                  <img
+                  {/* <img
                     src="/images/home/newsLogo.png"
                     alt="News Logo"
                     className="w-16 md:w-auto"
                   />
                   <p className="text-white text-lg md:text-[26px] font-black font-['Montserrat'] max-w-full md:max-w-[707px]">
                     {t("news")}
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </SwiperSlide>
