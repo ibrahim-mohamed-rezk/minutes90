@@ -73,7 +73,7 @@ const Agent = () => {
           {/* user image */}
           <div className="w-full h-[306px] bg-white rounded-[30px] shadow-lg p-[10px]">
             <img
-              className="w-full h-full rounded-[30px] object-cover"
+              className="w-full h-full rounded-[30px]"
               src={data?.user?.image || "/images/icons/userAvatar.png"}
               alt="user image"
             />
