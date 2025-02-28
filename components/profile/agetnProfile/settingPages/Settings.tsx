@@ -7,16 +7,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 interface AgentData {
-  first_name: string;
-  last_name: string;
-  name: string;
-  email: string;
-  phone: string;
-  country_id: string;
-  governorate_id: string;
-  working_region: string;
-  fifa_certificate: string;
-  license_expire: string;
+  first_name: string | undefined;
+  last_name: string | undefined;
+  name: string | undefined;
+  email: string | undefined;
+  phone: string | undefined;
+  country_id: string | undefined;
+  fifa_certificate: string | undefined;
+  license_expire: string | undefined;
   image?: File | undefined;
   [key: string]: string | File | undefined;
 }
@@ -27,28 +25,20 @@ const Settings = () => {
     [{ id: string; name: string }] | null
   >(null);
 
-  const [governorates, setGovernorates] = useState<
-    [{ id: string; name: string }] | null
-  >(null);
-
   const token = useAppSelector((state) => state.user.token);
   const router = useRouter();
 
   const [userData, setUserData] = useState<AgentData>({
-    first_name: "",
-    last_name: "",
-    name: "",
-    email: "",
-    phone: "",
-    country_id: "",
-    governorate_id: "",
-    working_region: "",
-    fifa_certificate: "",
-    license_expire: "",
+    first_name: undefined,
+    last_name: undefined,
+    name: undefined,
+    email: undefined,
+    phone: undefined,
+    country_id: undefined,
+    fifa_certificate: undefined,
+    license_expire: undefined,
     image: undefined,
   });
-
-  
 
   // get countries from backend
   useEffect(() => {
@@ -67,24 +57,6 @@ const Settings = () => {
 
     fetchCountries();
   }, []);
-
-  // get governorates from backend based on country id
-  useEffect(() => {
-    const fetchGovernorates = async () => {
-      try {
-        const response = await getApi(`countries/${userData.country_id}`);
-        setGovernorates(response.data?.country?.governorates);
-        setUserData((prevUserData) => ({
-          ...prevUserData,
-          governorate_id: response.data?.country?.governorates[0]?.id,
-        }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchGovernorates();
-  }, [userData.country_id]);
 
   // get profile from backend
   useEffect(() => {
@@ -202,7 +174,6 @@ const Settings = () => {
                 { label: "Name", name: "name" },
                 { label: "Email", name: "email" },
                 { label: "Phone", name: "phone" },
-                { label: "Working Region", name: "working_region" },
               ].map((label, index) => (
                 <div key={index} className="flex flex-col space-y-2">
                   <label className="text-white text-xs font-normal font-['Poppins']">
@@ -299,34 +270,6 @@ const Settings = () => {
                   ))}
                 </select>
               </div>
-
-              {/* governorate */}
-              <div className="flex flex-col gap-2">
-                <label className="text-white text-xs font-normal font-['Poppins']">
-                  Governorate
-                </label>
-                <select
-                  className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
-                  name="governorate_id"
-                  value={userData.governorate_id}
-                  onChange={(e) => {
-                    setUserData({
-                      ...userData,
-                      governorate_id: e.target.value,
-                    });
-                  }}
-                >
-                  {governorates?.map((governorate) => (
-                    <option
-                      className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
-                      key={governorate.id}
-                      value={governorate.id}
-                    >
-                      {governorate.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
           </div>
         </div>
@@ -361,7 +304,6 @@ const Settings = () => {
           >
             Save
           </button>
-          
         </div>
       </div>
     </div>
