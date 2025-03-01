@@ -174,6 +174,7 @@ const Settings = () => {
                 { label: "Name", name: "name" },
                 { label: "Email", name: "email" },
                 { label: "Phone", name: "phone" },
+                { label: "Working Region", name: "working_region" },
               ].map((label, index) => (
                 <div key={index} className="flex flex-col space-y-2">
                   <label className="text-white text-xs font-normal font-['Poppins']">
