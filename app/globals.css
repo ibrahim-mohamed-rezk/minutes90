@@ -12,7 +12,6 @@
 /* roboto */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-
 /* tailwind */
 @tailwind base;
 @tailwind components;
@@ -51,4 +50,12 @@ select {
 
 .hide-scroll::-webkit-scrollbar {
   display: none; /* لإخفاء التمرير في Chrome و Safari */
+}
+
+.rotate-x-180 {
+  transform: rotateX(180deg);
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }

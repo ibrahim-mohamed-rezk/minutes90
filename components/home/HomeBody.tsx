@@ -39,7 +39,7 @@ interface PlayersCategory {
       name: string;
       image?: string;
       position?: string;
-      age?: number;
+      age?: number; 
     }>;
   };
 }

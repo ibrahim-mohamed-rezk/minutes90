@@ -8,5 +8,78 @@
       "most_followed": "Most followed players",
       "popular": "Most popular",
       "see_all": "See all"
+    },
+
+    "header": {
+      "home": "Home",
+      "agent": "Agents",
+      "player": "Players",
+      "blogs": "Blogs",
+      "login": "Log in",
+      "signup": "Sign up",
+      "profile": "MY Profile",
+      "english":"English",
+      "arabic":"Arabic",
+      "german":"German",
+      "french":"French"
+    },
+
+    "agent": {
+      "agent_code": "Agent Code",
+      "working_region": "Working Region",
+      "fifa_certificate": "FIFA Certificate",
+      "license_expire": "License Expire",
+      "verified": "Verified",
+      "minutes_verified": "Minutes90 Verified"
+    },
+
+    "filters": {
+      "country": "Country",
+      "region": "Region",
+      "city": "City",
+      "age": "Age",
+      "search": "Search",
+      "clear": "Clear",
+       "all": "All",
+       "fifa_certificate": "FIFA Certificate :",
+       "categoty_by":"Categories by",
+       "yes":"Yes",
+       "no":"No"
+    },
+
+    "agent_profile":{
+      "agent_code": "Agent Code",
+      "working_region": "Working Region",
+      "fifa_certificate": "FIFA Certificate",
+      "license_expire": "License Expire",
+      "verified": "Verified",
+      "minutes_verified": "Minutes90 Verified",
+       "yes":"Yes",
+       "no":"No",
+       "all":"All",
+       "is_fifa_accredited":"FIFA Accredited or Not:",
+       "address":"Address",
+       "none":"None",
+       "no_players_contracted":"No players contracted with the agent",
+       "agent_cards":"Agent Cards",
+       "players_contracted_with_the_agent":"Players Contracted with the Agent",
+       "edit_profile":"Edit Profile",
+       "log_out":"Log Out"
+    },
+
+    "settings":{
+      "save":"Save",
+      "country":"Country",
+      "yes":"Yes",
+      "no":"No",
+      "all":"All",
+      "edit_profile_image":"edit profile image",
+      "first_name":"First Name",
+      "last_name":"Last Name",
+      "email":"Email",
+      "password":"Password",
+      "confirm_password":"Confirm Password",
+      "phone":"Phone",
+      "working_region":"Working Region"
     }
   }

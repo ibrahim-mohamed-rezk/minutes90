@@ -3,6 +3,7 @@
 import { useRouter } from "@/i18n/routing";
 import { getApi, postApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -27,6 +28,7 @@ const Settings = () => {
 
   const token = useAppSelector((state) => state.user.token);
   const router = useRouter();
+  const t = useTranslations("settings");
 
   const [userData, setUserData] = useState<AgentData>({
     first_name: undefined,
@@ -118,7 +120,7 @@ const Settings = () => {
       <div className="flex w-full flex-col space-y-6 p-4">
         {/* account information */}
         <div className="bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-6">
-          <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
+          <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:ms-6">
             <div className="flex flex-col items-center space-y-3">
               <img
                 className="w-44 h-44 rounded-[30px] border-2 border-[#239d60]"
@@ -144,7 +146,7 @@ const Settings = () => {
                   }}
                   className="text-[#239d60] text-sm font-medium font-['Montserrat'] capitalize"
                 >
-                  edit profile image
+                  {t("edit_profile_image")}
                 </span>
                 <input
                   type="file"
@@ -167,14 +169,14 @@ const Settings = () => {
                 />
               </div>
             </div>
-            <div className=" w-full md:w-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow">
+            <div className=" ms-6 w-full md:w-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow">
               {[
-                { label: "First Name", name: "first_name" },
-                { label: "Last Name", name: "last_name" },
-                { label: "Name", name: "name" },
-                { label: "Email", name: "email" },
-                { label: "Phone", name: "phone" },
-                { label: "Working Region", name: "working_region" },
+                { label: t("first_name"), name: "first_name" },
+                { label: t("last_name"), name: "last_name" },
+                { label: t("name"), name: "name" },
+                { label: t("email"), name: "email" },
+                { label: t("phone"), name: "phone" },
+                { label: t("working_region"), name: "working_region" },
               ].map((label, index) => (
                 <div key={index} className="flex flex-col space-y-2">
                   <label className="text-white text-xs font-normal font-['Poppins']">
@@ -199,7 +201,7 @@ const Settings = () => {
               {/* license expiry */}
               <div className="flex flex-col space-y-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  License Expiry
+                  {t("license_expiry")}
                 </label>
                 <input
                   type="date"
@@ -216,7 +218,7 @@ const Settings = () => {
               {/* fifa certificate */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  FIFA Certificate
+                  {t("fifa_certificate")}
                 </label>
                 <select
                   className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
@@ -233,13 +235,13 @@ const Settings = () => {
                     className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
                     value={1}
                   >
-                    Yes
+                    {t("yes")}
                   </option>
                   <option
                     className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
                     value={0}
                   >
-                    No
+                    {t("no")}
                   </option>
                 </select>
               </div>
@@ -247,7 +249,7 @@ const Settings = () => {
               {/* country */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  Country
+                  {t("country")}
                 </label>
                 <select
                   className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
@@ -303,7 +305,7 @@ const Settings = () => {
             onClick={handelUpdate}
             className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']"
           >
-            Save
+            {t("save")}
           </button>
         </div>
       </div>

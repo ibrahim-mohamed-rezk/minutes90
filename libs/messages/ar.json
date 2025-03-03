@@ -1,6 +1,85 @@
 {
-    "HomePage": {
-      "title": "مرحبا بالعالم!",
-      "about": "انتقل إلى صفحة حول"
-    }
+  "HomePage": {
+      "title": "مرحبًا بالعالم!",
+      "about": "انتقل إلى صفحة حول",
+      "news": "أسطورة برشلونة باتريك كلويفرت يتولى تدريب منتخب إندونيسيا",
+      "Discover_players": "اكتشف اللاعبين في منطقتك الجغرافية",
+      "under_18": "تحت 18 عامًا",
+      "most_followed": "اللاعبون الأكثر متابعة",
+      "popular": "الأكثر شهرة",
+      "see_all": "عرض الكل"
+  },
+
+  "header": {
+      "home": "الرئيسية",
+      "agent": "الوكلاء",
+      "player": "اللاعبون",
+      "blogs": "المدونات",
+      "login": "تسجيل الدخول",
+      "signup": "إنشاء حساب",
+      "profile": "ملفي الشخصي",
+      "english": "الإنجليزية",
+      "arabic": "العربية",
+      "german": "الألمانية",
+      "french": "الفرنسية"
+  },
+
+  "agent": {
+      "agent_code": "رمز الوكيل",
+      "working_region": "منطقة العمل",
+      "fifa_certificate": "شهادة الفيفا",
+      "license_expire": "انتهاء الترخيص",
+      "verified": "موثوق",
+      "minutes_verified": "موثوق من Minutes90"
+  },
+
+  "filters": {
+      "country": "الدولة",
+      "region": "المنطقة",
+      "city": "المدينة",
+      "age": "العمر",
+      "search": "بحث",
+      "clear": "مسح",
+      "all": "الكل",
+      "fifa_certificate": "شهادة الفيفا :",
+      "categoty_by": "التصنيفات حسب",
+      "yes": "نعم",
+      "no": "لا"
+  },
+
+  "agent_profile": {
+      "agent_code": "رمز الوكيل",
+      "working_region": "منطقة العمل",
+      "fifa_certificate": "شهادة الفيفا",
+      "license_expire": "انتهاء الترخيص",
+      "verified": "موثوق",
+      "minutes_verified": "موثوق من Minutes90",
+      "yes": "نعم",
+      "no": "لا",
+      "all": "الكل",
+      "is_fifa_accredited": "معتمد من الفيفا أم لا:",
+      "address": "العنوان",
+      "none": "لا يوجد",
+      "no_players_contracted": "لا يوجد لاعبين متعاقدين مع الوكيل",
+      "agent_cards": "بطاقات الوكلاء",
+      "players_contracted_with_the_agent": "اللاعبون المتعاقدون مع الوكيل",
+      "edit_profile": "تعديل الملف الشخصي",
+      "log_out": "تسجيل الخروج"
+  },
+
+  "settings": {
+      "save": "حفظ",
+      "country": "الدولة",
+      "yes": "نعم",
+      "no": "لا",
+      "all": "الكل",
+      "edit_profile_image": "تعديل صورة الملف الشخصي",
+      "first_name": "الاسم الأول",
+      "last_name": "الاسم الأخير",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور",
+      "phone": "الهاتف",
+      "working_region": "منطقة العمل"
   }
+}

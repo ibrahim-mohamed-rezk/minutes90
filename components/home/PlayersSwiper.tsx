@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import PlayersCard from "../players/PlayersCard";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface Player {
   id: string;
@@ -49,11 +50,11 @@ const PlayersSwiper = ({
       spaceBetween: 25,
     },
   };
-
-
+  const t = useTranslations("HomePage");
 
   const NavigationButton = ({ direction }: { direction: "prev" | "next" }) => {
     const isNext = direction === "next";
+
     return (
       <div
         className={`swiper-button-${direction}${swiperIndex} !w-[46px] !h-[46px] bg-[#f5f5f5] rounded-full border border-[#f1f1f2] flex justify-center items-center cursor-pointer hover:bg-[#e5e5e5] transition-colors`}
@@ -108,7 +109,7 @@ const PlayersSwiper = ({
             className="px-4 md:px-6 py-2 md:py-3 bg-[#239d60] rounded-[50px] shadow-[0px_3px_4px_0px_rgba(0,0,0,0.03)] border border-[#f1f1f2] flex justify-center items-center gap-2.5 hover:bg-[#1b7a4a] transition-colors"
           >
             <span className="text-white text-sm md:text-base font-semibold font-['Alexandria'] leading-tight">
-              See All
+              {t("see_all")}
             </span>
           </Link>
 

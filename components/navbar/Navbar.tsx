@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import LoginModal from "../auth/LoginModal";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SignupModal from "../auth/SignupModal";
 import ForgetPassword from "../auth/ForgetPassword";
 import { useAppSelector } from "@/libs/store/hooks";
 import UserType from "../auth/UserType";
 import { Link } from "@/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
 
 const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -21,6 +22,9 @@ const Navbar = () => {
     useState(false);
 
   const { userData, token } = useAppSelector((state) => state.user);
+  const t = useTranslations("header");
+  const router = useRouter();
+  const locale = useLocale();
 
   useEffect(() => {
     if (userData && token) {
@@ -31,11 +35,25 @@ const Navbar = () => {
   }, [userData, token]);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Players", href: "/players" },
-    { label: "Agents", href: "/agents" },
-    { label: "Blogs", href: "/blogs" },
+    { label: t("home"), href: "/" },
+    { label: t("player"), href: "/players" },
+    { label: t("agent"), href: "/agents" },
+    // { label: t("blogs"), href: "/blogs" },
   ];
+
+  const langs = [
+    { label: t("english"), value: "en" },
+    { label: t("arabic"), value: "ar" },
+    { label: t("german"), value: "de" },
+    { label: t("french"), value: "fr" },
+  ];
+
+  const handleLanguageChange = (newLocale: string) => {
+    if (newLocale === locale) return;
+
+    // تحديث المسار باللغة الجديدة
+    router.push(`/${newLocale}${pathname.replace(`/${locale}`, "")}`);
+  };
 
   return (
     <nav className="w-full ">
@@ -74,19 +92,42 @@ const Navbar = () => {
 
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Language Dropdown */}
+            <div className="flex items-center justify-center gap-[5px]">
+              <select
+                value={locale}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className="w-full flex flex-col items-center justify-center bg-transparent text-[#000] font-bold text-xs font-['Poppins'] outline-none"
+              >
+                {langs.map((lang) => (
+                  <option
+                    className="w-full text-center"
+                    key={lang.value}
+                    value={lang.value}
+                  >
+                    {lang.label}
+                  </option>
+                ))}
+              </select>
+              <div>
+                <img src="" alt="" />
+              </div>
+            </div>
+
+            {/* Auth Buttons */}
             {!isLoggedIn ? (
               <>
                 <button
                   onClick={() => setIsLoginModalOpen(true)}
                   className="bg-[var(--color-green)] w-[clamp(100px,7.65601vw,147px)] h-[clamp(40px,2.55235vw,49px)] flex items-center justify-center text-white hover:bg-[var(--color-green-hover)] px-4 py-2 rounded-[22px] text-[15px] font-[poppins] font-[700]"
                 >
-                  Log in
+                  {t("login")}
                 </button>
                 <button
                   onClick={() => setIsSignupModalOpen(true)}
                   className=" w-[clamp(100px,7.65601vw,147px)] h-[clamp(40px,2.55235vw,49px)] flex items-center justify-center text-[var(--color-green)] hover:bg-[var(--color-green-hover)] hover:text-white px-4 py-2 rounded-[22px] text-[15px] font-[poppins] font-[700] border-[1px] border-[var(--color-green)]"
                 >
-                  Sign up
+                  {t("signup")}
                 </button>
               </>
             ) : (
@@ -216,7 +257,7 @@ const Navbar = () => {
                     height={40}
                     className="rounded-full cursor-pointer"
                   />
-                  <span className="ml-3 text-gray-700">My Profile</span>
+                  <span className="ml-3 text-gray-700">{t("profile")}</span>
                 </div>
               </Link>
             </div>

@@ -1,6 +1,85 @@
 {
-    "HomePage": {
-      "title": "Hello world!",
-      "about": "Go to the about page"
-    }
+  "HomePage": {
+      "title": "Bonjour le monde !",
+      "about": "Aller à la page À propos",
+      "news": "La légende de Barcelone Patrick Kluivert nommé nouveau sélectionneur de l'Indonésie",
+      "Discover_players": "Découvrez les joueurs dans votre région géographique",
+      "under_18": "Moins de 18 ans",
+      "most_followed": "Joueurs les plus suivis",
+      "popular": "Les plus populaires",
+      "see_all": "Voir tout"
+  },
+
+  "header": {
+      "home": "Accueil",
+      "agent": "Agents",
+      "player": "Joueurs",
+      "blogs": "Blogs",
+      "login": "Connexion",
+      "signup": "Inscription",
+      "profile": "Mon profil",
+      "english": "Anglais",
+      "arabic": "Arabe",
+      "german": "Allemand",
+      "french": "Français"
+  },
+
+  "agent": {
+      "agent_code": "Code agent",
+      "working_region": "Région de travail",
+      "fifa_certificate": "Certificat FIFA",
+      "license_expire": "Expiration de la licence",
+      "verified": "Vérifié",
+      "minutes_verified": "Vérifié par Minutes90"
+  },
+
+  "filters": {
+      "country": "Pays",
+      "region": "Région",
+      "city": "Ville",
+      "age": "Âge",
+      "search": "Rechercher",
+      "clear": "Effacer",
+      "all": "Tous",
+      "fifa_certificate": "Certificat FIFA :",
+      "categoty_by": "Catégories par",
+      "yes": "Oui",
+      "no": "Non"
+  },
+
+  "agent_profile": {
+      "agent_code": "Code agent",
+      "working_region": "Région de travail",
+      "fifa_certificate": "Certificat FIFA",
+      "license_expire": "Expiration de la licence",
+      "verified": "Vérifié",
+      "minutes_verified": "Vérifié par Minutes90",
+      "yes": "Oui",
+      "no": "Non",
+      "all": "Tous",
+      "is_fifa_accredited": "Accrédité FIFA ou non :",
+      "address": "Adresse",
+      "none": "Aucun",
+      "no_players_contracted": "Aucun joueur sous contrat avec l'agent",
+      "agent_cards": "Cartes des agents",
+      "players_contracted_with_the_agent": "Joueurs sous contrat avec l'agent",
+      "edit_profile": "Modifier le profil",
+      "log_out": "Se déconnecter"
+  },
+
+  "settings": {
+      "save": "Enregistrer",
+      "country": "Pays",
+      "yes": "Oui",
+      "no": "Non",
+      "all": "Tous",
+      "edit_profile_image": "Modifier l'image du profil",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "confirm_password": "Confirmer le mot de passe",
+      "phone": "Téléphone",
+      "working_region": "Région de travail"
   }
+}

@@ -5,6 +5,7 @@ import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { Link } from "@/i18n/routing";
 import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -48,6 +49,8 @@ const AgentProfile = () => {
   const token = useAppSelector((state) => state.user.token);
   const { copyToClipboard } = useCopyToClipboard();
 
+  const t = useTranslations("agent_profile");
+
   // get player profile data from backend
   useEffect(() => {
     const getProfile = async () => {
@@ -90,11 +93,11 @@ const AgentProfile = () => {
             <div className="flex flex-col gap-[20px] px-[5px] mt-[20px]">
               <div className="flex flex-col">
                 <span className="text-white text-sm font-normal font-['Montserrat'] uppercase">
-                  FIFA Accredited or Not:
+                  {t("is_fifa_accredited")}
                 </span>
                 <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
-                  {data?.agent?.fifa_certificate === 0 ? "No" : "Yes"} FIFA
-                  Accredited
+                  {data?.agent?.fifa_certificate === 0 ? t("no") : t("yes")}{" "}
+                  {t("fifa_certificate")}
                 </div>
               </div>
             </div>
@@ -117,7 +120,7 @@ const AgentProfile = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-8 gap-8">
               <div className="flex flex-col justify-start items-start gap-2.5">
                 <div className="text-white text-sm font-normal font-['Montserrat']">
-                  Agent Code :
+                  {t("agent_code")} :
                 </div>
                 <div className="text-white gap-2 cursor-pointer flex items-center justify-start text-base font-bold font-['Montserrat']">
                   <span>{data?.agent?.agent_code}</span>
@@ -146,11 +149,11 @@ const AgentProfile = () => {
 
               {[
                 {
-                  label: "License Expiry",
+                  label: t("license_expire"),
                   value: data?.agent?.license_expire || "none",
                 },
                 {
-                  label: "Address",
+                  label: t("address"),
                   value: data?.agent?.working_region || "none",
                 },
               ].map((item, index) => (
@@ -173,13 +176,13 @@ const AgentProfile = () => {
                 href="/profile/settingsAgent"
                 className="bg-green-500 w-[150px] text-center text-[18px] font-bold text-white px-4 py-2 rounded-lg"
               >
-                Edit Profile
+                {t("edit_profile")}
               </Link>
               <button
                 className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#d93044] rounded-xl text-white text-sm font-bold font-['Montserrat']"
                 onClick={() => signOut()}
               >
-                Log Out
+                {t("log_out")}
               </button>
             </div>
           </div>
@@ -189,7 +192,7 @@ const AgentProfile = () => {
       {/* agent players */}
       <div className="w-full max-w-[1518px] p-5 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2]">
         <div className="text-white text-xl sm:text-2xl md:text-[26px] font-bold font-['Montserrat']">
-          Players Contracted with the Agent
+          {t("players_contracted_with_the_agent")}
         </div>
         <div className="flex flex-wrap justify-center gap-5 mt-5">
           {data?.agent?.players && data.agent.players.length > 0 ? (
@@ -198,7 +201,7 @@ const AgentProfile = () => {
             ))
           ) : (
             <span className="text-white text-lg">
-              No players contracted with the agent
+              {t("no_players_contracted")}
             </span>
           )}
         </div>
@@ -207,7 +210,7 @@ const AgentProfile = () => {
       {/* agent card */}
       <div className="w-full max-w-[1518px] h-auto bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4 md:p-6">
         <div className="text-white text-xl sm:text-2xl md:text-[26px] font-bold font-['Montserrat'] mb-4">
-          Agent Cards
+          {t("agent_cards")}
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-10">
           {data?.agent?.fifa_certificate === 1 && (

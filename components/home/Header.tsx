@@ -13,7 +13,7 @@ interface Banner {
 }
 
 interface blogs {
-  image: string;
+  image: string; 
 }
 
 const Header = () => {

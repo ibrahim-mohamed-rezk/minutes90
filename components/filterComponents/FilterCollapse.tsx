@@ -1,10 +1,11 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface FilterCollapseProps {
   item: {
     label: string;
     name: string;
-    options?: string[];
+    options?: boolean[];
   };
   handleFilterChange: (filter: { name: string; value: string }) => void;
   filters: Record<string, string>;
@@ -21,6 +22,8 @@ const FilterCollapse = ({
     setIsCollapsed((prev) => !prev);
   };
 
+  const t = useTranslations("filters");
+
   return (
     <div className="relative flex flex-col">
       <div
@@ -29,7 +32,7 @@ const FilterCollapse = ({
       >
         <div>{item.label}</div>
         <div className="flex gap-[10px] items-center justify-center">
-          {filters[item.name] === "" ? "All" : filters[item.name]}
+          {filters[item.name] === "" ? "all" : filters[item.name]}
           <svg
             className={`${
               !isCollapsed ? "rotate-180" : ""
@@ -60,7 +63,7 @@ const FilterCollapse = ({
               })
             }
           >
-            All
+            {t("all")}
           </div>
           {item.options?.map((option: string | boolean) => (
             <div
@@ -73,7 +76,7 @@ const FilterCollapse = ({
               }
               key={option as string}
             >
-              {option === true ? "Yes" : option === false ? "No" : option}
+              {option === true ? t("yes") : option === false ? t("no") : option}
             </div>
           ))}
         </div>

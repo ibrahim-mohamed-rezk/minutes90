@@ -1,6 +1,85 @@
 {
-    "HomePage": {
-      "title": "Hello world!",
-      "about": "Go to the about page"
-    }
+  "HomePage": {
+      "title": "Hallo Welt!",
+      "about": "Gehe zur Über-Seite",
+      "news": "Barcelona-Legende Patrick Kluivert wird neuer Trainer von Indonesien",
+      "Discover_players": "Entdecke Spieler in deiner geografischen Region",
+      "under_18": "Unter 18 Jahren",
+      "most_followed": "Meistgefolgte Spieler",
+      "popular": "Am beliebtesten",
+      "see_all": "Alle anzeigen"
+  },
+
+  "header": {
+      "home": "Startseite",
+      "agent": "Agenten",
+      "player": "Spieler",
+      "blogs": "Blogs",
+      "login": "Anmelden",
+      "signup": "Registrieren",
+      "profile": "Mein Profil",
+      "english": "Englisch",
+      "arabic": "Arabisch",
+      "german": "Deutsch",
+      "french": "Französisch"
+  },
+
+  "agent": {
+      "agent_code": "Agentencode",
+      "working_region": "Arbeitsregion",
+      "fifa_certificate": "FIFA-Zertifikat",
+      "license_expire": "Lizenzablauf",
+      "verified": "Verifiziert",
+      "minutes_verified": "Von Minutes90 verifiziert"
+  },
+
+  "filters": {
+      "country": "Land",
+      "region": "Region",
+      "city": "Stadt",
+      "age": "Alter",
+      "search": "Suchen",
+      "clear": "Zurücksetzen",
+      "all": "Alle",
+      "fifa_certificate": "FIFA-Zertifikat:",
+      "categoty_by": "Kategorien nach",
+      "yes": "Ja",
+      "no": "Nein"
+  },
+
+  "agent_profile": {
+      "agent_code": "Agentencode",
+      "working_region": "Arbeitsregion",
+      "fifa_certificate": "FIFA-Zertifikat",
+      "license_expire": "Lizenzablauf",
+      "verified": "Verifiziert",
+      "minutes_verified": "Von Minutes90 verifiziert",
+      "yes": "Ja",
+      "no": "Nein",
+      "all": "Alle",
+      "is_fifa_accredited": "FIFA-akkreditiert oder nicht:",
+      "address": "Adresse",
+      "none": "Keine",
+      "no_players_contracted": "Keine Spieler mit dem Agenten unter Vertrag",
+      "agent_cards": "Agentenkarten",
+      "players_contracted_with_the_agent": "Spieler unter Vertrag mit dem Agenten",
+      "edit_profile": "Profil bearbeiten",
+      "log_out": "Abmelden"
+  },
+
+  "settings": {
+      "save": "Speichern",
+      "country": "Land",
+      "yes": "Ja",
+      "no": "Nein",
+      "all": "Alle",
+      "edit_profile_image": "Profilbild bearbeiten",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirm_password": "Passwort bestätigen",
+      "phone": "Telefon",
+      "working_region": "Arbeitsregion"
   }
+}

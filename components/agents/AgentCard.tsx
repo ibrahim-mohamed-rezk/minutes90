@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
 
 const AgentCard = ({
   agent,
@@ -24,6 +27,9 @@ const AgentCard = ({
     };
   };
 }) => {
+  const t = useTranslations("agent");
+  const locale = useLocale();
+
   return (
     <div className="w-[48%] md:w-[250px] h-[clamp(200px,56.0416668vw,330px)] sm:h-[330px] md:h-[350px] relative bg-[#edce38] rounded-2xl overflow-hidden shadow-lg">
       <Link
@@ -44,8 +50,9 @@ const AgentCard = ({
         {/* abslute section */}
         <div className="absolute w-full bottom-0   flex items-center justify-center">
           <div className="w-full h-[clamp(60px,12.1666666vw,80px)] md:h-[80px] relative flex items-start justify-start flex-col ">
-            <div className="absolute bottom-0 left-0 right-0 z-10">
+            <div className={`absolute bottom-0 left-0 right-0 z-10  `}>
               <svg
+                className={`${locale === "ar" ? " rotate-y-180" : ""}`}
                 width="100%"
                 height="auto"
                 viewBox="0 0 249 98"
@@ -61,6 +68,7 @@ const AgentCard = ({
 
             <div className="absolute bottom-[-5px] left-0 right-0 z-20">
               <svg
+                className={`${locale === "ar" ? " rotate-y-180" : ""}`}
                 width="100%"
                 height="auto"
                 viewBox="0 0 249 92"
@@ -89,7 +97,7 @@ const AgentCard = ({
                     />
 
                     <div className="text-center text-black text-[3.86px] font-bold font-['Montserrat']">
-                      Minutes 90 verfied
+                      {t("minutes_verified")}
                     </div>
                   </div>
                 </div>
@@ -105,7 +113,7 @@ const AgentCard = ({
                 </div> */}
                 <div className="w-[46.81px] h-[21.42px] flex-col justify-start items-start  md:gap-[4.42px] inline-flex">
                   <div className="w-[68.89px] text-white text-[6.18px] font-normal font-['Montserrat']">
-                    Agent code :
+                    {t("agent_code")}
                   </div>
                   <div className="w-[61.38px] text-white text-[7.07px] font-bold font-['Montserrat']">
                     {agent?.agent_code}
@@ -131,7 +139,7 @@ const AgentCard = ({
               />
             </div>
             <div className="text-white text-[7.44px] font-bold font-['Montserrat'] uppercase">
-              Verified
+              {t("verified")}
             </div>
           </div>
         )}

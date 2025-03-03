@@ -5,8 +5,8 @@ import FilterDropDown from "../filterComponents/FilterDropDown";
 import FilterCollapse from "../filterComponents/FilterCollapse";
 import { setAgentData } from "@/libs/store/slices/agentSlice";
 import { useAppDispatch } from "@/libs/store/hooks";
-import { agentFilters } from "@/libs/helpers/agetFilters";
 import { postApi } from "@/libs/axios/backendServer";
+import { useTranslations } from "next-intl";
 
 const AgentsFilters = () => {
   const [filters, setFilters] = useState({
@@ -15,6 +15,19 @@ const AgentsFilters = () => {
     working_region: "",
     country_id: "",
   });
+  const t = useTranslations("filters");
+
+  const agentFilter: {
+    label: string;
+    name: string;
+    options: boolean[];
+  }[] = [
+    {
+      label: t("fifa_certificate"),
+      name: "fifa_certificate",
+      options: [true, false],
+    },
+  ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -109,13 +122,13 @@ const AgentsFilters = () => {
             </svg>
           </div>
           <div className="text-center text-nowrap text-white text-lg font-semibold font-['Montserrat']">
-            Categories by
+            {t("categoty_by")}
           </div>
         </div>
 
         {/* Desktop Filters Menu */}
         <div className={` justify-end items-center gap-[8px] hidden xl:flex `}>
-          {agentFilters.map((item, index) => (
+          {agentFilter.map((item, index) => (
             <FilterDropDown
               key={index}
               item={item}
@@ -150,7 +163,7 @@ const AgentsFilters = () => {
               ></path>
             </svg>
           </div>
-          {agentFilters.map((item, index) => (
+          {agentFilter.map((item, index) => (
             <FilterCollapse
               key={index}
               item={item}

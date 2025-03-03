@@ -8,7 +8,7 @@ export default function Page() {
       <div className="container mx-auto">
         <header className="w-full pt-[20px] md:pt-[40px]">
           <Header />
-          <HomeBody />
+          <HomeBody /> 
         </header>
       </div>
     </div>

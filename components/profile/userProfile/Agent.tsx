@@ -3,6 +3,7 @@
 import PlayersCard from "@/components/players/PlayersCard";
 import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -46,6 +47,7 @@ const Agent = () => {
   const [data, setData] = useState<AgentData | null>(null);
   const token = useAppSelector((state) => state.user.token);
   const { agentId } = useParams();
+  const t = useTranslations("agent_profile");
 
   // get player profile data from backend
   useEffect(() => {
@@ -84,10 +86,11 @@ const Agent = () => {
             <div className="flex flex-col gap-[20px] px-[5px] mt-[20px]">
               <div className="flex flex-col">
                 <span className="text-white text-sm font-normal font-['Montserrat'] uppercase">
-                  FIFA Accredited or Not:
+                  {t("is_fifa_accredited")}
                 </span>
                 <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
-                  {data?.fifa_certificate === 0 ? "No" : "Yes"} FIFA Accredited
+                  {data?.fifa_certificate === 0 ? t("no") : t("yes")}{" "}
+                  {t("fifa_certificate")}
                 </div>
               </div>
             </div>
@@ -109,12 +112,15 @@ const Agent = () => {
           <div className="w-full p-4 md:p-6 bg-[#1e1f1f] flex flex-col items-stretch justify-center gap-[30px] rounded-[30px] border border-[#f1f1f2]">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-8 gap-8">
               {[
-                { label: "Agent Code", value: data?.agent_code },
+                { label: t("agent_code"), value: data?.agent_code },
                 {
-                  label: "License Expiry",
-                  value: data?.license_expire || "none",
+                  label: t("license_expire"),
+                  value: data?.license_expire || t("none"),
                 },
-                { label: "Address", value: data?.working_region || "none" },
+                {
+                  label: t("address"),
+                  value: data?.working_region || t("none"),
+                },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -136,7 +142,7 @@ const Agent = () => {
       {/* agent players */}
       <div className="w-full max-w-[1518px] p-5 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2]">
         <div className="text-white text-xl sm:text-2xl md:text-[26px] font-bold font-['Montserrat']">
-          Players Contracted with the Agent
+          {t("players_contracted_with_the_agent")}
         </div>
         <div className="flex flex-wrap justify-center gap-5 mt-5">
           {data?.players && data.players.length > 0 ? (
@@ -145,7 +151,7 @@ const Agent = () => {
             ))
           ) : (
             <span className="text-white text-lg">
-              No players contracted with the agent
+              {t("no_players_contracted")}
             </span>
           )}
         </div>
@@ -154,7 +160,7 @@ const Agent = () => {
       {/* agent card */}
       <div className="w-full max-w-[1518px] h-auto bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4 md:p-6">
         <div className="text-white text-xl sm:text-2xl md:text-[26px] font-bold font-['Montserrat'] mb-4">
-          Agent Cards
+          {t("agent_cards")}
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-10">
           {data?.fifa_certificate === 1 && (

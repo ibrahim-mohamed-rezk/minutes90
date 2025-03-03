@@ -1,10 +1,11 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface FilterDropDownProps {
   item: {
     label: string;
     name: string;
-    options?: string[];
+    options?: boolean[];
   };
   handleFilterChange: (filter: { name: string; value: string }) => void;
   filters: Record<string, string>;
@@ -21,6 +22,8 @@ const FilterDropDown = ({
     setIsDropdownOpen((prev) => !prev);
   };
 
+  const t = useTranslations("filters");
+
   return (
     <div
       onClick={toggleDropdown}
@@ -29,7 +32,7 @@ const FilterDropDown = ({
       <div className="text-nowrap">{item.label} </div>
       <div className="dropdown">
         <button className="appearance-none bg-transparent text-nowrap ">
-          {filters[item.name] === "" ? " All" : filters[item.name]}
+          {filters[item.name] === "" ? "all" : filters[item.name]}
         </button>
         {isDropdownOpen && (
           <div className="absolute max-h-[200px] overflow-y-auto left-0 top-full mt-[5px] rounded-xl w-full p-[8px] flex flex-col items-center justify-start z-[100] bg-[#2f2f2f] hide-scroll">
@@ -42,7 +45,7 @@ const FilterDropDown = ({
                 })
               }
             >
-              All
+              {t("all")}
             </div>
             {item.options?.map((option: string | boolean) => (
               <div
@@ -55,7 +58,11 @@ const FilterDropDown = ({
                 }
                 key={option as string}
               >
-                {option === true ? "Yes" : option === false ? "No" : option}
+                {option === true
+                  ? t("yes")
+                  : option === false
+                  ? t("no")
+                  : option}
               </div>
             ))}
           </div>
