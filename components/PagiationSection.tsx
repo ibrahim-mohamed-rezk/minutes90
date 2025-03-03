@@ -24,8 +24,10 @@ const PagiationSection = ({
     }
   };
 
-  if (endPage >= 1) return null;
-
+  
+  if (endPage <= 1) return null;
+  
+  console.log(endPage);
   return (
     <div
       className={`h-[36.34px] flex justify-start items-center gap-[2.42px] ${className} `}

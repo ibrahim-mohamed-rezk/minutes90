@@ -25,7 +25,7 @@ const AgentCard = ({
   };
 }) => {
   return (
-    <div className="w-[250px] h-[350px] relative bg-[#edce38] rounded-2xl overflow-hidden shadow-lg">
+    <div className="w-[48%] md:w-[250px] h-[clamp(200px,56.0416668vw,330px)] sm:h-[330px] md:h-[350px] relative bg-[#edce38] rounded-2xl overflow-hidden shadow-lg">
       <Link
         href={`/profile/user/agent/${agent.id}`}
         className=" w-full h-full flex items-center justify-center"
@@ -37,13 +37,13 @@ const AgentCard = ({
               fill
               src={agent?.user?.image}
               alt={agent.name}
-              className="object-cover rounded-lg" 
+              className="object-cover rounded-lg"
             />
           </div>
         </div>
         {/* abslute section */}
         <div className="absolute w-full bottom-0   flex items-center justify-center">
-          <div className="w-full h-[80px] relative flex items-start justify-start flex-col ">
+          <div className="w-full h-[clamp(60px,12.1666666vw,80px)] md:h-[80px] relative flex items-start justify-start flex-col ">
             <div className="absolute bottom-0 left-0 right-0 z-10">
               <svg
                 width="100%"
@@ -74,9 +74,9 @@ const AgentCard = ({
               </svg>
             </div>
 
-            <div className="z-30 w-full flex flex-col relative gap-2 px-[10px] ">
-              <div className="h-8 flex-col justify-center items-start gap-1.5 inline-flex">
-                <div className="w-[98px] text-white text-[10.25px] font-bold font-['Montserrat'] leading-[13.83px]">
+            <div className="z-30 w-full flex flex-col relative gap-[clamp(3px,0.41666667vw,8px)] md:gap-2 px-[10px] ">
+              <div className="h-8 flex-col justify-center items-start gap-[3px] md:gap-1.5 inline-flex">
+                <div className=" text-nowrap text-white text-[8px] md:text-[10.25px] font-bold font-['Montserrat']">
                   {agent?.user?.name}
                 </div>
                 <div className="w-[52px] px-0.5 pt-[2.32px] pb-[2.14px] bg-white rounded-[2.90px] justify-center items-center inline-flex overflow-hidden">
@@ -103,7 +103,7 @@ const AgentCard = ({
                   nostrud exerci tation ullamcorper suscipit lobortis nisl ut
                   aliquip
                 </div> */}
-                <div className="w-[46.81px] h-[21.42px] flex-col justify-start items-start gap-[4.42px] inline-flex">
+                <div className="w-[46.81px] h-[21.42px] flex-col justify-start items-start  md:gap-[4.42px] inline-flex">
                   <div className="w-[68.89px] text-white text-[6.18px] font-normal font-['Montserrat']">
                     Agent code :
                   </div>
@@ -117,22 +117,24 @@ const AgentCard = ({
         </div>
 
         {/* abslute marks */}
-        <div className="absolute flex items-center justify-center rounded-br-[5px] w-[82px] h-[25px] bg-[#252525] left-[0px] top-[0px] text-white text-[8.30px] font-bold font-['Montserrat'] uppercase">
+        <div className="absolute flex items-center justify-center rounded-br-[5px] w-[82px] h-[25px] bg-[#239D60] left-[0px] top-[0px] text-white text-[8.30px] font-bold font-['Montserrat'] uppercase">
           minutes 90
         </div>
-        {agent?.fifa_certificate === 1 && <div className="absolute right-0 top-0 w-[77px] h-[25px] bg-gradient-to-l from-[#3579b6] to-[#071a59] rounded-tr-[10px] rounded-bl-[5px] flex items-center justify-center gap-1">
-          <div className="flex flex-col items-center">
-            <Image
-              width={18}
-              height={16}
-              src="/images/agent/fifaLogo.svg"
-              alt="FIFA"
-            />
+        {agent?.fifa_certificate === 1 && (
+          <div className="absolute right-0 top-0 w-[77px] h-[25px] bg-gradient-to-l from-[#3579b6] to-[#071a59] rounded-tr-[10px] rounded-bl-[5px] flex items-center justify-center gap-1">
+            <div className="flex flex-col items-center">
+              <Image
+                width={18}
+                height={16}
+                src="/images/agent/fifaLogo.svg"
+                alt="FIFA"
+              />
+            </div>
+            <div className="text-white text-[7.44px] font-bold font-['Montserrat'] uppercase">
+              Verified
+            </div>
           </div>
-          <div className="text-white text-[7.44px] font-bold font-['Montserrat'] uppercase">
-            Verified
-          </div>
-        </div>}
+        )}
       </Link>
     </div>
   );
