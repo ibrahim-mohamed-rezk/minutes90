@@ -1,8 +1,9 @@
 import { postApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 const PlayerAchievement = () => {
   const [achtype, setAchType] = useState("individual");
@@ -10,6 +11,7 @@ const PlayerAchievement = () => {
   const [achDate, setActDate] = useState("");
   const router = useRouter();
   const { token } = useAppSelector((state) => state.user);
+  const t = useTranslations("settings");
 
   const updatePlayerAchievement = async () => {
     try {
@@ -21,32 +23,32 @@ const PlayerAchievement = () => {
         Authorization: `Bearer ${token}`,
       });
 
-      toast.success("Achievements updated successfully");
+      toast.success(t("achievements_updated_successfully"));
       console.log(res)
       router.push("/profile");
     } catch (error) {
       console.log(error);
-      toast.error("Error updating Achievements");
+      toast.error(t("error_updating_achievements"));
     }
   };
 
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="text-white text-[24px] md:text-[32px] font-extrabold font-['Montserrat']">
-        Profile Settings
+        {t("Profile_Settings")}
       </div>
 
       <div className="min-h-[505px] bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-8">
         <div className="flex flex-col gap-8">
           <div className="text-white text-lg font-bold font-['Montserrat']">
-            Player Achievement Rate
+            {t("player_achievement_rate")}
           </div>
 
           <div className="flex flex-col md:flex-row gap-10">
             <div className="flex-1 flex flex-col gap-10">
               <div className="flex flex-col gap-5">
                 <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
-                  Achievement Type
+                  {t("achievement_type")}
                 </div>
                 <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
                   {["individual", "team", "career"].map((item, index) => (
@@ -58,7 +60,7 @@ const PlayerAchievement = () => {
                       onClick={() => setAchType(item)}
                     >
                       <div className="text-white text-sm font-bold font-['Montserrat']">
-                        {item}
+                        {t(item)}
                       </div>
                     </div>
                   ))}
@@ -67,12 +69,12 @@ const PlayerAchievement = () => {
 
               <div className="flex flex-col gap-5">
                 <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
-                  Achievement Title:
+                  {t("achievement_title")}:
                 </div>
                 <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
                   <input
                     type="text"
-                    placeholder="Title"
+                    placeholder={t("title")}
                     value={achTitle}
                     onChange={(e) => setActTitle(e.target.value)}
                     className="w-full px-[13px] py-2.5 text-white text-sm font-bold font-['Montserrat'] bg-transparent outline-none"
@@ -82,7 +84,7 @@ const PlayerAchievement = () => {
 
               <div className="flex flex-col gap-5">
                 <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
-                  Achievement Date:
+                  {t("achievement_date")}:
                 </div>
                 <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
                   <input
@@ -103,7 +105,7 @@ const PlayerAchievement = () => {
           onClick={updatePlayerAchievement}
           className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']"
         >
-          Save
+          {t("save")}
         </button>
       </div>
     </div>

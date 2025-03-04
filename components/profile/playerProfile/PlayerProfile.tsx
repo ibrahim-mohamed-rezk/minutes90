@@ -264,7 +264,7 @@ const PlayerProfile = () => {
               </span>
               <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
                 {data?.player?.is_club_contracted
-                  ? t("contracted")
+                  ? t("contracted_with_a_club")
                   : t("not_contracted_with_a_club")}
               </div>
             </div>
@@ -274,7 +274,7 @@ const PlayerProfile = () => {
               </span>
               <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
                 {data?.player?.is_agent_contracted
-                  ? t("contracted")
+                  ? t("contracted_with_a_player_agent")
                   : t("not_contracted_with_a_player_agent")}
               </div>
             </div>

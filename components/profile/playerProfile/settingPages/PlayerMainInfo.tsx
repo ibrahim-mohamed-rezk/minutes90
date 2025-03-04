@@ -7,6 +7,7 @@ import { getApi, postApi } from "@/libs/axios/backendServer";
 import { AxiosError } from "axios";
 import { positions } from "@/libs/helpers/positions";
 import { updateUserData } from "@/libs/store/slices/userSlice";
+import { useTranslations } from "next-intl";
 
 interface MainInfo {
   first_name: string;
@@ -29,9 +30,9 @@ const PlayerMainInfo = () => {
   const [countries, setCountries] = useState<
     [{ id: string; name: string }] | null
   >(null);
-  const [governorates, setGovernorates] = useState<
-    [{ id: string; name: string }] | null
-  >(null);
+  // const [governorates, setGovernorates] = useState<
+  //   [{ id: string; name: string }] | null
+  // >(null);
   const [profileImage, setProfileImage] = useState<string | null>(
     userData?.image
   );
@@ -51,7 +52,7 @@ const PlayerMainInfo = () => {
     governorate_id: userData?.governorate?.id || "1",
     image: null,
   });
-
+  const t = useTranslations("settings");
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -81,22 +82,22 @@ const PlayerMainInfo = () => {
   }, []);
 
   // get governorates from backend based on country id
-  useEffect(() => {
-    const fetchGovernorates = async () => {
-      try {
-        const response = await getApi(`countries/${mainInfo.country_id}`);
-        setGovernorates(response.data?.country?.governorates);
-        setMainInfo({
-          ...mainInfo,
-          governorate_id: response.data?.country?.governorates[0]?.id,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchGovernorates = async () => {
+  //     try {
+  //       const response = await getApi(`countries/${mainInfo.country_id}`);
+  //       setGovernorates(response.data?.country?.governorates);
+  //       setMainInfo({
+  //         ...mainInfo,
+  //         governorate_id: response.data?.country?.governorates[0]?.id,
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchGovernorates();
-  }, [mainInfo.country_id]);
+  //   fetchGovernorates();
+  // }, [mainInfo.country_id]);
 
   // update player profile
   const handleUpdate = async () => {
@@ -138,10 +139,10 @@ const PlayerMainInfo = () => {
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="text-white text-[25px] font-extrabold font-['Montserrat']">
-        Main Information
+        {t("mainInfo")}
       </div>
 
-      {/* account information */} 
+      {/* account information */}
       <div className="min-h-[343px] relative bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-8">
         <div className="flex flex-col md:flex-row gap-8 w-full">
           {/* profile image */}
@@ -176,7 +177,7 @@ const PlayerMainInfo = () => {
                 </svg>
               </div>
               <div className="text-[#239d60] text-sm font-medium font-['Montserrat'] capitalize">
-                edit image
+                {t("editImage")}
               </div>
               <input
                 accept="image/*"
@@ -207,7 +208,7 @@ const PlayerMainInfo = () => {
               {/* first name */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  First Name
+                  {t("firstName")}
                 </label>
                 <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                   <input
@@ -224,7 +225,7 @@ const PlayerMainInfo = () => {
               {/* last name */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  Last Name
+                  {t("lastName")}
                 </label>
                 <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                   <input
@@ -241,7 +242,7 @@ const PlayerMainInfo = () => {
               {/* name */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  Name
+                  {t("name")}
                 </label>
                 <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                   <input
@@ -258,7 +259,7 @@ const PlayerMainInfo = () => {
               {/* phone */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  Phone
+                  {t("phone")}
                 </label>
                 <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                   <input
@@ -275,7 +276,7 @@ const PlayerMainInfo = () => {
               {/* birthday */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  Birthday
+                  {t("birthday")}
                 </label>
                 <div className="h-[41px] px-4 py-2 bg-transparent rounded-[9px] border border-[#adadad] flex items-center">
                   <input
@@ -292,7 +293,7 @@ const PlayerMainInfo = () => {
               {/* country */}
               <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
-                  Country
+                  {t("country")}
                 </label>
                 <select
                   className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
@@ -313,7 +314,7 @@ const PlayerMainInfo = () => {
               </div>
 
               {/* governorate */}
-              <div className="flex flex-col gap-2">
+              {/* <div className="flex flex-col gap-2">
                 <label className="text-white text-xs font-normal font-['Poppins']">
                   Governorate
                 </label>
@@ -333,7 +334,7 @@ const PlayerMainInfo = () => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -346,7 +347,7 @@ const PlayerMainInfo = () => {
             {/* main position */}
             <div className="flex flex-col gap-2">
               <label className="text-white text-sm font-normal font-['Montserrat']">
-                Main Position:
+                {t("mainPosition")}
               </label>
               <select
                 className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
@@ -369,7 +370,7 @@ const PlayerMainInfo = () => {
             {/* second position */}
             <div className="flex flex-col gap-2">
               <label className="text-white text-sm font-normal font-['Montserrat']">
-                Second Position:
+                {t("secondPosition")}
               </label>
               <select
                 name="second_position"
@@ -392,7 +393,7 @@ const PlayerMainInfo = () => {
             {/* primary foot */}
             <div className="flex flex-col gap-2">
               <label className="text-white text-sm font-normal font-['Montserrat']">
-                Primary Foot:
+                {t("primaryFoot")}
               </label>
               <select
                 className="w-full bg-transparent text-[#fff] text-xs font-light font-['Poppins'] outline-none h-[41px] px-4 py-2 rounded-[9px] border border-[#adadad]"
@@ -404,13 +405,13 @@ const PlayerMainInfo = () => {
                   className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
                   value={"left"}
                 >
-                  Left
+                  {t("left")}
                 </option>
                 <option
                   className="text-[#808080] bg-[#0d0d0d] text-xs font-light font-['Poppins']"
                   value={"right"}
                 >
-                  Right
+                  {t("right")}
                 </option>
               </select>
             </div>
@@ -418,7 +419,7 @@ const PlayerMainInfo = () => {
             {/* weight */}
             <div className="flex flex-col gap-2">
               <label className="text-white text-xs font-normal font-['Poppins']">
-                Weight
+                {t("weight")}
               </label>
               <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                 <input
@@ -436,7 +437,7 @@ const PlayerMainInfo = () => {
             {/* height */}
             <div className="flex flex-col gap-2">
               <label className="text-white text-xs font-normal font-['Poppins']">
-                Height
+                {t("height")}
               </label>
               <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                 <input
@@ -460,7 +461,7 @@ const PlayerMainInfo = () => {
           className="bg-[#239d60] text-white text-sm font-bold font-['Poppins'] rounded-[9px] px-4 py-2"
           onClick={handleUpdate}
         >
-          Update
+          {t("update")}
         </button>
       </div>
     </div>

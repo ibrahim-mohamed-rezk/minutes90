@@ -10,29 +10,33 @@ import PlayerAchievement from "./settingPages/PlayerAchievement";
 import PlayerPenalties from "./settingPages/PlayerPenalties";
 import PlayerLegalAspects from "./settingPages/PlayerLegalAspects";
 import Settings from "./settingPages/Settings";
+import { useTranslations } from "next-intl";
 
 const PlayerProfileSettings = () => {
-  const [currentOppendSetting, seTCurrentOppendSetting] =
-    useState("Settings");
+  const t = useTranslations("settings");
+  const [currentOppendSetting, seTCurrentOppendSetting] = useState(
+    t("Settings")
+  );
+
   return (
     <div className="flex flex-col md:flex-row w-full items-start justify-start gap-[30px] pt-[48px]">
       {/* left side */}
-      <div className="w-full md:w-[300px] flex items-center justify-start flex-col gap-[30px]">
+      <div className="w-full md:w-[300px] flex items-center justify-start flex-col px-[5px] gap-[30px]">
         <div className="w-full h-auto md:h-[588px] pb-[22px] bg-white rounded-[20px] shadow-md border border-[#f1f1f2] flex-col justify-start items-center gap-[22px] inline-flex">
           <div className="self-stretch p-2.5 bg-[#239d60] rounded-tl-[20px] rounded-tr-[20px] justify-center items-center gap-2.5 inline-flex">
             <div className="text-white text-base md:text-lg font-bold font-['Montserrat']">
-              Edit Player Information
+              {t("EditprofileSettings")}
             </div>
           </div>
           <div className="self-stretch h-auto md:h-[504px] flex-col justify-start items-start gap-4 inline-flex overflow-y-auto">
             {[
-              "Settings",
-              "Main Information",
-              "Player's Injury Level",
-              "Player's Skill Level",
-              "Player Achievement Rate",
-              "Player Penalties",
-              "Legal Aspects",
+              t("Settings"),
+              t("Main_Information"),
+              t("Player_Injury_Level"),
+              t("Player_Skill_Level"),
+              t("Player_Achievement_Rate"),
+              // t("Player_Penalties"),
+              t("Legal_Aspects"),
             ].map((item, index) => (
               <div
                 key={index}
@@ -54,22 +58,22 @@ const PlayerProfileSettings = () => {
 
       {/* right side */}
       <div className="w-full md:flex-1 flex items-center justify-start flex-col gap-[30px]">
-        {currentOppendSetting === "Settings" && <Settings />}
-        {currentOppendSetting === "Main Information" && <PlayerMainInfo />}
-        {currentOppendSetting === "Player's Physical Level" && (
+        {currentOppendSetting === t("Settings") && <Settings />}
+        {currentOppendSetting === t("Main_Information") && <PlayerMainInfo />}
+        {currentOppendSetting === t("Player's Physical Level") && (
           <PlayerPhysical />
         )}
-        {currentOppendSetting === "Player's Injury Level" && <PlayerInjury />}
-        {currentOppendSetting === "Player's Skill Level" && <PlayerSkills />}
+        {currentOppendSetting === t("Player_Injury_Level") && <PlayerInjury />}
+        {currentOppendSetting === t("Player_Skill_Level") && <PlayerSkills />}
         {currentOppendSetting ===
-          "Player's Technical and Tactical Performance" && (
+          t("Player's Technical and Tactical Performance") && (
           <PlayerTacticalPerformance />
         )}
-        {currentOppendSetting === "Player Achievement Rate" && (
+        {currentOppendSetting === t("Player_Achievement_Rate") && (
           <PlayerAchievement />
         )}
-        {currentOppendSetting === "Player Penalties" && <PlayerPenalties />}
-        {currentOppendSetting === "Legal Aspects" && <PlayerLegalAspects />}
+        {currentOppendSetting === t("Player_Penalties") && <PlayerPenalties />}
+        {currentOppendSetting === t("Legal_Aspects") && <PlayerLegalAspects />}
       </div>
     </div>
   );

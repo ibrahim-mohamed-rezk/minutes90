@@ -5,8 +5,10 @@ import { useAppSelector } from "@/libs/store/hooks";
 import { useRouter } from "@/i18n/routing";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 const PlayerSkills = () => {
+  const t = useTranslations("settings");
   const [headshotAccuracy, setHeadshotAccuracy] = useState(60);
   const [shootAccuracy, setShootAccuracy] = useState(60);
   const [passing, setPassing] = useState(60);
@@ -38,277 +40,69 @@ const PlayerSkills = () => {
           Authorization: `Bearer ${token}`,
         }
       );
-      toast.success("Skills updated successfully");
+      toast.success(t("successMessage"));
       console.log(res)
       router.push("/profile");
     } catch (error) {
-      toast.error("Error updating skills");
+      toast.error(t("errorMessage"));
       console.log(error);
     }
   };
 
+  const skillLevels = [
+    { title: t("weak"), value: 60 },
+    { title: t("average"), value: 70 },
+    { title: t("high"), value: 80 },
+    { title: t("veryHigh"), value: 90 },
+    { title: t("excellent"), value: 100 },
+  ];
+
+  const skillFields = [
+    { name: t("headshotAccuracy"), state: headshotAccuracy, setState: setHeadshotAccuracy },
+    { name: t("passingAccuracy"), state: passing, setState: setPassing },
+    { name: t("shootingPower"), state: shootAccuracy, setState: setShootAccuracy },
+    { name: t("tacticalAwareness"), state: tacticalAwareness, setState: setTacticalAwareness },
+    { name: t("physicalFitness"), state: physicalFitness, setState: setPhysicalFitness },
+    { name: t("sprintSpeed"), state: sprintSpeed, setState: setSprintSpeed },
+    { name: t("endurance90Minutes"), state: endurance, setState: setEndurance },
+    { name: t("dribbling"), state: dribbling, setState: setDribbling },
+    { name: t("defending"), state: defending, setState: setDefending },
+  ];
+
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="text-white text-[24px] md:text-[32px] font-extrabold font-['Montserrat']">
-        Profile Settings
+        {t("profileSettings")}
       </div>
 
       <div className="relative w-full bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-6">
         <div className="text-white text-lg font-bold font-['Montserrat'] mb-8">
-          Player&apos;s Skill Level
+          {t("playerSkillLevel")}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] w-full">
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
-              Headshot accuracy:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2 w-full">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    headshotAccuracy === item.value
-                      ? " bg-[#34a853] rounded-xl"
-                      : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setHeadshotAccuracy(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
+          {skillFields.map((field, fieldIndex) => (
+            <div key={fieldIndex} className="flex flex-col gap-5 w-full">
+              <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
+                {field.name}:
+              </div>
+              <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2 w-full">
+                {skillLevels.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`${
+                      field.state === item.value ? "bg-[#34a853] rounded-xl" : ""
+                    } px-[13px] py-2.5 rounded-xl`}
+                    onClick={() => field.setState(item.value)}
+                  >
+                    <div className="text-white text-sm font-medium font-['Montserrat']">
+                      {item.title}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Passing Accuracy:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2 w-full">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    passing === item.value ? " bg-[#34a853] rounded-xl" : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setPassing(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Shooting Power:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2 w-full">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    shootAccuracy === item.value
-                      ? " bg-[#34a853] rounded-xl"
-                      : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setShootAccuracy(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Tactical Awareness:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    tacticalAwareness === item.value
-                      ? " bg-[#34a853] rounded-xl"
-                      : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setTacticalAwareness(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Physical Fitness:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    physicalFitness === item.value
-                      ? " bg-[#34a853] rounded-xl"
-                      : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setPhysicalFitness(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Sprint Speed:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    sprintSpeed === item.value ? " bg-[#34a853] rounded-xl" : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setSprintSpeed(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Endurance 90 Minutes:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    endurance === item.value ? " bg-[#34a853] rounded-xl" : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setEndurance(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Dribbling:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    dribbling === item.value ? " bg-[#34a853] rounded-xl" : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setDribbling(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 w-full">
-            <div className="text-[#adadad] text-sm font-medium font-['Montserrat'] leading-snug">
-              Defending:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap gap-2">
-              {[
-                { title: "Weak", value: 60 },
-                { title: "Average", value: 70 },
-                { title: "High", value: 80 },
-                { title: "Very High", value: 90 },
-                { title: "Excellent", value: 100 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    defending === item.value ? " bg-[#34a853] rounded-xl" : ""
-                  } px-[13px] py-2.5 rounded-xl`}
-                  onClick={() => setDefending(item.value)}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item.title}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -317,7 +111,7 @@ const PlayerSkills = () => {
           onClick={updateSkills}
           className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']"
         >
-          Save
+          {t("save")}
         </button>
       </div>
     </div>

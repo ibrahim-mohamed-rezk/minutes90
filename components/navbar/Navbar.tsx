@@ -25,6 +25,7 @@ const Navbar = () => {
   const t = useTranslations("header");
   const router = useRouter();
   const locale = useLocale();
+  const [isLangOpen, setIsLangOpen] = useState(false);
 
   useEffect(() => {
     if (userData && token) {
@@ -247,7 +248,7 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <div className="flex items-center px-3 py-2">
+            <div className="flex w-full flex-col items-start justify-center gap-[30px] px-3 py-2">
               <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)}>
                 <div className="flex items-center">
                   <Image
@@ -260,6 +261,50 @@ const Navbar = () => {
                   <span className="ml-3 text-gray-700">{t("profile")}</span>
                 </div>
               </Link>
+              <div className="flex w-full items-center justify-center gap-[5px]">
+                <div className="relative w-full">
+                  <button
+                    onClick={() => setIsLangOpen(!isLangOpen)}
+                    className="w-full flex items-center justify-between bg-transparent text-[#000] font-bold text-xs font-['Poppins'] cursor-pointer"
+                  >
+                    {langs.find((lang) => lang.value === locale)?.label}
+                    <svg
+                      className={`ml-2 h-4 w-4 transition-transform ${
+                        isLangOpen ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                  {isLangOpen && (
+                    <div className="absolute flex flex-col items-start justify-center top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md overflow-hidden">
+                      {langs.map((lang) => (
+                        <button
+                          key={lang.value}
+                          onClick={() => {
+                            handleLanguageChange(lang.value);
+                            setIsLangOpen(false);
+                          }}
+                          className="w-full text-center px-4 py-2 hover:bg-gray-100 text-sm"
+                        >
+                          {lang.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <img src="" alt="" />
+                </div>
+              </div>
             </div>
           )}
         </div>

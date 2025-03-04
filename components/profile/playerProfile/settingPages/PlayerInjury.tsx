@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useAppSelector } from "@/libs/store/hooks";
 import { postApi } from "@/libs/axios/backendServer";
 import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 const PlayerInjury = () => {
   const [injuryType, setInjuryType] = useState("muscle");
@@ -13,6 +14,7 @@ const PlayerInjury = () => {
   const [participationRate, setParticipationRate] = useState(1);
   const { token } = useAppSelector((state) => state.user);
   const router = useRouter();
+  const t = useTranslations("settings");
 
   const updateInjury = async () => {
     try {
@@ -30,7 +32,7 @@ const PlayerInjury = () => {
       );
       toast.success("Injury updated successfully");
       router.push("/profile");
-      console.log(res)
+      console.log(res);
     } catch (error) {
       toast.error("Error updating injury");
       console.log(error);
@@ -38,108 +40,118 @@ const PlayerInjury = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full px-[5px] md:px-0">
       <div className="text-white text-[24px] md:text-[32px] font-extrabold font-['Montserrat']">
-        Profile Settings
+        {t("Profile_Settings")}
       </div>
 
-      <div className="h-auto md:h-[615px] relative bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden p-[30px] md:p-0">
-        <div className="w-full md:w-[442.07px] md:left-[30px] md:top-[30px] md:absolute text-white text-lg font-bold font-['Montserrat']">
-          Player&apos;s Injury level
-        </div>
-        <div className="flex flex-col gap-10 mt-8 md:mt-0 md:h-[484px] md:left-[46px] md:top-[101px] md:absolute md:flex-col md:justify-start md:items-start">
-          <div className="flex flex-col gap-5">
-            <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
-              Injury Type :
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              {["muscle", "ligament", "fracture", "concussion", "other"].map(
-                (item, index) => (
+      <div className="h-auto md:h-[615px] flex flex-col items-start justify-center relative bg-[#222222] rounded-[25px] border border-[#f1f1f2] overflow-hidden md:p-0">
+        <div className="flex flex-col gap-6 w-full h-full p-8">
+          <div className="text-white text-lg font-bold font-['Montserrat']">
+            {t("Player_Injury_Level")}
+          </div>
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-5">
+              <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
+                {t("injury_type")}
+              </div>
+              <div className="flex flex-wrap gap-4 p-1 rounded-[14px] border border-white">
+                {[
+                  { label: t("muscle"), value: "muscle" },
+                  { label: t("ligament"), value: "ligament" },
+                  { label: t("fracture"), value: "fracture" },
+                  { label: t("concussion"), value: "concussion" },
+                  { label: t("other"), value: "other" },
+                ].map((item, index) => (
                   <div
-                    onClick={() => setInjuryType(item)}
                     key={index}
-                    className={`px-[13px] py-2.5 ${
-                      injuryType === item ? "bg-[#34a853]" : ""
-                    } rounded-xl flex justify-center items-center gap-2.5 cursor-pointer`}
+                    onClick={() => setInjuryType(item.value)}
+                    className={`px-4 py-2.5 rounded-xl cursor-pointer ${
+                      injuryType === item.value ? "bg-[#34a853]" : ""
+                    }`}
                   >
                     <div className="text-white text-sm font-bold font-['Montserrat']">
+                      {item.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-5">
+              <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
+                {t("injury_severity")}
+              </div>
+              <div className="flex flex-wrap gap-4 p-1 rounded-[14px] border border-white">
+                {[
+                  { label: t("minor"), value: "minor" },
+                  { label: t("moderate"), value: "moderate" },
+                  { label: t("severe"), value: "severe" },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setInjurySeverity(item.value)}
+                    className={`px-4 py-2.5 rounded-xl cursor-pointer ${
+                      injurySeverity === item.value ? "bg-[#34a853]" : ""
+                    }`}
+                  >
+                    <div className="text-white text-sm font-medium font-['Montserrat']">
+                      {item.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-5">
+              <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
+                {t("recovery_period")}
+              </div>
+              <div className="flex flex-wrap gap-4 p-1 rounded-[14px] border border-white">
+                {[
+                  t("less_than_a_month"),
+                  t("from_3_to_6_months"),
+                  t("more_than_6_months"),
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setRecoveryPeriod(item)}
+                    className={`px-4 py-2.5 rounded-xl cursor-pointer ${
+                      recoveryPeriod === item ? "bg-[#34a853]" : ""
+                    }`}
+                  >
+                    <div className="text-white text-sm font-medium font-['Montserrat']">
                       {item}
                     </div>
                   </div>
-                )
-              )}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
-              Injury Severity:
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              {["minor", "moderate", "severe"].map((item, index) => (
-                <div
-                  onClick={() => setInjurySeverity(item)}
-                  key={index}
-                  className={`px-[13px] py-2.5 ${
-                    injurySeverity === item ? "bg-[#34a853]" : ""
-                  } rounded-xl flex justify-center items-center gap-2.5 cursor-pointer`}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
-              The recovery period that the player needs :
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              {[
-                "less than a month",
-                "from 3 to 6 months",
-                "more than 6 months",
-              ].map((item, index) => (
-                <div
-                  onClick={() => setRecoveryPeriod(item)}
-                  key={index}
-                  className={`px-[13px] py-2.5 ${
-                    recoveryPeriod === item ? "bg-[#34a853]" : ""
-                  } rounded-xl flex justify-center items-center gap-2.5 cursor-pointer`}
-                >
-                  <div className="text-white text-sm font-medium font-['Montserrat']">
-                    {item}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <div className="h-5 text-[#adadad] text-sm font-medium font-['Montserrat']">
-              Participation rate after injury :
-            </div>
-            <div className="p-1 rounded-[14px] border border-white flex flex-wrap justify-start items-center gap-[26px]">
-              <div
-                onClick={() => setParticipationRate(1)}
-                className={`px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5 cursor-pointer ${
-                  participationRate === 1 ? "bg-[#34a853]" : ""
-                }`}
-              >
-                <div className="text-white text-sm font-medium font-['Montserrat']">
-                  Participated
-                </div>
+                ))}
               </div>
-              <div
-                onClick={() => setParticipationRate(0)}
-                className={`px-[13px] py-2.5 rounded-xl flex justify-center items-center gap-2.5 cursor-pointer ${
-                  participationRate === 0 ? "bg-[#34a853]" : ""
-                }`}
-              >
-                <div className="text-white text-sm font-bold font-['Montserrat']">
-                  Did Not Participate
+            </div>
+
+            <div className="flex flex-col gap-5">
+              <div className="text-[#adadad] text-sm font-medium font-['Montserrat']">
+                {t("participation_rate")}
+              </div>
+              <div className="flex flex-wrap gap-4 p-1 rounded-[14px] border border-white">
+                <div
+                  onClick={() => setParticipationRate(1)}
+                  className={`px-4 py-2.5 rounded-xl cursor-pointer ${
+                    participationRate === 1 ? "bg-[#34a853]" : ""
+                  }`}
+                >
+                  <div className="text-white text-sm font-medium font-['Montserrat']">
+                    {t("participated")}
+                  </div>
+                </div>
+                <div
+                  onClick={() => setParticipationRate(0)}
+                  className={`px-4 py-2.5 rounded-xl cursor-pointer ${
+                    participationRate === 0 ? "bg-[#34a853]" : ""
+                  }`}
+                >
+                  <div className="text-white text-sm font-bold font-['Montserrat']">
+                    {t("did_not_participate")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -152,7 +164,7 @@ const PlayerInjury = () => {
           onClick={updateInjury}
           className="w-[117px] h-[43px] px-[13px] py-2.5 bg-[#34a853] rounded-xl text-white text-sm font-bold font-['Montserrat']"
         >
-          Save
+          {t("save")}
         </button>
       </div>
     </div>
