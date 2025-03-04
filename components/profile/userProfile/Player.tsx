@@ -1,6 +1,7 @@
 "use client";
 
 import { getApi } from "@/libs/axios/backendServer";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 interface PlayerData {
@@ -80,6 +81,7 @@ interface PlayerData {
 
 const Player = () => {
   const [data, setData] = useState<PlayerData | null>(null);
+  const t = useTranslations("player_profile");
 
   // get player profile data from backend
   useEffect(() => {
@@ -165,7 +167,7 @@ const Player = () => {
         <div className="w-full md:w-[306px] flex flex-col gap-4 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
           <div className="flex items-start justify-start gap-[10px]">
             <div className="text-white text-sm font-normal font-['Montserrat']">
-              Age:
+              {t("age")}:
             </div>
             <div className="text-white text-base font-bold font-['Montserrat']">
               {calculateAge(data?.player?.birth_date)} years
@@ -174,7 +176,7 @@ const Player = () => {
 
           <div className="flex items-start justify-start gap-[10px]">
             <div className="text-white text-sm font-normal font-['Montserrat']">
-              Height:
+              {t("height")}
             </div>
             <div className="text-white text-base font-bold font-['Montserrat']">
               {data?.player?.height_cm} cm
@@ -183,7 +185,7 @@ const Player = () => {
 
           <div className="flex items-start justify-start gap-[10px]">
             <div className="text-white text-sm font-normal font-['Montserrat']">
-              Weight:
+              {t("weight")}
             </div>
             <div className="text-white text-base font-bold font-['Montserrat']">
               {data?.player?.weight_kg} kg
@@ -192,7 +194,7 @@ const Player = () => {
 
           <div className="flex items-start justify-start gap-[10px]">
             <div className="text-white text-sm font-normal font-['Montserrat']">
-              Country:
+              {t("country")}
             </div>
             <div className="text-white text-base font-bold font-['Montserrat']">
               {data?.country?.name}
@@ -201,7 +203,7 @@ const Player = () => {
 
           <div className="flex items-start justify-start gap-[10px]">
             <div className="text-white text-sm font-normal font-['Montserrat']">
-              Primary Foot :
+              {t("primary_foot")}
             </div>
             <div className="text-white w-[50px] h-[24px] border border-[#f1f1f2] rounded-[17px] text-center bg-[#515151] text-base font-bold font-['Montserrat']">
               {data?.player?.primary_foot === "left" ? "L" : "R"}
@@ -210,7 +212,7 @@ const Player = () => {
 
           <div className="flex items-start justify-start gap-[10px]">
             <div className="text-white text-sm font-normal font-['Montserrat']">
-              Position:
+              {t("position")}
             </div>
             <div className="text-white text-base bg-[#EB4335] w-[41px] h-[24px] rounded-[6px] text-center font-bold font-['Montserrat']">
               {data?.player?.main_position}
@@ -230,34 +232,34 @@ const Player = () => {
         {/* Legal Aspects */}
         <div className="w-full md:w-[306px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
           <div className=" text-white text-lg font-bold font-['Montserrat']">
-            Legal Aspects
+            {t("legal_aspects")}
           </div>
           <div className="flex flex-col gap-[20px] px-[5px] mt-[20px]">
             <div className="flex flex-col">
               <span className="text-white text-sm font-normal font-['Montserrat'] uppercase">
-                With club:
+                {t("with_club")}
               </span>
               <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
                 {data?.player?.is_club_contracted
-                  ? "Contracted with a club"
-                  : "Not Contracted with a club"}
+                  ? t("contracted_with_the_agent")
+                  : t("not_contracted_with_the_agent")}
               </div>
             </div>
             <div className="flex flex-col">
               <span className="text-white text-sm font-normal font-['Montserrat'] capitalize">
-                With player&apos;s agent:
+                {t("with_player_agent")}
               </span>
               <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
                 {data?.player?.is_agent_contracted
-                  ? "Contracted with a player agent"
-                  : "Not Contracted with a player agent"}
+                  ? t("contracted_with_a_player_agent")
+                  : t("not_contracted_with_a_player_agent")}
               </div>
             </div>
           </div>
         </div>
 
         {/* socials */}
-        <div className="w-full md:w-[306px] h-auto md:h-[260px] px-[21px] py-[30px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] flex flex-col justify-center items-center">
+        {/* <div className="w-full md:w-[306px] h-auto md:h-[260px] px-[21px] py-[30px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] flex flex-col justify-center items-center">
           <div className="flex flex-col gap-[15px] w-full">
             {["LinkedIn", "Facebook", "Twitter", "WhatsApp"].map(
               (platform, index) => (
@@ -267,7 +269,6 @@ const Player = () => {
                 >
                   <div className="flex items-center gap-2">
                     <div className="w-[35px] h-[35px] relative">
-                      {/* Add SVG icons for each platform */}
                     </div>
                     <div className="text-white text-base font-bold font-['Montserrat'] capitalize">
                       {platform}
@@ -285,7 +286,7 @@ const Player = () => {
               )
             )}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* right side */}
@@ -310,7 +311,7 @@ const Player = () => {
           <div className="w-full md:w-1/2">
             <div className="flex justify-between items-center mb-4 md:mb-6">
               <h3 className="text-white text-base md:text-lg font-bold font-['Montserrat']">
-                Player&apos;s physical level
+                {t("players_physical_level")}
               </h3>
               <span className="text-white text-base md:text-lg font-bold font-['Montserrat']">
                 99
@@ -320,19 +321,19 @@ const Player = () => {
             <div className="space-y-6 md:space-y-8">
               {[
                 {
-                  label: "Running level in 90 minutes:",
+                  label: t("running_level_in_90_minutes"),
                   value: "5.2 km",
                   width: "38%",
                   scale: ["5 km", "6 km", "7 km", "8 km", "9 km"],
                 },
                 {
-                  label: "Stamina level:",
+                  label: t("stamina_level"),
                   value: "average",
                   width: "50%",
                   scale: ["weak", "strong"],
                 },
                 {
-                  label: "Player's physical condition:",
+                  label: t("player_physical_condition"),
                   value: "70%",
                   width: "70%",
                   scale: ["0%", "100%"],
@@ -369,7 +370,7 @@ const Player = () => {
           <div className="w-full md:w-1/2 mt-6 md:mt-0">
             <div className="flex justify-between items-center mb-4 md:mb-6">
               <h3 className="text-white text-base md:text-lg font-bold font-['Montserrat']">
-                Player&apos;s injury history
+                {t("player_injury_history")}
               </h3>
               <span className="text-white text-base md:text-lg font-bold font-['Montserrat']">
                 99
@@ -380,15 +381,15 @@ const Player = () => {
               <div className="flex flex-col gap-4 md:gap-6 w-full">
                 {[
                   {
-                    label: "Number of injuries during the season:",
+                    label: t("number_of_injuries_during_the_season"),
                     value: data?.player?.injuries[0]?.number_of_injuries || 0,
                   },
                   {
-                    label: "Type of injury:",
+                    label: t("type_of_injury"),
                     value: data?.player?.injuries[0]?.injury_type || "N/A",
                   },
                   {
-                    label: "Recovery period:",
+                    label: t("recovery_period"),
                     value: data?.player?.injuries[0]?.recovery_time || "N/A",
                   },
                 ].map((item, index) => (
@@ -409,7 +410,7 @@ const Player = () => {
               <div className="space-y-2 w-full">
                 <div className="flex justify-start w-full gap-[15px] items-center">
                   <span className="text-[#adadad] text-xs md:text-sm font-medium font-['Montserrat']">
-                    Player&apos;s physical condition:
+                    {t("player_condition")}
                   </span>
                   <span className="text-white text-sm md:text-base font-bold font-['Montserrat']">
                     70%
@@ -433,7 +434,7 @@ const Player = () => {
           <div className="w-full md:w-[860px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-6">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-white text-lg font-bold font-['Montserrat']">
-                Player&napos;s skill level
+                {t("player_skill_level")}
               </h3>
               <span className="text-white text-lg font-bold font-['Montserrat']">
                 99
@@ -442,48 +443,43 @@ const Player = () => {
             <div className="space-y-6">
               {[
                 {
-                  label: "Headshot accuracy",
+                  label: t("heading_accuracy"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.heading_accuracy
                   ),
                 },
                 {
-                  label:
-                    "Accuracy of short, long and cross passes depending on the player's positions",
+                  label: t("passing_accuracy"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.passing_accuracy
                   ),
                 },
                 {
-                  label:
-                    "Accuracy and power of direct shooting and various kicks",
+                  label: t("shooting_power"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.shooting_power
                   ),
                 },
                 {
-                  label:
-                    "The extent of mastery of basic playing skills according to changing playing situations",
+                  label: t("tactical_awareness"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.tactical_awareness
                   ),
                 },
                 {
-                  label: "The extent of mastery of basic physical skills",
+                  label: t("basic_physical_skills"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.physical_fitness
                   ),
                 },
                 {
-                  label:
-                    "The extent of mastery of the player's endurance for 90 minutes",
+                  label: t("endurance"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.endurance_90_min
                   ),
                 },
                 {
-                  label:
-                    "The extent of mastery of the player's speed and agility",
+                  label: t("sprint_speed"),
                   value: getSkillLevelName(
                     data?.player?.skills[0]?.sprint_speed
                   ),
