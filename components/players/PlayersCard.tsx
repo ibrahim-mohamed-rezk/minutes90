@@ -152,7 +152,7 @@ const PlayersCard = ({
           </div>
 
           {/* Bottom section */}
-          <div className="absolute bottom-0 z-20 w-full p-5 flex flex-col">
+          <div className="absolute bottom-0 z-20 w-full p-5 flex flex-col items-start justify-center">
             {/* player number */}
             <div className=" w-full pb-[10px] pe-[5px] flex items-center justify-end text-center text-white text-3xl font-black font-['Montserrat']">
               {playerNumber()}
@@ -160,11 +160,11 @@ const PlayersCard = ({
 
             <div className="flex items-center justify-center w-full">
               {/* Player name */}
-              <div className="flex flex-col max-w-[55px]">
+              <div className="flex flex-col w-full">
                 <div className="text-white text-[15px] text-nowrap font-bold font-['Montserrat']">
                   {player?.user?.name}
                 </div>
-                <div className="flex items-center flex-col text-white justify-start gap-[2px] mt-[10px]">
+                <div className="flex items-start flex-col text-white justify-start gap-[2px] mt-[10px]">
                   <span>{player.main_position}</span>
                 </div>
               </div>
