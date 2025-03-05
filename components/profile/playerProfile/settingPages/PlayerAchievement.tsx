@@ -1,31 +1,36 @@
 import { postApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import { useRouter } from "@/i18n/routing";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 
-const PlayerAchievement = () => {
+const PlayerAchievement = ({
+  seTCurrentOppendSetting,
+}: {
+  seTCurrentOppendSetting: (value: string) => void;
+}) => {
   const [achtype, setAchType] = useState("individual");
   const [achTitle, setActTitle] = useState("");
   const [achDate, setActDate] = useState("");
-  const router = useRouter();
   const { token } = useAppSelector((state) => state.user);
   const t = useTranslations("settings");
 
   const updatePlayerAchievement = async () => {
     try {
-      const res = await postApi("player-profile/achievement", {
-        type: achtype,
-        title: achTitle,
-        date: achDate,
-      },{
-        Authorization: `Bearer ${token}`,
-      });
+      await postApi(
+        "player-profile/achievement",
+        {
+          type: achtype,
+          title: achTitle,
+          date: achDate,
+        },
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      );
 
       toast.success(t("achievements_updated_successfully"));
-      console.log(res)
-      router.push("/profile");
+      seTCurrentOppendSetting(t("Legal_Aspects"));
     } catch (error) {
       console.log(error);
       toast.error(t("error_updating_achievements"));

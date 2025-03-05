@@ -4,21 +4,23 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "@/libs/store/hooks";
 import { postApi } from "@/libs/axios/backendServer";
-import { useRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 
-const PlayerInjury = () => {
+const PlayerInjury = ({
+  seTCurrentOppendSetting,
+}: {
+  seTCurrentOppendSetting: (value: string) => void;
+}) => {
   const [injuryType, setInjuryType] = useState("muscle");
   const [injurySeverity, setInjurySeverity] = useState("minor");
   const [recoveryPeriod, setRecoveryPeriod] = useState("less than a month");
   const [participationRate, setParticipationRate] = useState(1);
   const { token } = useAppSelector((state) => state.user);
-  const router = useRouter();
   const t = useTranslations("settings");
 
   const updateInjury = async () => {
     try {
-      const res = await postApi(
+      await postApi(
         "player-profile/injury",
         {
           injury_type: injuryType,
@@ -31,8 +33,7 @@ const PlayerInjury = () => {
         }
       );
       toast.success("Injury updated successfully");
-      router.push("/profile");
-      console.log(res);
+      seTCurrentOppendSetting(t("Player_Skill_Level"));
     } catch (error) {
       toast.error("Error updating injury");
       console.log(error);

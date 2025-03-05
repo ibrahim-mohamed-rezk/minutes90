@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import PlayerMainInfo from "./settingPages/PlayerMainInfo";
-import PlayerPhysical from "./settingPages/PlayerPhysical";
+// import PlayerPhysical from "./settingPages/PlayerPhysical";
 import PlayerInjury from "./settingPages/PlayerInjury";
 import PlayerSkills from "./settingPages/PlayerSkills";
-import PlayerTacticalPerformance from "./settingPages/PlayerTacticalPerformance";
+// import PlayerTacticalPerformance from "./settingPages/PlayerTacticalPerformance";
 import PlayerAchievement from "./settingPages/PlayerAchievement";
-import PlayerPenalties from "./settingPages/PlayerPenalties";
+// import PlayerPenalties from "./settingPages/PlayerPenalties";
 import PlayerLegalAspects from "./settingPages/PlayerLegalAspects";
 import Settings from "./settingPages/Settings";
 import { useTranslations } from "next-intl";
@@ -59,20 +59,28 @@ const PlayerProfileSettings = () => {
       {/* right side */}
       <div className="w-full md:flex-1 flex items-center justify-start flex-col gap-[30px]">
         {currentOppendSetting === t("Settings") && <Settings />}
-        {currentOppendSetting === t("Main_Information") && <PlayerMainInfo />}
-        {currentOppendSetting === t("Player's Physical Level") && (
-          <PlayerPhysical />
+        {currentOppendSetting === t("Main_Information") && (
+          <PlayerMainInfo seTCurrentOppendSetting={seTCurrentOppendSetting} />
         )}
-        {currentOppendSetting === t("Player_Injury_Level") && <PlayerInjury />}
-        {currentOppendSetting === t("Player_Skill_Level") && <PlayerSkills />}
-        {currentOppendSetting ===
+        {/* {currentOppendSetting === t("Player's Physical Level") && (
+          <PlayerPhysical seTCurrentOppendSetting={seTCurrentOppendSetting}  />
+        )} */}
+        {currentOppendSetting === t("Player_Injury_Level") && (
+          <PlayerInjury seTCurrentOppendSetting={seTCurrentOppendSetting} />
+        )}
+        {currentOppendSetting === t("Player_Skill_Level") && (
+          <PlayerSkills seTCurrentOppendSetting={seTCurrentOppendSetting} />
+        )}
+        {/* {currentOppendSetting ===
           t("Player's Technical and Tactical Performance") && (
-          <PlayerTacticalPerformance />
-        )}
+          <PlayerTacticalPerformance seTCurrentOppendSetting={seTCurrentOppendSetting}  />
+        )} */}
         {currentOppendSetting === t("Player_Achievement_Rate") && (
-          <PlayerAchievement />
+          <PlayerAchievement
+            seTCurrentOppendSetting={seTCurrentOppendSetting}
+          />
         )}
-        {currentOppendSetting === t("Player_Penalties") && <PlayerPenalties />}
+        {/* {currentOppendSetting === t("Player_Penalties") && <PlayerPenalties seTCurrentOppendSetting={seTCurrentOppendSetting}  />} */}
         {currentOppendSetting === t("Legal_Aspects") && <PlayerLegalAspects />}
       </div>
     </div>

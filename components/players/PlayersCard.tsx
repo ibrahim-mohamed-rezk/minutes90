@@ -2,7 +2,6 @@
 
 import { useRouter } from "@/i18n/routing";
 
-
 const PlayersCard = ({
   player,
   className,
@@ -17,6 +16,7 @@ const PlayersCard = ({
     user?: {
       id: string;
       name: string;
+      image?: string;
     };
     country?: {
       name: string;
@@ -103,7 +103,7 @@ const PlayersCard = ({
           </div>
 
           {/* Right side info */}
-          <div className="absolute z-10 right-[25px] top-[47px] flex flex-col items-center gap-[12px]">
+          <div className="absolute z-20 right-[25px] top-[47px] flex flex-col items-center gap-[12px]">
             <div className="flex items-center relative justify-center">
               <svg
                 width="39"
@@ -142,11 +142,11 @@ const PlayersCard = ({
           </div>
 
           {/* Player Image */}
-          <div className="flex-1 relative z-10">
+          <div className="flex-1 relative w-full flex z-10">
             <img
-              className="w-[248px] h-[183px] absolute left-0 top-[68px] object-cover"
-              src="/images/home/mosalah.png"
-              alt="Mohamed Salah"
+              className="w-[260px] h-[300px] rounded-[10px] absolute left-0 right-0 top-0"
+              src={player?.user?.image}
+              alt={player?.user?.name}
               loading="lazy"
             />
           </div>

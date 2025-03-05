@@ -2,12 +2,15 @@
 
 import { postApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
-import { useRouter } from "@/i18n/routing";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 
-const PlayerSkills = () => {
+const PlayerSkills = ({
+  seTCurrentOppendSetting,
+}: {
+  seTCurrentOppendSetting: (value: string) => void;
+}) => {
   const t = useTranslations("settings");
   const [headshotAccuracy, setHeadshotAccuracy] = useState(60);
   const [shootAccuracy, setShootAccuracy] = useState(60);
@@ -19,11 +22,10 @@ const PlayerSkills = () => {
   const [physicalFitness, setPhysicalFitness] = useState(60);
   const [sprintSpeed, setSprintSpeed] = useState(60);
   const [endurance, setEndurance] = useState(60);
-  const router = useRouter();
 
   const updateSkills = async () => {
     try {
-      const res = await postApi(
+      await postApi(
         "player-profile/skill",
         {
           heading_accuracy: headshotAccuracy,
@@ -41,8 +43,7 @@ const PlayerSkills = () => {
         }
       );
       toast.success(t("successMessage"));
-      console.log(res)
-      router.push("/profile");
+      seTCurrentOppendSetting(t("Player_Achievement_Rate"));
     } catch (error) {
       toast.error(t("errorMessage"));
       console.log(error);
@@ -58,11 +59,27 @@ const PlayerSkills = () => {
   ];
 
   const skillFields = [
-    { name: t("headshotAccuracy"), state: headshotAccuracy, setState: setHeadshotAccuracy },
+    {
+      name: t("headshotAccuracy"),
+      state: headshotAccuracy,
+      setState: setHeadshotAccuracy,
+    },
     { name: t("passingAccuracy"), state: passing, setState: setPassing },
-    { name: t("shootingPower"), state: shootAccuracy, setState: setShootAccuracy },
-    { name: t("tacticalAwareness"), state: tacticalAwareness, setState: setTacticalAwareness },
-    { name: t("physicalFitness"), state: physicalFitness, setState: setPhysicalFitness },
+    {
+      name: t("shootingPower"),
+      state: shootAccuracy,
+      setState: setShootAccuracy,
+    },
+    {
+      name: t("tacticalAwareness"),
+      state: tacticalAwareness,
+      setState: setTacticalAwareness,
+    },
+    {
+      name: t("physicalFitness"),
+      state: physicalFitness,
+      setState: setPhysicalFitness,
+    },
     { name: t("sprintSpeed"), state: sprintSpeed, setState: setSprintSpeed },
     { name: t("endurance90Minutes"), state: endurance, setState: setEndurance },
     { name: t("dribbling"), state: dribbling, setState: setDribbling },
@@ -91,7 +108,9 @@ const PlayerSkills = () => {
                   <div
                     key={index}
                     className={`${
-                      field.state === item.value ? "bg-[#34a853] rounded-xl" : ""
+                      field.state === item.value
+                        ? "bg-[#34a853] rounded-xl"
+                        : ""
                     } px-[13px] py-2.5 rounded-xl`}
                     onClick={() => field.setState(item.value)}
                   >

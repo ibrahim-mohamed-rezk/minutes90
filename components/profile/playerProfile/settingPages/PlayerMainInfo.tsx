@@ -21,11 +21,15 @@ interface MainInfo {
   second_position: string;
   primary_foot: string;
   country_id: string;
-  governorate_id: string;
+  // governorate_id: string;
   image: File | null;
 }
 
-const PlayerMainInfo = () => {
+const PlayerMainInfo = ({
+  seTCurrentOppendSetting,
+}: {
+  seTCurrentOppendSetting: (value: string) => void;
+}) => {
   const { userData, token } = useAppSelector((state) => state.user);
   const [countries, setCountries] = useState<
     [{ id: string; name: string }] | null
@@ -49,7 +53,7 @@ const PlayerMainInfo = () => {
     second_position: userData?.player?.second_position || "CF",
     primary_foot: userData?.player?.primary_foot || "left",
     country_id: userData?.country_id || "1",
-    governorate_id: userData?.governorate?.id || "1",
+    // governorate_id: userData?.governorate?.id || "1",
     image: null,
   });
   const t = useTranslations("settings");
@@ -108,6 +112,7 @@ const PlayerMainInfo = () => {
       });
       toast.success("Profile updated successfully");
       dispatch(updateUserData({ user_data: res.data.user }));
+      seTCurrentOppendSetting(t("Player_Injury_Level"));
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) {
@@ -131,7 +136,7 @@ const PlayerMainInfo = () => {
       second_position: userData?.second_position || "CF",
       primary_foot: userData?.primary_foot || "left",
       country_id: userData?.country_id || "1",
-      governorate_id: userData?.governorate?.id || "1",
+      // governorate_id: userData?.governorate?.id || "1",
       image: null,
     });
   }, [userData]);
