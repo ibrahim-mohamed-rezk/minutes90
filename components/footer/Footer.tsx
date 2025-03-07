@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 const Footer = () => {
   return (
@@ -49,14 +49,14 @@ const Footer = () => {
                     Agents
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     href="/blogs"
                     className="text-[#b7b7b7] hover:text-white transition"
                   >
                     Blogs
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
 

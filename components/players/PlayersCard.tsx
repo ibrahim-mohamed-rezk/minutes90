@@ -27,30 +27,30 @@ const PlayersCard = ({
 }) => {
   const router = useRouter();
 
-  const playerNumber = () => {
-    switch (player.main_position) {
-      case "gk":
-        return 1;
-      case "lb":
-        return 2;
-      case "cb":
-        return 3;
-      case "rb":
-        return 4;
-      case "dm":
-        return 5;
-      case "cm":
-        return 6;
-      case "rw":
-        return 7;
-      case "lw":
-        return 8;
-      case "cf":
-        return 9;
-      default:
-        return 0;
-    }
-  };
+  // const playerNumber = () => {
+  //   switch (player.main_position) {
+  //     case "gk":
+  //       return 1;
+  //     case "lb":
+  //       return 2;
+  //     case "cb":
+  //       return 3;
+  //     case "rb":
+  //       return 4;
+  //     case "dm":
+  //       return 5;
+  //     case "cm":
+  //       return 6;
+  //     case "rw":
+  //       return 7;
+  //     case "lw":
+  //       return 8;
+  //     case "cf":
+  //       return 9;
+  //     default:
+  //       return 0;
+  //   }
+  // };
 
   return (
     <div
@@ -67,7 +67,7 @@ const PlayersCard = ({
 
         <div className="w-full h-full flex flex-col ">
           {/* Left side info */}
-          <div className="absolute z-20 left-[30px] top-[42px] flex flex-col gap-[1px]">
+          {/* <div className="absolute z-20 left-[30px] top-[42px] flex flex-col gap-[1px]">
             <div className="flex flex-col items-center justify-center">
               <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
                 PAC
@@ -100,10 +100,10 @@ const PlayersCard = ({
                 99
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Right side info */}
-          <div className="absolute z-20 right-[25px] top-[47px] flex flex-col items-center gap-[12px]">
+          {/* <div className="absolute z-20 right-[25px] top-[47px] flex flex-col items-center gap-[12px]">
             <div className="flex items-center relative justify-center">
               <svg
                 width="39"
@@ -139,7 +139,7 @@ const PlayersCard = ({
               />
               {player?.country?.name}
             </div>
-          </div>
+          </div> */}
 
           {/* Player Image */}
           <div className="flex-1 relative w-full flex z-10">
@@ -154,13 +154,13 @@ const PlayersCard = ({
           {/* Bottom section */}
           <div className="absolute bottom-0 z-20 w-full p-5 flex flex-col items-start justify-center">
             {/* player number */}
-            <div className=" w-full pb-[10px] pe-[5px] flex items-center justify-end text-center text-white text-3xl font-black font-['Montserrat']">
+            {/* <div className=" w-full pb-[10px] pe-[5px] flex items-center justify-end text-center text-white text-3xl font-black font-['Montserrat']">
               {playerNumber()}
-            </div>
+            </div> */}
 
             <div className="flex items-center justify-center w-full">
               {/* Player name */}
-              <div className="flex flex-col w-full">
+              <div className="flex flex-col items-center justify-center w-full">
                 <div className="text-white text-[15px] text-nowrap font-bold font-['Montserrat']">
                   {player?.user?.name}
                 </div>
