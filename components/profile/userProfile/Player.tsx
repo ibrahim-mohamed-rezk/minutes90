@@ -2,6 +2,7 @@
 
 import { getApi } from "@/libs/axios/backendServer";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface PlayerData {
@@ -82,12 +83,13 @@ interface PlayerData {
 const Player = () => {
   const [data, setData] = useState<PlayerData | null>(null);
   const t = useTranslations("player_profile");
+  const { playerId } = useParams();
 
   // get player profile data from backend
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const res = await getApi("player-profile");
+        const res = await getApi(`players/${playerId}`);
         setData(res.data?.user);
       } catch (error) {
         console.log(error);
@@ -155,11 +157,11 @@ const Player = () => {
       {/* left side */}
       <div className="w-full md:w-[20%] flex items-center justify-start flex-col gap-[30px]">
         {/* user image */}
-        <div className="w-full h-[306px] bg-white rounded-[30px] shadow-lg p-[10px]">
+        <div className="relative w-44 md:w-full  h-44 md:h-[306px] rounded-[30px] border-2 border-[#239d60]">
           <img
-            className="w-full h-full rounded-[30px] object-cover"
             src={data?.image}
-            alt="user image"
+            alt="Profile"
+            className="rounded-[30px] w-full h-full"
           />
         </div>
 

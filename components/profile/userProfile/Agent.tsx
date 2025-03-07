@@ -73,11 +73,11 @@ const Agent = () => {
         {/* left side */}
         <div className="w-full md:w-[20%] flex items-center justify-start flex-col gap-[30px]">
           {/* user image */}
-          <div className="w-full h-[306px] bg-white rounded-[30px] shadow-lg p-[10px]">
+          <div className="relative w-44 md:w-full  h-44 md:h-[306px] rounded-[30px] border-2 border-[#239d60]">
             <img
-              className="w-full h-full rounded-[30px]"
               src={data?.user?.image || "/images/icons/userAvatar.png"}
-              alt="user image"
+              alt="Profile"
+              className="rounded-[30px] w-full h-full"
             />
           </div>
 
