@@ -110,19 +110,19 @@ const PlayerInjury = ({
               </div>
               <div className="flex flex-wrap gap-4 p-1 rounded-[14px] border border-white">
                 {[
-                  t("less_than_a_month"),
-                  t("from_3_to_6_months"),
-                  t("more_than_6_months"),
+                  { label: t("less_than_a_month"), value: "less than a month" },
+                  { label: t("from_3_to_6_months"), value: "from 3 to 6 months" },
+                  { label: t("more_than_6_months"), value: "more than 6 months" },
                 ].map((item, index) => (
                   <div
-                    key={index}
-                    onClick={() => setRecoveryPeriod(item)}
+                    key={index} 
+                    onClick={() => setRecoveryPeriod(item.value)}
                     className={`px-4 py-2.5 rounded-xl cursor-pointer ${
-                      recoveryPeriod === item ? "bg-[#34a853]" : ""
+                      recoveryPeriod === item.value ? "bg-[#34a853]" : ""
                     }`}
                   >
                     <div className="text-white text-sm font-medium font-['Montserrat']">
-                      {item}
+                      {item.label}
                     </div>
                   </div>
                 ))}
