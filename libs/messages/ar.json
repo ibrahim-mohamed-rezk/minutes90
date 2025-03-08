@@ -109,10 +109,12 @@
     "passing_accuracy": "دقة التمرير",
     "shooting_power": "قوة التسديد",
     "basic_physical_skills": "المهارات البدنية الأساسية",
-    "players_physical_level": "المستوى البدني للاعب"
+    "players_physical_level": "المستوى البدني للاعب",
+    "contact": "تواصل  ",
+    "not_accepted": "حسابك غير موثق، ولا يمكن للوكلاء والأندية التواصل معك مباشرة. هل ترغب في توثيق حسابك الآن؟ "
   },
   "settings": {
-    "save": "حفظ", 
+    "save": "حفظ",
     "country": "الدولة",
     "EditprofileSettings": " الأعدادات",
     "yes": "نعم",
@@ -140,7 +142,7 @@
     "name": "الاسم",
     "birthday": "تاريخ الميلاد",
     "mainPosition": "المركز الرئيسي",
-    "secondPosition": "المركز الثانوي",
+    "secondPosition": "المركز الاحطياطي",
     "primaryFoot": "القدم الأساسية :",
     "left": "اليسرى",
     "right": "اليمنى",
@@ -195,6 +197,8 @@
     "endurance90Minutes": "التحمل (90 دقيقة)",
     "dribbling": "المراوغة",
     "defending": "الدفاع",
-    "Language": "اللغة"
+    "Language": "اللغة",
+    "currentClub": " النادي الحالي :",
+    "clubName": "اسم النادي :"
   }
 }

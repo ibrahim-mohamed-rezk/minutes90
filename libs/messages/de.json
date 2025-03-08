@@ -89,7 +89,9 @@
     "not_contracted_with_a_club": "Nicht mit einem Verein unter Vertrag",
     "player_injury_history": "Verletzungshistorie des Spielers",
     "type_of_injury": "Verletzungsart:",
-    "recovery_period": "Erholungszeit:"
+    "recovery_period": "Erholungszeit:",
+    "contact": "Kontaktieren",
+    "not_accepted": "Ihr Konto ist nicht verifiziert, und Agenten und Vereine können Sie nicht direkt kontaktieren."
   },
   
   "settings": {
@@ -176,6 +178,8 @@
     "endurance90Minutes": "Ausdauer (90 Minuten)",
     "dribbling": "Dribbeln",
     "defending": "Verteidigung",
-    "Language": "Sprache"
+    "Language": "Sprache",
+    "currentClub": "Aktueller Verein",
+    "clubName": "Vereinsname :"
   }
 }

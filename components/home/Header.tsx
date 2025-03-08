@@ -108,22 +108,22 @@ const Header = () => {
                   className="w-full h-full"
                   alt="News thumbnail"
                 />
-                <div
+                {/* <div
                   className="absolute bottom-0 left-0 right-0 w-full flex flex-col md:flex-row justify-start items-start md:items-center p-4 md:p-[50px] gap-4 md:gap-[30px]"
                   style={{
                     background:
                       "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)",
                   }}
                 >
-                  {/* <img
+                   <img
                     src="/images/home/newsLogo.png"
                     alt="News Logo"
                     className="w-16 md:w-auto"
                   />
                   <p className="text-white text-lg md:text-[26px] font-black font-['Montserrat'] max-w-full md:max-w-[707px]">
                     {t("news")}
-                  </p> */}
-                </div>
+                  </p> *
+                </div> */}
               </div>
             </SwiperSlide>
           ))}

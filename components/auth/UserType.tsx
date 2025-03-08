@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "@/i18n/routing";
 import { postApi } from "@/libs/axios/backendServer";
 import { useAppDispatch } from "@/libs/store/hooks";
 import { updateUserData } from "@/libs/store/slices/userSlice";
@@ -16,6 +17,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
   const [userType, setUserType] = useState<"player" | "agent" | null>(null);
   const [agentCode, setAgentCode] = useState("");
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   if (!isOpen) return null;
 
@@ -47,6 +49,11 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
       toast.success("Role assigned successfully");
       dispatch(updateUserData({ user_data: res.data.user_data }));
       onClose();
+      if (userType === "player") {
+        router.push("/profile/settings");
+      } else if (userType === "agent") {
+        router.push("/profile/settingsAgent");
+      }
     } catch (error) {
       toast.error("Error assigning role");
       console.log(error);
@@ -72,6 +79,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
       toast.success("Role assigned successfully");
       dispatch(updateUserData({ user_data: res.data.user_data }));
       onClose();
+      router.push("/profile/settings");
     } catch (error) {
       toast.error("Error assigning role");
       console.log(error);
@@ -123,7 +131,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
               <div className="flex justify-center gap-4 w-full mt-2">
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white w-1/2 px-4 py-2 rounded"
+                  className="bg-red-500 text-white w-1/2 px-4 py-2 rounded"
                 >
                   Submit
                 </button>
@@ -141,7 +149,7 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
           <button
             onClick={handleSubmit}
             type="submit"
-            className="bg-blue-500 text-white w-1/2 px-4 py-2 rounded-lg mt-[50px]"
+            className="bg-red-500 text-white w-1/2 px-4 py-2 rounded-lg mt-[50px]"
           >
             Signup as Agent
           </button>

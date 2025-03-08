@@ -268,8 +268,9 @@ const PlayerMainInfo = ({
                 </label>
                 <div className="h-[41px] px-4 py-2 bg-[#0d0d0d] rounded-[9px] border border-[#adadad] flex items-center">
                   <input
-                    type="text"
-                    placeholder="Enter phone"
+                    type="tel"
+                    pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                    placeholder="Enter phone (e.g., 01234567890)"
                     className="w-full bg-transparent text-[#808080] text-xs font-light font-['Poppins'] outline-none"
                     name="phone"
                     value={mainInfo.phone}

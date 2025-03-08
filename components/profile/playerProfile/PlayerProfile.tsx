@@ -34,11 +34,19 @@ interface PlayerProfileData {
     weight_kg: number;
     agent: boolean;
     is_agent_contracted: boolean;
-    is_club_contracted: boolean;
+    is_club_contracted: 0 | 1;
     team: string;
     main_position: string;
     second_position: string;
     primary_foot: string;
+    current_club: string;
+    accepted: boolean;
+    phone: string;
+
+    clubs: {
+      club_name: string;
+      id: number;
+    }[];
 
     injuries: {
       injury_type: string;
@@ -81,6 +89,7 @@ const PlayerProfile = () => {
   const [data, setData] = useState<PlayerProfileData | null>(null);
   const token = useAppSelector((state) => state.user.token);
   const t = useTranslations("player_profile");
+  const ts = useTranslations("settings");
 
   // get player profile data from backend
   useEffect(() => {
@@ -118,40 +127,40 @@ const PlayerProfile = () => {
   };
 
   // function to get skill level
-  const getSkillLevel = (value: string): number => {
-    switch (value) {
-      case "Weak":
-        return 1;
-      case "Average":
-        return 2;
-      case "High":
-        return 3;
-      case "Very high":
-        return 4;
-      case "Excellent":
-        return 5;
-      default:
-        return 0;
-    }
-  };
+  // const getSkillLevel = (value: string): number => {
+  //   switch (value) {
+  //     case "Weak":
+  //       return 1;
+  //     case "Average":
+  //       return 2;
+  //     case "High":
+  //       return 3;
+  //     case "Very high":
+  //       return 4;
+  //     case "Excellent":
+  //       return 5;
+  //     default:
+  //       return 0;
+  //   }
+  // };
 
   // function to get skill level name
-  const getSkillLevelName = (value: number | undefined): string => {
-    if (!value) return "";
-    if (value >= 50 && value < 60) {
-      return "Weak";
-    } else if (value >= 60 && value < 70) {
-      return "Average";
-    } else if (value >= 70 && value < 80) {
-      return "High";
-    } else if (value >= 80 && value < 90) {
-      return "Very high";
-    } else if (value >= 90) {
-      return "Excellent";
-    } else {
-      return "";
-    }
-  };
+  // const getSkillLevelName = (value: number | undefined): string => {
+  //   if (!value) return "";
+  //   if (value >= 50 && value < 60) {
+  //     return "Weak";
+  //   } else if (value >= 60 && value < 70) {
+  //     return "Average";
+  //   } else if (value >= 70 && value < 80) {
+  //     return "High";
+  //   } else if (value >= 80 && value < 90) {
+  //     return "Very high";
+  //   } else if (value >= 90) {
+  //     return "Excellent";
+  //   } else {
+  //     return "";
+  //   }
+  // };
 
   const signOut = () => {
     localStorage.removeItem("token");
@@ -185,101 +194,6 @@ const PlayerProfile = () => {
         >
           {t("log_out")}
         </button>
-
-        {/* main info */}
-        <div className="w-full md:w-[306px] flex flex-col gap-4 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("age")}: 
-            </div>
-            <div className="text-white text-base font-bold font-['Montserrat']">
-              {calculateAge(data?.player?.birth_date)} years
-            </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("height")}: 
-            </div>
-            <div className="text-white text-base font-bold font-['Montserrat']">
-              {data?.player?.height_cm} cm
-            </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("weight")}: 
-            </div>
-            <div className="text-white text-base font-bold font-['Montserrat']">
-              {data?.player?.weight_kg} kg
-            </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("country")}: 
-            </div>
-            <div className="text-white text-base font-bold font-['Montserrat']">
-              {data?.country?.name}
-            </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("primary_foot")}: 
-            </div>
-            <div className="text-white w-[50px] h-[24px] border border-[#f1f1f2] rounded-[17px] text-center bg-[#515151] text-base font-bold font-['Montserrat']">
-              {data?.player?.primary_foot === "left" ? "L" : "R"}
-            </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("position")}: 
-            </div>
-            <div className="text-white text-base bg-[#EB4335] w-[41px] h-[24px] rounded-[6px] text-center font-bold font-['Montserrat']">
-              {data?.player?.main_position}
-            </div>
-          </div>
-
-          <div className="flex items-start justify-start gap-[10px]">
-            <div className="text-white text-sm font-normal font-['Montserrat']">
-              {t("position")}: 
-            </div>
-            <div className="text-white text-base bg-[#EB4335] w-[41px] h-[24px] rounded-[6px] text-center font-bold font-['Montserrat']">
-              {data?.player?.second_position}
-            </div>
-          </div>
-        </div>
-
-        {/* Legal Aspects */}
-        <div className="w-full md:w-[306px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
-          <div className=" text-white text-lg font-bold font-['Montserrat']">
-            {t("legal_aspects")}
-          </div>
-          <div className="flex flex-col gap-[20px] px-[5px] mt-[20px]">
-            <div className="flex flex-col">
-              <span className="text-white text-sm font-normal font-['Montserrat'] uppercase">
-                {t("with_club")}:
-              </span>
-              <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
-                {data?.player?.is_club_contracted
-                  ? t("contracted_with_a_club")
-                  : t("not_contracted_with_a_club")}
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white text-sm font-normal font-['Montserrat'] capitalize">
-                {t("with_player_agent")}: 
-              </span>
-              <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
-                {data?.player?.is_agent_contracted
-                  ? t("contracted_with_a_player_agent")
-                  : t("not_contracted_with_a_player_agent")}
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* socials */}
         {/* <div className="w-full md:w-[306px] h-auto md:h-[260px] px-[21px] py-[30px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] flex flex-col justify-center items-center">
@@ -329,8 +243,7 @@ const PlayerProfile = () => {
         </div>
 
         {/* level and statistic */}
-        <div className="w-full p-4 md:p-6 bg-[#1e1f1f] flex flex-col md:flex-row items-stretch justify-center gap-[30px] rounded-[30px] border border-[#f1f1f2]">
-          {/* physical level */}
+        {/* <div className="w-full p-4 md:p-6 bg-[#1e1f1f] flex flex-col md:flex-row items-stretch justify-center gap-[30px] rounded-[30px] border border-[#f1f1f2]">
           <div className="w-full md:w-1/2">
             <div className="flex justify-between items-center mb-4 md:mb-6">
               <h3 className="text-white text-base md:text-lg font-bold font-['Montserrat']">
@@ -389,7 +302,6 @@ const PlayerProfile = () => {
 
           <div className="hidden md:block border border-[#4B4C4C]"></div>
 
-          {/* injury */}
           <div className="w-full md:w-1/2 mt-6 md:mt-0">
             <div className="flex justify-between items-center mb-4 md:mb-6">
               <h3 className="text-white text-base md:text-lg font-bold font-['Montserrat']">
@@ -449,12 +361,12 @@ const PlayerProfile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* skills and heatmap */}
         <div className="w-full flex flex-col md:flex-row gap-[30px]">
           {/* skills */}
-          <div className="w-full md:w-[860px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-6">
+          {/* <div className="w-full md:w-[860px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-6">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-white text-lg font-bold font-['Montserrat']">
                 {t("player_skill_level")}
@@ -557,6 +469,114 @@ const PlayerProfile = () => {
                 </div>
               ))}
             </div>
+          </div> */}
+
+          {/* main info */}
+          <div className="w-full md:w-[306px] flex flex-col gap-4 bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {t("age")}
+              </div>
+              <div className="text-white text-base font-bold font-['Montserrat']">
+                {calculateAge(data?.player?.birth_date)} years
+              </div>
+            </div>
+
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {t("height")}
+              </div>
+              <div className="text-white text-base font-bold font-['Montserrat']">
+                {data?.player?.height_cm} cm
+              </div>
+            </div>
+
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {t("weight")}
+              </div>
+              <div className="text-white text-base font-bold font-['Montserrat']">
+                {data?.player?.weight_kg} kg
+              </div>
+            </div>
+
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {t("country")}
+              </div>
+              <div className="text-white text-base font-bold font-['Montserrat']">
+                {data?.country?.name}
+              </div>
+            </div>
+
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {t("primary_foot")}
+              </div>
+              <div className="text-white w-[50px] h-[24px] border border-[#f1f1f2] rounded-[17px] text-center bg-[#515151] text-base font-bold font-['Montserrat']">
+                {data?.player?.primary_foot === "left" ? "L" : "R"}
+              </div>
+            </div>
+
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {ts("mainPosition")}
+              </div>
+              <div className="text-white text-base bg-[#EB4335] w-[41px] h-[24px] rounded-[6px] text-center font-bold font-['Montserrat']">
+                {data?.player?.main_position}
+              </div>
+            </div>
+
+            <div className="flex items-start justify-start gap-[10px]">
+              <div className="text-white text-sm font-normal font-['Montserrat']">
+                {ts("secondPosition")}
+              </div>
+              <div className="text-white text-base bg-[#EB4335] w-[41px] h-[24px] rounded-[6px] text-center font-bold font-['Montserrat']">
+                {data?.player?.second_position}
+              </div>
+            </div>
+          </div>
+
+          {/* Legal Aspects */}
+          <div className="w-full md:w-[306px] bg-[#1e1f1f] rounded-[30px] border border-[#f1f1f2] p-4">
+            <div className=" text-white text-lg font-bold font-['Montserrat']">
+              {t("legal_aspects")}
+            </div>
+            <div className="flex flex-col gap-[20px] px-[5px] mt-[20px]">
+              <div className="flex flex-col">
+                <span className="text-white text-sm font-normal font-['Montserrat'] uppercase">
+                  {t("with_club")}
+                </span>
+                <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
+                  {data?.player?.is_club_contracted
+                    ? t("contracted_with_a_club")
+                    : t("not_contracted_with_a_club")}
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white text-sm font-normal font-['Montserrat'] capitalize">
+                  {t("with_player_agent")}
+                </span>
+                <div className="text-white mt-[10px] text-base font-bold font-['Montserrat'] uppercase">
+                  {data?.player?.is_agent_contracted
+                    ? t("contracted_with_a_player_agent")
+                    : t("not_contracted_with_a_player_agent")}
+                </div>
+              </div>
+              {data?.player?.is_club_contracted === 1 && (
+                <div className="flex items-start justify-start gap-[10px]">
+                  <div className="text-white text-sm font-normal font-['Montserrat']">
+                    {ts("currentClub")}
+                  </div>
+                  <div className="text-white text-base rounded-[6px] text-center font-bold font-['Montserrat']">
+                    {
+                      data?.player?.clubs?.[data?.player?.clubs?.length - 1]
+                        ?.club_name
+                    }
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Heatmap */}
@@ -601,6 +621,32 @@ const PlayerProfile = () => {
             </div>
           </div>
         </div>
+        {data?.player?.accepted ? (
+          <div className=" mt-[100px] w-fit flex items-center justify-center">
+            <a
+              href={`https://wa.me/${data?.player?.phone}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 px-5 py-2 justify-center bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 0C5.372 0 0 5.373 0 12c0 2.123.552 4.135 1.603 5.917L0 24l6.318-1.621A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.753 15.854c-.255.716-1.251 1.364-2.019 1.547-.512.127-1.173.23-3.409-.73-2.864-1.125-4.707-3.91-4.843-4.092-.136-.182-1.151-1.523-1.151-2.9s.726-2.057.983-2.334c.255-.278.566-.347.754-.347.188 0 .377.002.542.009.176.008.413-.066.645.506.255.63.868 2.174.942 2.34.075.166.127.36.023.58-.104.22-.154.353-.308.543-.155.19-.324.428-.462.576-.138.149-.282.313-.122.608.16.296.714 1.176 1.53 1.903 1.051.946 1.938 1.24 2.234 1.376.296.137.47.115.644-.07.173-.184.743-.868.944-1.167.201-.299.402-.252.644-.153.243.099 1.549.731 1.812.865.263.134.437.199.502.31.065.111.065.646-.19 1.362z"></path>
+              </svg>
+              <span className="text-white text-[18px] font-['Montserrat'] font-bold">
+                {t("contact")}
+              </span>
+            </a>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center text-white bg-red-500 px-5 py-2 rounded-[5px] ">
+            {t("not_accepted")}
+          </div>
+        )}
       </div>
     </div>
   );

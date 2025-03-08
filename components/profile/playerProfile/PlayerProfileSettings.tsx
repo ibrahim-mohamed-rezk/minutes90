@@ -22,19 +22,19 @@ const PlayerProfileSettings = () => {
     <div className="flex flex-col md:flex-row w-full items-start justify-start gap-[30px] pt-[48px]">
       {/* left side */}
       <div className="w-full md:w-[300px] flex items-center justify-start flex-col px-[5px] gap-[30px]">
-        <div className="w-full h-auto md:h-[588px] pb-[22px] bg-white rounded-[20px] shadow-md border border-[#f1f1f2] flex-col justify-start items-center gap-[22px] inline-flex">
+        <div className="w-full h-auto pb-[22px] bg-white rounded-[20px] shadow-md border border-[#f1f1f2] flex-col justify-start items-center gap-[22px] inline-flex">
           <div className="self-stretch p-2.5 bg-[#239d60] rounded-tl-[20px] rounded-tr-[20px] justify-center items-center gap-2.5 inline-flex">
             <div className="text-white text-base md:text-lg font-bold font-['Montserrat']">
               {t("EditprofileSettings")}
             </div>
           </div>
-          <div className="self-stretch h-auto md:h-[504px] flex-col justify-start items-start gap-4 inline-flex overflow-y-auto">
+          <div className="self-stretch h-auto flex-col justify-start items-start gap-2 inline-flex overflow-y-auto">
             {[
               t("Settings"),
               t("Main_Information"),
-              t("Player_Injury_Level"),
-              t("Player_Skill_Level"),
-              t("Player_Achievement_Rate"),
+              // t("Player_Injury_Level"),
+              // t("Player_Skill_Level"),
+              // t("Player_Achievement_Rate"),
               // t("Player_Penalties"),
               t("Legal_Aspects"),
             ].map((item, index) => (

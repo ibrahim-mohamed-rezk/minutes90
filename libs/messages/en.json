@@ -109,7 +109,9 @@
     "passing_accuracy": "Passing accuracy",
     "shooting_power": "Shooting power",
     "basic_physical_skills": "Basic physical skills",
-    "players_physical_level": "Player's physical level"
+    "players_physical_level": "Player's physical level",
+    "contact": "Contact",
+    "not_accepted": "Your account is not verified, and agents and clubs cannot contact you directly."
   },
   "settings": {
     "save": "Save",
@@ -195,7 +197,8 @@
     "endurance90Minutes": "Endurance (90 Minutes)",
     "dribbling": "Dribbling",
     "defending": "Defending",
-    "Language": "Language"
-
+    "Language": "Language",
+    "currentClub": "Current Club",
+    "clubName": "Club Name :"
   }
 }

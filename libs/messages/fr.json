@@ -109,7 +109,9 @@
     "passing_accuracy": "Précision des passes",
     "shooting_power": "Puissance de tir",
     "basic_physical_skills": "Compétences physiques de base",
-    "players_physical_level": "Niveau physique du joueur"
+    "players_physical_level": "Niveau physique du joueur",
+    "contact": "Contacter",
+    "not_accepted": "Votre compte n'est pas vérifié, et les agents et les clubs ne peuvent pas vous contacter directement."
   },
   "settings": {
     "save": "Enregistrer",
@@ -195,8 +197,8 @@
     "endurance90Minutes": "Endurance (90 minutes)",
     "dribbling": "Dribble",
     "defending": "Défense",
-    "Language": "Langue"
+    "Language": "Langue",
+    "currentClub": "Club actuel",
+    "clubName": "Nom du club :"
   }
 }
-
-

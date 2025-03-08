@@ -1,15 +1,22 @@
 "use client";
 
-import { postApi } from "@/libs/axios/backendServer";
+import { getApi, postApi } from "@/libs/axios/backendServer";
 import { useAppDispatch } from "@/libs/store/hooks";
 import { setPlayersData } from "@/libs/store/slices/PlayersSlice";
 import { useEffect, useState, useRef } from "react";
 import FilterDropDown from "../filterComponents/FilterDropDown";
 import { PlayerFilters } from "@/libs/helpers/PlayerFilters";
 import FilterCollapse from "../filterComponents/FilterCollapse";
+import { useTranslations } from "next-intl";
+
+interface Country {
+  id: number;
+  name: string;
+}
 
 const PlayersFilters = () => {
   const dispatch = useAppDispatch();
+  const [countries, setCountries] = useState<Country[]>([]);
   const [filters, setFilters] = useState({
     position: "",
     country_id: "",
@@ -20,6 +27,8 @@ const PlayersFilters = () => {
     age_min: "",
     age_max: "",
   });
+
+  const t = useTranslations("filters");
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -41,14 +50,24 @@ const PlayersFilters = () => {
     }
   };
 
+  // get countries form api
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await getApi("countries");
+        setCountries(response.data?.countries);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCountries();
+  }, []);
+
   //  API CALL based on filters
   useEffect(() => {
-    postApi(
-      "filter",
-      {
-        ...filters,
-      },
-    )
+    postApi("filter", {
+      ...filters,
+    })
       .then((res) => {
         dispatch(setPlayersData(res.data));
       })
@@ -123,6 +142,28 @@ const PlayersFilters = () => {
               filters={filters}
             />
           ))}
+          <div className="relative items-center justify-center gap-[3px] cursor-pointer text-nowrap flex px-[10px] py-[5px] bg-[#2f2f2f] rounded-[33px] text-white text-sm font-normal font-['Montserrat']">
+            <select
+              className=" py-2 bg-transparent text-white text-sm rounded-[9px] outline-none"
+              value={filters.country_id}
+              onChange={(e) =>
+                setFilters({ ...filters, country_id: e.target.value })
+              }
+            >
+              <option className="text-white bg-[#0d0d0d]" value="">
+                All
+              </option>
+              {countries?.map((country) => (
+                <option
+                  key={country.id}
+                  value={country.id}
+                  className="text-white bg-[#0d0d0d]"
+                >
+                  {country.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Mobile Filters Menu */}
@@ -133,7 +174,7 @@ const PlayersFilters = () => {
           } xl:hidden`}
         >
           <div
-            className="flex justify-between items-center mb-[20px] cursor-pointer "
+            className="flex w-full justify-between items-center mb-[20px] cursor-pointer "
             onClick={() => setIsMenuOpen(false)}
           >
             <svg
@@ -158,6 +199,30 @@ const PlayersFilters = () => {
               filters={filters}
             />
           ))}
+
+          <div className="cursor-pointer w-full flex justify-between items-center px-5 py-2.5 bg-[#2f2f2f] rounded-[33px] text-white text-sm font-normal font-['Montserrat']">
+            <div>{t("country")}</div>
+            <select
+              className=" w-fit py-2 bg-transparent text-white text-sm rounded-[9px] outline-none"
+              value={filters.country_id}
+              onChange={(e) =>
+                setFilters({ ...filters, country_id: e.target.value })
+              }
+            >
+              <option className="text-white bg-[#0d0d0d]" value="">
+                All
+              </option>
+              {countries?.map((country) => (
+                <option
+                  key={country.id}
+                  value={country.id}
+                  className="text-white bg-[#0d0d0d]"
+                >
+                  {country.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>
