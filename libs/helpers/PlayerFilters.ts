@@ -31,14 +31,14 @@ export const PlayerFilters: any[] = [
   //   name: "weight_max",
   //   options: [],
   // },
-  {
-    label: "min age: ",
-    name: "age_min",
-    options: [],
-  },
-  {
-    label: "max age: ",
-    name: "age_max",
-    options: [],
-  },
+  // {
+  //   label: "min age: ",
+  //   name: "age_min",
+  //   options: [],
+  // },
+  // {
+  //   label: "max age: ",
+  //   name: "age_max",
+  //   options: [],
+  // },
 ];
