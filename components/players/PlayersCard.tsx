@@ -27,35 +27,10 @@ const PlayersCard = ({
 }) => {
   const router = useRouter();
 
-  // const playerNumber = () => {
-  //   switch (player.main_position) {
-  //     case "gk":
-  //       return 1;
-  //     case "lb":
-  //       return 2;
-  //     case "cb":
-  //       return 3;
-  //     case "rb":
-  //       return 4;
-  //     case "dm":
-  //       return 5;
-  //     case "cm":
-  //       return 6;
-  //     case "rw":
-  //       return 7;
-  //     case "lw":
-  //       return 8;
-  //     case "cf":
-  //       return 9;
-  //     default:
-  //       return 0;
-  //   }
-  // };
-
   return (
     <div
       onClick={() => router.push(`/profile/user/player/${player.id}`)}
-      className={`w-[248.55px] bg-[#A80950]  relative h-[348.66px] rounded-[15px] shadow-[0px_3px_4px_0px_rgba(255,255,255,0.10)] border border-[#f1f1f2] ${className} overflow-hidden`}
+      className={`w-[48%] sm:w-[248.55px] bg-[#A80950]  relative h-[clamp(200px,18.125vw,348px)] md:h-[348px] rounded-[15px] shadow-[0px_3px_4px_0px_rgba(255,255,255,0.10)] border border-[#f1f1f2] ${className} overflow-hidden`}
     >
       {/* Top section */}
       <div className="p-[12px]">
@@ -66,85 +41,10 @@ const PlayersCard = ({
         </div>
 
         <div className="w-full h-full flex flex-col ">
-          {/* Left side info */}
-          {/* <div className="absolute z-20 left-[30px] top-[42px] flex flex-col gap-[1px]">
-            <div className="flex flex-col items-center justify-center">
-              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
-                PAC
-              </div>
-              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
-                99
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
-                SHO
-              </div>
-              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
-                99
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
-                PAS
-              </div>
-              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
-                99
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <div className="text-white bg-[#0055B0] px-[4px] rounded-full text-[6.67px] font-black font-['Montserrat']">
-                PHY
-              </div>
-              <div className="text-[#252525] text-[12.86px] font-black font-['Montserrat']">
-                99
-              </div>
-            </div>
-          </div> */}
-
-          {/* Right side info */}
-          {/* <div className="absolute z-20 right-[25px] top-[47px] flex flex-col items-center gap-[12px]">
-            <div className="flex items-center relative justify-center">
-              <svg
-                width="39"
-                height="48"
-                viewBox="0 0 39 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19.3715 47.9985C18.9398 47.9943 18.5179 47.8691 18.1537 47.6372L13.8304 44.8931C5.30566 39.4778 0 29.4145 0 18.6408V13.1484C1.4605e-05 12.8263 0.0676393 12.5078 0.198499 12.2135C0.329358 11.9191 0.52054 11.6556 0.759678 11.4398C0.998816 11.224 1.28059 11.0608 1.58677 10.9607C1.89295 10.8607 2.21671 10.826 2.53713 10.8589C2.97143 10.9031 3.40773 10.9248 3.84427 10.9239C6.47927 10.92 9.05722 10.156 11.2689 8.72368C13.9479 6.93648 16.0349 4.39306 17.2647 1.41673C17.4388 0.998738 17.7323 0.641376 18.1085 0.389375C18.4847 0.137374 18.9269 0.00193163 19.3797 0C19.8312 0.000312885 20.2727 0.133196 20.6494 0.382162C21.0261 0.631128 21.3214 0.98522 21.4987 1.4005C22.5699 3.96757 24.2736 6.22159 26.4512 7.95239C28.9246 9.88145 31.9731 10.9262 35.1099 10.9198C35.5158 10.9198 35.8771 10.9198 36.2628 10.8711H36.4576C37.068 10.8711 37.6535 11.1136 38.0852 11.5453C38.5168 11.9769 38.7593 12.5624 38.7593 13.1728V18.6327C38.7593 29.4064 33.4618 39.4697 24.9289 44.8849L20.6056 47.6291C20.2379 47.8674 19.8097 47.9956 19.3715 47.9985Z"
-                  fill="#4AA7E0"
-                />
-                <path
-                  d="M2.28564 13.1487V18.6329C2.28564 28.6597 7.15694 37.9273 15.0484 42.9407L19.3717 45.6889L23.695 42.9407C31.5946 37.9273 36.4578 28.6597 36.4578 18.6329V13.1487C32.3612 13.4896 28.2855 12.2831 25.0346 9.76717C22.546 7.7961 20.5976 5.22627 19.3717 2.29785C17.9637 5.70579 15.5707 8.61606 12.4991 10.6562C9.47507 12.6195 5.87415 13.4983 2.28564 13.1487Z"
-                  fill="#262626"
-                />
-                <g style={{ mixBlendMode: "overlay" }} opacity="0.71">
-                  <path
-                    d="M25.0344 9.7674C22.5734 7.81887 20.6403 5.28426 19.4121 2.39551V45.6689L23.6948 42.949C31.5944 37.9357 36.4576 28.668 36.4576 18.6413V13.1489C32.361 13.4899 28.2853 12.2834 25.0344 9.7674Z"
-                    fill="white"
-                  />
-                </g>
-              </svg>
-              <div className="text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-[4px] font-black font-['Montserrat'] capitalize">
-                Professional player
-              </div>
-            </div>
-            <div className="text-center flex items-center justify-center flex-col gap-[4px] text-[#09296e] text-[6.34px] font-black font-['Montserrat']">
-              <img
-                src="/images/home/egyptCardFlag.png"
-                alt="flag"
-                className="w-[31px] h-[19px]"
-              />
-              {player?.country?.name}
-            </div>
-          </div> */}
-
           {/* Player Image */}
           <div className="flex-1 relative w-full flex z-10">
             <img
-              className="w-[260px] h-[300px] rounded-[10px] absolute left-0 right-0 top-0"
+              className="w-full rounded-[10px] absolute left-0 right-0 top-0"
               src={player?.user?.image}
               alt={player?.user?.name}
               loading="lazy"
@@ -152,57 +52,27 @@ const PlayersCard = ({
           </div>
 
           {/* Bottom section */}
-          <div className="absolute bottom-0 z-20 w-full p-5 flex flex-col items-start justify-center">
-            {/* player number */}
-            {/* <div className=" w-full pb-[10px] pe-[5px] flex items-center justify-end text-center text-white text-3xl font-black font-['Montserrat']">
-              {playerNumber()}
-            </div> */}
-
+          <div className="absolute bottom-0 left-[50%] -translate-x-[50%]  z-20 w-full p-[clamp(8px,1.04166665vw,20px)] flex flex-col items-start justify-center">
             <div className="flex items-center justify-center w-full">
               {/* Player name */}
               <div className="flex flex-col items-center justify-center w-full">
-                <div className="text-white text-[15px] text-nowrap font-bold font-['Montserrat']">
+                <div className="text-white leading-normal text-[clamp(12px,0.78125vw,15px)] text-nowrap font-bold font-['Montserrat']">
                   {player?.user?.name}
                 </div>
-                <div className="flex items-start flex-col text-white justify-start gap-[2px] mt-[10px]">
+                <div className="flex items-start leading-normal  flex-col text-white justify-start gap-[2px] mt-[clamp(4px,0.520833vw,10px)]">
                   <span>{player.main_position}</span>
                 </div>
               </div>
-
-              {/* Player description */}
-              {/* <div>
-                <p className="text-white text-[4px] font-medium font-['Montserrat'] max-w-[63px]">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                  nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                  aliquip
-                </p>
-              </div> */}
-
-              {/* Titles */}
-              {/* <div className="flex flex-col max-w-[64px] gap-[5px]">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className=" gap-[3px] flex flex-col w-full">
-                    <span className="text-white text-[4px] font-black font-['Montserrat']">
-                      YOURTITLE
-                    </span>
-                    <div className="flex items-center justify-start bg-white w-[57px] rounded-full h-[4.6px]">
-                      <div></div>
-                    </div>
-                  </div>
-                ))}
-              </div> */}
             </div>
           </div>
         </div>
       </div>
 
       {/* bottom section */}
-      <div className="absolute -left-[2px] -right-[2px] bottom-0 w-full z-10">
+      <div className="absolute bottom-0 w-full z-10">
         <svg
-          width="251"
-          height="209"
+          width="100%"
+          height="100%"
           viewBox="0 0 251 209"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -223,10 +93,10 @@ const PlayersCard = ({
       </div>
 
       {/* card bg image */}
-      <div className="absolute w-full h-full left-[12px] right-[12px] top-[12px] bottom-[12px] z-0">
+      {/* <div className="absolute w-full h-full left-[clamp(8px,0.625vw,12px)] right-[clamp(8px,0.625vw,12px)] top-[clamp(8px,0.625vw,12px)] bottom-[clamp(8px,0.625vw,12px)] z-0">
         <svg
-          width="224"
-          height="324"
+          width="100%"
+          height="100%"
           viewBox="0 0 224 324"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +129,7 @@ const PlayersCard = ({
             />
           </g>
         </svg>
-      </div>
+      </div> */}
     </div>
   );
 };

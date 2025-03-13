@@ -104,13 +104,6 @@ const AgentCard = ({
               </div>
 
               <div className="flex w-full items-center justify-between">
-                {/* <div className="w-[147.88px] text-white text-[5.32px] font-medium font-['Montserrat'] leading-[6.38px]">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                  nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                  aliquip
-                </div> */}
                 <div className="w-[46.81px] h-[21.42px] flex-col justify-start items-start  md:gap-[4.42px] inline-flex">
                   <div className="w-[68.89px] text-white text-[6.18px] font-normal font-['Montserrat']">
                     {t("agent_code")}
