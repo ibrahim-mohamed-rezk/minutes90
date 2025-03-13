@@ -200,5 +200,11 @@
     "Language": "Langue",
     "currentClub": "Club actuel",
     "clubName": "Nom du club :"
+  },
+  "auth": {
+    "Passwords do not match": "Les mots de passe ne correspondent pas",
+    "Account created successfully!": "Compte créé avec succès !",
+    "Failed to create account": "Échec de la création du compte",
+    "password format": "Le format du mot de passe doit comporter au moins 8 caractères, inclure au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial"
   }
 }

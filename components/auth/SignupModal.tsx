@@ -10,6 +10,8 @@ import {
   setuserData,
   setuserDataFromGoogle,
 } from "@/libs/store/slices/userSlice";
+import { useTranslations } from "next-intl";
+import axios from "axios";
 
 interface SignupModalProps {
   isOpen: boolean;
@@ -34,7 +36,6 @@ const SignupModal = ({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [country_id, setCountry_id] = useState("1");
   const [currentSlide, setCurrentSlide] = useState(0);
-  // const [governorates, setGovernorates] = useState([]);
   const [countries, setCountries] = useState<{ id: string; name: string }[]>(
     []
   );
@@ -46,6 +47,7 @@ const SignupModal = ({
     "/images/signup/signupBg0.png",
   ];
   const dispatch = useAppDispatch();
+  const t = useTranslations("auth");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,27 +70,13 @@ const SignupModal = ({
     fetchCountries();
   }, []);
 
-  // get governorate
-  // useEffect(() => {
-  //   const fetchGovernorates = async () => {
-  //     try {
-  //       const response = await getApi(`countries/${country_id}`);
-  //       setGovernorates(response.data?.country?.governorates);
-  //       setGovernorate(response.data?.country?.governorates[0]?.id);
-  //     } catch (error) {
-  //       console.error("Error fetching governorates:", error);
-  //     }
-  //   };
-  //   fetchGovernorates();
-  // }, [country_id]);
-
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     // Validate passwords match
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error(t("Passwords do not match"));
       return;
     }
 
@@ -121,11 +109,26 @@ const SignupModal = ({
       localStorage.setItem("token", response.data.token);
       onOpenUserTypeModal();
 
-      toast.success("Account created successfully!"); // Notify success
+      toast.success(t("Account created successfully!")); // Notify success
       onClose();
-    } catch (err) {
-      toast.error("Failed to create account");
-      console.log(err);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const errors = err.response?.data?.errors as Record<string, string[]>;
+        if (errors) {
+          Object.keys(errors).forEach((key) => {
+            if(key === "password") {
+              toast.error(errors[key][0]);
+              toast.error(t("password format"))
+            } else {
+              toast.error(errors[key][0]);
+            }
+          });
+        } else {
+          toast.error(t("Failed to create account"));
+        }
+      } else {
+        toast.error(t("Something went wrong"));
+      }
     }
   };
 

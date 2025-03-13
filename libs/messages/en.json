@@ -200,5 +200,11 @@
     "Language": "Language",
     "currentClub": "Current Club",
     "clubName": "Club Name :"
+  },
+  "auth": {
+    "Passwords do not match": "Passwords do not match",
+    "Account created successfully!": "Account created successfully!",
+    "Failed to create account": "Failed to create account",
+    "password format": "Password format should be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character"
   }
 }

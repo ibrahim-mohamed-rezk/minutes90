@@ -181,5 +181,11 @@
     "Language": "Sprache",
     "currentClub": "Aktueller Verein",
     "clubName": "Vereinsname :"
+  },
+  "auth": {
+    "Passwords do not match": "Passwörter stimmen nicht überein",
+    "Account created successfully!": "Konto erfolgreich erstellt!",
+    "Failed to create account": "Fehler beim Erstellen des Kontos",
+    "password format": "Das Passwort sollte mindestens 8 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten"
   }
 }
