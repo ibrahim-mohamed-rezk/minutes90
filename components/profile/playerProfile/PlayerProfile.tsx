@@ -5,6 +5,7 @@ import { getApi } from "@/libs/axios/backendServer";
 import { useAppSelector } from "@/libs/store/hooks";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import ActivePopup from "./AvtivePopup";
 
 interface PlayerProfileData {
   id: number;
@@ -90,6 +91,7 @@ const PlayerProfile = () => {
   const token = useAppSelector((state) => state.user.token);
   const t = useTranslations("player_profile");
   const ts = useTranslations("settings");
+  const [showActiveMessage, setShowActiveMessage] = useState(false);
 
   // get player profile data from backend
   useEffect(() => {
@@ -174,7 +176,7 @@ const PlayerProfile = () => {
         {/* user image */}
         <div className="relative w-44 md:w-full  h-44 md:h-[306px] rounded-[30px] border-2 border-[#239d60]">
           <img
-            src={data?.image}
+            src={data?.image || "/images/icons/userAvatar.png"}
             alt="Profile"
             className="rounded-[30px] w-full h-full"
           />
@@ -230,12 +232,21 @@ const PlayerProfile = () => {
       <div className="w-full md:w-[80%] flex items-center justify-start flex-col gap-[30px]">
         {/* name and position */}
         <div className="w-full flex items-center justify-between pt-[20px] flex-wrap">
-          <div className="flex items-center justify-center gap-[20px] mb-4 md:mb-0">
-            <h3 className="text-white text-2xl md:text-3xl font-black font-['Montserrat']">
+          <div className="flex items-center justify-center gap-[clamp(10px,1.04166665vw,20px)] mb-4 md:mb-0">
+            <h3 className="text-white text-xl md:text-3xl font-black font-['Montserrat']">
               {data?.name}
             </h3>
-            <div className="h-[36.83px] px-[18px] py-[3.92px] bg-[#eb4335] rounded-xl flex items-center">
-              <div className="text-white text-xl md:text-2xl font-black font-['Montserrat']">
+            {data?.player?.accepted && (
+              <div className="flex items-center">
+                <img
+                  className="w-[25px] md:w-[40px]"
+                  src="/images/icons/verifyMark.svg"
+                  alt="verify"
+                />
+              </div>
+            )}
+            <div className="h-[36.83px] px-[10px] md:px-[18px] py-[3.92px] bg-[#eb4335] rounded-lg md:rounded-xl flex items-center">
+              <div className="text-white text-lg md:text-2xl font-black font-['Montserrat']">
                 {data?.player?.main_position}
               </div>
             </div>
@@ -643,8 +654,31 @@ const PlayerProfile = () => {
             </a>
           </div>
         ) : (
-          <div className="flex items-center justify-center text-white bg-red-500 px-5 py-2 rounded-[5px] ">
-            {t("not_accepted")}
+          <div className="flex gap-3 text-[clamp(12px,0.9375vw,18px)] flex-col items-center mx-auto justify-center mt-[20px] text-white bg-red-500 px-5 py-3 rounded-[10px] ">
+            <div className="flex gap-3 items-center mx-auto justify-center">
+              <svg
+                className="w-[60px]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill="#fff"
+                  d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+                />
+              </svg>
+              {t("not_accepted")}
+            </div>
+            <button
+              onClick={() => setShowActiveMessage(true)}
+              className="flex hover:scale-[1.05] hover:bg-green-600 duration-400 items-center justify-center px-4 py-2 rounded-lg border-0 border-none outline-none bg-green-500"
+            >
+              {t("active_now")}
+            </button>
+            <ActivePopup
+              show={showActiveMessage}
+              onClose={() => setShowActiveMessage(false)}
+              playerId={data?.id}
+            />
           </div>
         )}
       </div>

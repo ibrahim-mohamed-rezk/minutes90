@@ -212,6 +212,15 @@ const Player = () => {
             <h3 className="text-white text-2xl md:text-3xl font-black font-['Montserrat']">
               {data?.user?.name}
             </h3>
+            {data?.accepted && (
+              <div className="flex items-center">
+                <img
+                  className="w-[25px] md:w-[40px]"
+                  src="/images/icons/verifyMark.svg"
+                  alt="verify"
+                />
+              </div>
+            )}
             <div className="h-[36.83px] px-[18px] py-[3.92px] bg-[#eb4335] rounded-xl flex items-center">
               <div className="text-white text-xl md:text-2xl font-black font-['Montserrat']">
                 {data?.main_position}

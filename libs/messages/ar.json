@@ -68,6 +68,14 @@
   },
 
   "player_profile": {
+    "Request_Sent_Message": "تم ارسال طلبك بنجاح سيتم التواصل معك قريبا",
+    "active_profile": "توثيق الحساب",
+    "Activate_Profile_Message": "ارسال طلب لتوثيق الحساب",
+    "cancel": "إلغاء",
+    "Send_Request": "ارسال طلب",
+    "submitting": "جاري التحميل",
+    "close": "إغلاق",
+    "active_now": "توثيق الان",
     "age": "العمر",
     "height": "الطول:",
     "weight": "الوزن:",

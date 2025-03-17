@@ -68,6 +68,14 @@
   },
 
   "player_profile": {
+    "Request_Sent_Message": "Votre demande a été envoyée avec succès. Vous serez bientôt en contact avec vous.",
+    "active_profile": "Activer le profil",
+    "Activate_Profile_Message": "Envoyer une demande d'activation",
+    "cancel": "Annuler",
+    "Send_Request": "Envoyer une demande",
+    "submitting": "Soumission en cours",
+    "close": "Fermer",
+    "active_now": "Actif maintenant",
     "age": "Âge",
     "height": "Taille :",
     "weight": "Poids :",
