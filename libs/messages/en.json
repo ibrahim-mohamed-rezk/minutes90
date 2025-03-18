@@ -119,7 +119,8 @@
     "basic_physical_skills": "Basic physical skills",
     "players_physical_level": "Player's physical level",
     "contact": "Contact",
-    "not_accepted": "Your account is not verified, and agents and clubs cannot contact you directly."
+    "not_accepted": "Your account is not verified, and agents and clubs cannot contact you directly.",
+    "not_accepted2": "This account is not currently verified, so we cannot display any contact information for it."
   },
   "settings": {
     "save": "Save",

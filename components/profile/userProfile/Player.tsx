@@ -628,7 +628,7 @@ const Player = () => {
           </div>
         ) : (
           <div className="flex items-center justify-center text-white bg-red-500 px-5 py-2 rounded-[5px] ">
-            {t("not_accepted")}
+            {t("not_accepted2")}
           </div>
         )}
       </div>

@@ -119,7 +119,8 @@
     "basic_physical_skills": "Compétences physiques de base",
     "players_physical_level": "Niveau physique du joueur",
     "contact": "Contacter",
-    "not_accepted": "Votre compte n'est pas vérifié, et les agents et les clubs ne peuvent pas vous contacter directement."
+    "not_accepted": "Votre compte n'est pas vérifié, et les agents et les clubs ne peuvent pas vous contacter directement.",
+    "not_accepted2": "Ce compte n'est pas actuellement vérifié, donc nous ne pouvons pas afficher aucune information de contact pour lui."
   },
   "settings": {
     "save": "Enregistrer",
