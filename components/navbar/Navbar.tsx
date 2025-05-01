@@ -39,7 +39,7 @@ const Navbar = () => {
     { label: t("home"), href: "/" },
     { label: t("player"), href: "/players" },
     { label: t("agent"), href: "/agents" },
-    // { label: t("blogs"), href: "/blogs" },
+    { label: t("trainers"), href: "/trainers" },
   ];
 
   const langs = [

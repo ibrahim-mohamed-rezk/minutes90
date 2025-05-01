@@ -14,14 +14,14 @@ interface UserTypeProps {
 }
 
 const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
-  const [userType, setUserType] = useState<"player" | "agent" | null>(null);
+  const [userType, setUserType] = useState<"player" | "agent" | "trainer" | null>(null);
   const [agentCode, setAgentCode] = useState("");
   const dispatch = useAppDispatch();
   const router = useRouter();
 
   if (!isOpen) return null;
 
-  const handleUserTypeSelect = (type: "player" | "agent") => {
+  const handleUserTypeSelect = (type: "player" | "agent" | "trainer") => {
     setUserType(type);
   };
 
@@ -53,6 +53,8 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
         router.push("/profile/settings");
       } else if (userType === "agent") {
         router.push("/profile/settingsAgent");
+      }else if (userType === "trainer") {
+        router.push("/profile/settingsTrainer");
       }
     } catch (error) {
       toast.error("Error assigning role");
@@ -113,6 +115,16 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
           >
             Agent
           </button>
+          <button
+            onClick={() => handleUserTypeSelect("trainer")}
+            className={`${
+              userType === "trainer"
+                ? "bg-[var(--color-green)] text-white"
+                : "bg-transparent text-[var(--color-green)]"
+            } border w-1/2 border-[var(--color-green)] py-2 rounded-lg`}
+          >
+            Trainer
+          </button>
         </div>
         {userType === "player" && (
           <div className="mt-4 w-full flex flex-col gap-2">
@@ -145,13 +157,13 @@ const UserType = ({ isOpen, onClose, token }: UserTypeProps) => {
             </div>
           </div>
         )}
-        {userType === "agent" && (
+        {userType !== "player" && (
           <button
             onClick={handleSubmit}
             type="submit"
             className="bg-red-500 text-white w-1/2 px-4 py-2 rounded-lg mt-[50px]"
           >
-            Signup as Agent
+            Signup as {userType}
           </button>
         )}
       </div>
