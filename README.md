@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Minutes90
+
+Minutes90 — a football platform (90 minutes) for players, trainers and agents. Discover player cards and profiles, find trainers, and connect with agents.
+
+**Live demo:** https://minutes90.vercel.app
+
+> This repository contains the frontend only; it loads its content from the project's backend API through Axios (`libs/axios.ts`).
+
+## Features
+
+- **Player cards and profiles** — player listings with detail pages (`app/[locale]/players`, `players/[id]`).
+- **Trainer listings** — trainer listings with detail pages (`app/[locale]/trainers`, `trainers/[id]`).
+- **Agent profiles and agent code** — agent listings with detail pages (`app/[locale]/agents`, `agents/[id]`).
+- **Account verification** — verification for accounts on the platform.
+- **Profile** — user profile pages (`app/[locale]/profile`).
+- **Favorites** — save players, trainers and agents (`app/[locale]/favs`).
+- **Blog** — articles (`app/[locale]/blogs`).
+- **Localisation** — localised routes under `app/[locale]`, with translations in `i18n/` (via `next-intl`).
+
+## Tech Stack
+
+- Next.js 15.1.4 (App Router) — `next`
+- React 19.0.0 — `react`, `react-dom`
+- TypeScript — `typescript`
+- Tailwind CSS 3.4.1 — `tailwindcss`, `postcss`, `autoprefixer`
+- State management — Redux Toolkit 2.5.1 (`@reduxjs/toolkit`, `react-redux`)
+- Firebase 11.1.0 — `firebase`
+- Internationalisation — `next-intl` 3.26.5
+- Data fetching — Axios 1.7.9 (`libs/axios.ts`)
+- UI — Swiper 11.2.1, `react-toastify` 11.0.2, `react-icons` 5.4.0
+
+## Project Structure
+
+```
+app/[locale]/   # Localised routes: agents, blogs, favs, players, profile, trainers
+components/     # Shared components
+libs/           # API client (axios) and other helpers
+i18n/           # Internationalisation setup
+hooks/          # Shared React hooks
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js and npm
+
+### Install and run
 
 ```bash
+git clone https://github.com/ibrahim-mohamed-rezk/minutes90.git
+cd minutes90
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Other commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build   # Production build (next build)
+npm start       # Start the production server (next start)
+npm run lint    # Lint (next lint)
+```
